@@ -4,3 +4,6 @@ author = "Tyler James Frazier"
 language = "en"
 multilingual = false
 src = "src"
+
+[build]
+build-dir = "./docs"
