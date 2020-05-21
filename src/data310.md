@@ -1,0 +1,3 @@
+# Course Description
+
+This course will focus on the technical application of machine learning algorithms, their nature, and discussions regarding the potential drawbacks and advantages of different classes of algorithms. Students entering into this course should have, at a minimum, a background in python and linear algebra. No single algorithm will be covered in great depth, and the course will place a focus on the code and implementation choices necessary for each class of algorithm. Topics covered will include data processing, regression in ML, decision trees, forests, k-nn, support vector machines, kernel SVM, k-means and hierarchical clustering, association rules, natural language processing, neural networks, and various associated approaches.
