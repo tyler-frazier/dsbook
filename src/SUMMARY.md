@@ -7,7 +7,7 @@
   - [COLL150](./data150.md)
   - [Machine Learning](./data310.md)
   - [Agent Based Modeling](./data440.md)
-- [Analyze](./2.md)
+- [Getting Started](./getting_started.md)
   - [Global](./2.1.md)
   - [Local](./2.2.md)
 - [Model](./3.md)
