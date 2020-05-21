@@ -1,1 +1,1 @@
-# Data Uses for Human Scale Development Processes
+# Data Uses for Human and Community Scale Development Processes
