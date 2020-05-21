@@ -1,2 +1,1 @@
-# geobook
- Investigating Geospatial Human Development Processes
+# Data Uses for Human Scale Development Processes
