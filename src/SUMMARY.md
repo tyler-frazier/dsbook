@@ -8,3 +8,6 @@
 - [Analyze](./2.md)
   - [Global](./2.1.md)
   - [Local](./2.2.md)
+- [Model](./3.md)
+  - [Global](./3.1.md)
+  - [Local](./3.2.md)
