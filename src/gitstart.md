@@ -49,7 +49,61 @@ To begin getting an understanding of how to use markdown, have a look at the fol
 
 {% embed url="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" %}
 
-## 
+For the final project, you will only be using headers, paragraph text and inserting images.  After having a look at the markdown cheatsheet, return to the main page of your repository, which should appear similar to the following image.  After navigating to that location, click on the `settings` tab in the top right hand corner.
+
+![](.gitbook/assets/screen-shot-2019-12-08-at-10.32.39-pm.png)
+
+Scroll down to the **GitHub Pages** section under `settings` and change the page source from `none` to `master_branch`.
+
+![](.gitbook/assets/screen-shot-2019-12-08-at-10.24.15-pm.png)
+
+After setting the branch where your **GitHub Pages** files will reside, also select the theme tab and choose one of the available themes.  I chose the theme `Caymen` for my page, but you are welcome to select any of the available themes for your final project.  After, selecting your theme and returning to the **GitHub Pages** section, you should notice a web address appear where your site has been published.  It might take a few moments for your webpage to appear, but not more than 10 or 15 seconds.  Usually it updates and publishes almost immediately.
+
+![](.gitbook/assets/screen-shot-2019-12-08-at-10.40.01-pm.png)
+
+After clicking on the link, the newly created webpage that you will use to publish the results from your investigation should appear.  To start making changes to your website, go back to the main page of your repository and select the **upload files** tab.
+
+![](.gitbook/assets/screen-shot-2019-12-08-at-10.59.08-pm.png)
+
+This should bring you to a page that will enable you to upload the images you have produced from each of the previous projects.  The interface should appear similar to the following image.  You can simply drag and drop images directly through the GitHub **upload files** interface.
+
+![](.gitbook/assets/screen-shot-2019-12-08-at-10.58.00-pm.png)
+
+I will begin by dragging and dropping a few of the plots produced that describe the administrative subdivisions of Liberia as well as the spatial distribution of it's population.
+
+![](.gitbook/assets/screen-shot-2019-12-08-at-11.04.22-pm.png)
+
+After dropping the files into my repository, the basic file structure appears as follows.
+
+![](.gitbook/assets/screen-shot-2019-12-08-at-11.15.14-pm.png)
+
+To add the image `details.png` to your `README.md` file, first select the `README.md` file, and then select the pen image in the upper right hand side of the screen to begin editing the content you already saved to your markdown file.
+
+![](.gitbook/assets/screen-shot-2019-12-08-at-11.17.44-pm.png)
+
+After opening up the markdown file editor, add a second level header by preceding the text with two `##` and then add your image by adding a `![]` in advance of the file name `details.png` , which is contained within `()` .  Don't forget to scroll down to the bottom of the page and click on the **commit** button to make sure the changes you have made to the file are properly committed to the repository.  If you do not commit your changes to your repository, your file will not have been saved nor will your webpage updates be published.
+
+![](.gitbook/assets/screen-shot-2019-12-08-at-11.25.56-pm.png)
+
+After committing the changes and waiting a few moments, your changes will appear to the published webpage.
+
+![](.gitbook/assets/screen-shot-2019-12-08-at-11.28.27-pm.png)
+
+After adding your map that describes the political subdivisions of your LMIC, also add your description of population as spatially distributed at different adm levels.
+
+![](.gitbook/assets/screen-shot-2019-12-09-at-3.25.56-am.png)
+
+If you created an animated video, such as a `.mp4` file that rotates and describes population in three dimensions, you will need to convert that file to a `.gif` in order to include it in your project webpage.  This is fairly easily accomplished by using an online conversion tool.  I simply entered "_online conversion of mp4 to gif mac_" into google, and the search engine returned several possible options, such as [https://ezgif.com/video-to-gif](https://ezgif.com/video-to-gif), among many others.  After converting your `.mp4` to a `.gif` , upload the file to your repository and include it as an image in your markdown file, just like the other images.
+
+![](.gitbook/assets/screen-shot-2019-12-09-at-3.34.14-am.png)
+
+Which will produce the following image as part of your webpage.
+
+![](.gitbook/assets/pop.gif)
+
+{% embed url="https://wicked-problems.github.io/final\_project/" %}
+
+Now continue to populate your newly created GitHub Pages site, using markdown and your `README.md` file.  There are a multitude of different structural approaches you could take to creating your webpage, such as creating different markdown files and providing links to each, but in the most basic form, you can simply use the `README.md` file to produce your final project.
 
 
 
