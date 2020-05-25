@@ -11,7 +11,7 @@ Through the course of this semester you will use GitHub as a repository to save 
 
 To begin go to [https://github.com](https://github.com) and create a new account.  You should see a website that is very similar to the following image.
 
-![](images/images/screen-shot-2019-12-08-at-9.15.32-pm.png)
+![](images/screen-shot-2019-12-08-at-9.15.32-pm.png)
 
 After clicking on the sign up link, create your account by designating your username, e-mail address and password.  In order to simulate the process of signing up, I am using the username `wicked-problems.`  My real GitHub account is [https://github.com/tyler-frazier](https://github.com/tyler-frazier), and you are welcome to follow me, although it is not necessary for this final project.
 
