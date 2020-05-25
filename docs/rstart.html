@@ -148,7 +148,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#installing-r-and-r-studio-on-your-computer" id="installing-r-and-r-studio-on-your-computer">Installing R and R Studio on your Computer</a></h1>
+                        <p>images/# Installing R and R Studio on your Computer</p>
 <h2><a class="header" href="#what-is-r" id="what-is-r">What is R?</a></h2>
 <p><strong>R</strong> is a free, open source, programming environment for statistical computing and graphics that compiles and runs on Linux, Windows and Mac OSX.  It is a very capable programming environment for accomplishing everything from an introduction to data science to some of the most poweful, advanced, and state of the art computational and statistical methods.  R is capable of working with big data, high dimension data, spatial data, temporal data, as well as data at pretty much any scale imaginable, from the cosmos to the quark and everywhere in between.</p>
 <p>The statistical programming language R is often called an interpreted programming language, which is different from machine or native programming languages such a <strong>C</strong> or <strong>Java</strong>.  An interpreted programming language is distinguished from machine languages because commands and arguments are interpreted prior to being executed by the programming engine.  <strong>Python</strong> is another, closely related interpreted programming language that is also popular amongst data scientists.  Although the use of an interpreter compromises speed, interpreted languages have a distinct advantage in their capacity to be more readily accessible and understandable.  For example, commands such as <code>plot</code>, <code>read.csv()</code>, or <code>cbind()</code> can be fairly easily understood as the commands for plotting an object, importing a <code>.csv</code> file or binding together columns of data.  This accessibility has led to the strength of an open source community that is constantly developing new functions for use within the R programming framework and well as supporting their use by the larger community.  One of the major advantages of an open source approach to programming is the community that supports and contributes to <strong>R</strong> continued development.</p>
@@ -182,7 +182,7 @@
 <h2><a class="header" href="#starting-rstudio" id="starting-rstudio">Starting RStudio</a></h2>
 <p>Once you have finished the installation process, run the RStudio IDE, which will automatically find R on your computer.  Find the application RStudio on your computer.  The RStudio executable should be located in the applications folder on a Mac.  Once running the RStudio application on a Mac it is often helpful to keep the application icon in the dock, which is the bar of applications that exists along the bottom of your computer desktop screen.  On Windows, if you select the Window icon in the bottom left corner and begin typing RStudio, you should see the application icon appear. On a Linux system, the application should appear in one of the OS drop down windows.  Choose the application icon and open it.</p>
 <p>If both R and RStudio were properly installed, then the start up for RStudio should appear something like the following image.</p>
-<p><img src=".gitbook/assets/rstudio.png" alt="A new RStudio work session at initial startup" /></p>
+<p><img src="images/rstudio.png" alt="A new RStudio work session at initial startup" /></p>
 <p>One of the first things to note at start up is the bottom left hand pane, which is essentially a window to the R interpreter.  RStudio reports the version of R that has been installed on your computer.  Next go to the pull down menu for <strong>File &gt; New Script &gt; R Script</strong> and select that option.  This will create a new R Script that will appear in the top left pane of your R Studio IDE.  One can think of the script as the location where all computer code will be written and saved, in a manner somewhat analogous to writing a letter or essay with a work processor.  Below the script in RStudio is the console or the location where your commands are sent and responses from R will be returned.  You can think of the <strong>&gt;</strong> symbol in the console as R somewhat figuratively waiting for your command and subsequently also the location where R will respond.</p>
 <p>Since you now have a script file where you will save your first R commands, you should also have a working director where you will save your <code>my_first_script.R</code> file.  At this point you should minimize RStudio, and return to your file explorer or finder and create a folder that you will use to save your script, output as well as any files you may import to R.  Generally, I create a project specific folder and then within that folder I begin with two subdirectories, one that is dedicated for storing data and a second one that is dedicated to saving my scripts.  After you have created your project folder, return to RStudio and then select <strong>Session &gt;</strong> <strong>Set Working Directory &gt; Choose Directory</strong> from the drop down menu.  Choosing this command will result in a file explorer window appearing in order for RStudio to select the working directory for your work session.  The working directory is the default location where R will automatically look in order to import or export and data.  Go ahead and select the <strong>data</strong> subdirectory you just created within your project folder.  Upon selecting your data folder, you should notice a command appear within the console pane in the bottom left hand corner of RStudio.</p>
 <p><code>setwd(&quot;~/my_folder/my_project_folder/my_data_folder&quot;)</code></p>
@@ -190,7 +190,7 @@
 <p><code>getwd()</code></p>
 <p>You should notice that R returns the path from the working directory you just designated.  Instead of setting your working directory using the drop down menu, the preferred method is to designate that path by using code in R.  Fortunately, RStudio has already specified the command for you, so just go ahead and copy the <code>setwd()</code> command from above and paste it into your script file in the top left hand corner of your RStudio work session.  You could also retype it, but in general, copying and pasting is going to be much more efficient.  On a Mac copying and pasting is accomplished by using the <strong>⌘C</strong> &amp; <strong>⌘V</strong> keys or on Windows <strong>control-C</strong> and <strong>control-V</strong>. ****  After copying and pasting that line of code within your script, go ahead and execute the function again, except this time, send the command directly from your script to the console.  To do this use, move the cursor to the line where you pasted the code and then select <strong>⌘return</strong> on a Mac or <strong>control-return</strong> on Windows.  Congratulations! You have just written and executed your first line of code.</p>
 <p>Now that your script has content, you should save the file.  Select the <strong>&gt;File&gt;Save</strong> command from the drop down window and choose the data subdirectory you created within your project folder.  Name your script file and then select save.  Your RStudio work space should appear similar to the following image.</p>
-<p><img src=".gitbook/assets/rstudio1.png" alt="State of your RStudio workspace after setting the working directory and saving your script" /></p>
+<p><img src="images/rstudio1.png" alt="State of your RStudio workspace after setting the working directory and saving your script" /></p>
 <p>One noteworthy observation regarding the command <code>setwd()</code>, notice how the path to the working directory is specified within quotation marks.  In general, whenever RStudio is communicating with your operating system (OS) or any entity outside of its workspace, what ever is being sent to that computer will be included within quotation marks.  For example <code>setwd(&quot;the/path/to_my/working/directory&quot;)</code> is contained within quotation marks in order for RStudio to traverse the path  as defined by your OS to that location on your computer.</p>
 <hr />
 <h2>description: &gt;-
@@ -212,12 +212,12 @@ squares, circles and lines.</h2>
 <p><code>[1] 10 9 8 7 6 5 4 3 2 1</code></p>
 <p>We can see that our earlier use of the colon in <code>x &lt;- 1:10</code> created an object named <code>x</code> that contains each whole number in sequence from 1 to 10, while y likewise did the same except in reverse. Also by simply typing the name of the object, R reveals to us everything it knows.  Since we have two objects of equal length, lets plot x &amp; y together.</p>
 <p><code>plot(x,y)</code></p>
-<p><img src=".gitbook/assets/rplot01%20%283%29.png" alt="A plot of x increasing while y is decreasing" /></p>
+<p><img src="images/rplot01%20%283%29.png" alt="A plot of x increasing while y is decreasing" /></p>
 <p>We can continue to describe our plot by adding an argument to our command by specifying the plot type as a line and not simply points</p>
 <p><code>plot(x, y, type = &quot;l&quot;)</code></p>
 <p>or alternatively a plot with both a line and points over that line.</p>
 <p><code>plot(x, y, type = &quot;o&quot;)</code></p>
-<p><img src=".gitbook/assets/rplot02%20%282%29.png" alt="A plot produced using the &quot;over&quot; specification in the argument " /></p>
+<p><img src="images/rplot02%20%282%29.png" alt="A plot produced using the &quot;over&quot; specification in the argument " /></p>
 <p>We can also add some description to our plot in order to better communicate our results.  We can begin by adding a title, indicating the units of measurement while also adding labels for both the x and y axes.</p>
 <pre><code class="language-r">plot(x, y, type = &quot;o&quot;, 
 main = &quot;The Path of a Running Boy&quot;,
@@ -225,7 +225,7 @@ sub = &quot;units of distance = meters&quot;,
 xlab = &quot;longitude&quot;, 
 ylab = &quot;latitude&quot;)
 </code></pre>
-<p><img src=".gitbook/assets/rplot03.png" alt="Plot with a Title, Sub-Title and Axes Labels" /></p>
+<p><img src="images/rplot03.png" alt="Plot with a Title, Sub-Title and Axes Labels" /></p>
 <p>We can also change the linetype by specifying the <code>lty =</code> argument or set the lineweight by using the <code>lwd =</code> argument.  The color of our line can be changed using the <code>col = &quot;some_color&quot;</code> argument, while the point symbol itself can be modified by using the <code>pch =</code> argument.  Scale of the symbol is increased or descreased using <code>cex =</code>.  Have a look at the <a href="https://www.statmethods.net/advgraphs/parameters.html">Quick-R</a> website for a comprehensive list of some available graphical parameters.</p>
 <pre><code class="language-r">plot(x, y, type = &quot;b&quot;, main = &quot;The Path of a Running Boy&quot;, 
      sub = &quot;units of distance = meters&quot;, 
@@ -237,7 +237,7 @@ ylab = &quot;latitude&quot;)
      pch = 0,
      cex = 1.5)
 </code></pre>
-<p><img src=".gitbook/assets/rplot04%20%281%29.png" alt="A Plot with Some Point and Line Type Modifications" /></p>
+<p><img src="images/rplot04%20%281%29.png" alt="A Plot with Some Point and Line Type Modifications" /></p>
 <h2><a class="header" href="#creating-a-more-complicated-plot-while-also-creating-and-then-using-a-data-frame" id="creating-a-more-complicated-plot-while-also-creating-and-then-using-a-data-frame">Creating a More Complicated Plot while also creating and then using a Data Frame</a></h2>
 <p>Now lets make your plot a bit more complicated than simply a line with points.  First increase the scale of our plot area by increasing the range of values for both the x &amp; y axes.</p>
 <pre><code class="language-r">x &lt;- 1:100
@@ -251,7 +251,7 @@ north &lt;- sample(y, size = 10, replace = TRUE)
 <pre><code class="language-r">symbols(east, north, squares = rep(.75,10), inches = FALSE)
 </code></pre>
 <p>Following is one possible outcome produced by the randomly produced coordinates.  While the squares produced in your plot will be in different locations, the number of squares as well as the size of each, should be very similar.  Lets also consider the additional arguments in the <code>symbols()</code> command.  In the <code>squares =</code> argument within the command, I have also used the <code>rep()</code> function, which will repeat the length of each square, <code>.75</code> in this case, 10 times, or 1 time for each square.  I have also added the <code>inches = FALSE</code> argument so the units are considered to be similar to the axes.</p>
-<p><img src=".gitbook/assets/rplot01%20%286%29.png" alt="Squares within a Defined Area" /></p>
+<p><img src="images/rplot01%20%286%29.png" alt="Squares within a Defined Area" /></p>
 <p>Now lets add some circles to our plot.  This time, instead of assigning an object a permanent value by randomly selecting from a series of numbers, lets randomly select values as part of creating the plot with the <code>symbol()</code> function.</p>
 <pre><code class="language-text">symbols(sample(x, 10, replace = TRUE), 
         sample(y, 10, replace = TRUE), 
@@ -261,7 +261,7 @@ north &lt;- sample(y, size = 10, replace = TRUE)
         add = TRUE)
 </code></pre>
 <p>Where as before I created two objects and plotted their values as x &amp; y coordinates, this time I have nested the <code>sample()</code> command within the <code>symbols()</code> function, in the place where R is looking for the x &amp; y value coordinates.  In this manner, each time I execute the command, 10 circles will be randomly placed throughout the defined area, each with a radius of <code>.75</code>.  I have also included the <code>add = TRUE</code> argument within the command, in order to add the circles to our previous plot of square.  The <code>fg =</code> argument permits us to select a color for each circle.</p>
-<p><img src=".gitbook/assets/rplot02%20%283%29.png" alt="Squares with Randomly Placed Circles within a Defined Area" /></p>
+<p><img src="images/rplot02%20%283%29.png" alt="Squares with Randomly Placed Circles within a Defined Area" /></p>
 <p>Let's also add some larger trees and specify their color as well.  Again we will randomly place them while using the <code>add = TRUE</code> argument so they are added to our previous plot.  Also, consider a wider range of colors to use as the outline for each circle, while also filling each circle with a color.  In order to determine how to fill the circle with a color, use the <code>?</code> followed by the command you are interested in learning more about in order to view all of the available options.  In this case you can type <code>?symbols</code> directly in the console in order to see all of the arguments possible.  If you scroll down in the help window, you will see that <code>fg =</code> is used to specify the color or your symbol border, while <code>bg =</code>  is used to indicate the color for your symbol's fill.  You may also be interested to know which colors are available to select.  In order to review a list of all available colors, simply type <code>colors()</code> directly into your console.  Running the following chunk of commands will then produce a plot similar to the following image.</p>
 <pre><code class="language-text">symbols(east, north, squares = rep(.75,10), inches = FALSE)
 
@@ -282,7 +282,7 @@ symbols(sample(x, 10, replace = TRUE),
         add = TRUE)
 
 </code></pre>
-<p><img src=".gitbook/assets/rplot03%20%284%29.png" alt="Squares with Two Types of Circles within a Defined Area" /></p>
+<p><img src="images/rplot03%20%284%29.png" alt="Squares with Two Types of Circles within a Defined Area" /></p>
 <p>Thus far we have only created R objects that are of the vector class.  We can review the class of one of the objects we have created by typing <code>class(east)</code> directly into the console and observe that R informs us that the object is a vector of integers.  Now let's create a new class of an object called a data frame that contains a series of rows and columns where each row represents an observation while each column represents a different variable.  We can start with the coordinates that represent the center point of each square.</p>
 <pre><code class="language-r">dwellings &lt;- cbind.data.frame(id = 1:10, east, north)
 </code></pre>
@@ -307,14 +307,14 @@ symbols(sample(x, 10, replace = TRUE),
       lwd = .75,
       col = &quot;blue&quot;)
 </code></pre>
-<p><img src=".gitbook/assets/rplot04.png" alt="Paths travelled from House to House" /></p>
+<p><img src="images/rplot04.png" alt="Paths travelled from House to House" /></p>
 <p>You'll notice that unlike the previous commands, it wasn't necessary to include <code>add = TRUE</code> in order to add the lines to the plot.  Perhaps it would also be helpful to add some text to annotate each household.  We can accomplish this using the <code>text()</code> command.  As with <code>lines()</code>, we also do not need to use the <code>add = TRUE</code> argument.  The <code>text()</code> function also requires identifying the location of the text you will use to annotate each dwelling unit.  That is accomplished through using the <code>labels =</code> argument.  Again, identify the variable where the id is located within the data frame using the <code>my_data_frame$my_variable</code> format.</p>
 <pre><code class="language-r">text(x = dwellings$east,
      y = dwellings$north,
      labels = dwellings$id)
 </code></pre>
 <p>Since label coordinates are the same as the center point for each square, reading the labels is confounded.  Instead of placing the label directly on top of the dwelling unit, add a few units north to the <code>y =</code> argument in order to displace each label a bit in the northerly direction.</p>
-<p><img src=".gitbook/assets/rplot05%20%283%29.png" alt="Paths &amp; House Numbers" /></p>
+<p><img src="images/rplot05%20%283%29.png" alt="Paths &amp; House Numbers" /></p>
 <p>Now perhaps instead of traversing a path between each house sequentially, our traveling person selected on 3 of the dwellings and moved between each of those buildings.  First we will randomly select 3 numbers that will be used to identify the chosen homes.  This time, set the <code>replace =</code> argument to <code>FALSE</code> since our traveling person will only visit each dwelling unit one time.</p>
 <pre><code class="language-r">locs &lt;- sample(1:10, 3, replace = FALSE)
 </code></pre>
@@ -335,14 +335,14 @@ text(x = dwellings[locs, ]$east,
      labels = dwellings[locs, ]$id)
 </code></pre>
 <p>You'll notice in the previous snippet of code that the <code>#</code> sign has been added to the first character space on lines 1, 2, &amp; 3.  Adding the <code>#</code> sign enables you to comment out that line of code so R will ignore it.  In the above example, I have commented out the lines of code we produced earlier where we labeled all 10 houses, and followed it with out code that serves to label only the 3 units that were randomly selected.  At this point our plot should appear similar to the following image.</p>
-<p><img src=".gitbook/assets/rplot06.png" alt="Paths between 3 Identified Homes" /></p>
+<p><img src="images/rplot06.png" alt="Paths between 3 Identified Homes" /></p>
 <p>Now instead of using a straight line, let's use a spline to represent a more continuous path betweem each of the selected locations along the persons travel path.  Comment out the previous <code>lines()</code> command and instead use the <code>xspline()</code> command to identify the path.  I will set the <code>shape = -1</code> in order to interpolate all points while crossing each dwelling unit.</p>
 <pre><code class="language-text">xspline(x = dwellings[locs, 2],
       y = dwellings[locs, 3],
       shape = -1,
       lty = 2)
 </code></pre>
-<p><img src=".gitbook/assets/rplot07.png" alt="The Path of a Person en route between Homes" /></p>
+<p><img src="images/rplot07.png" alt="The Path of a Person en route between Homes" /></p>
 <p>Finally, add a title to your plot using <code>title(main=&quot;A Person's path between Homes&quot;)</code>.</p>
 <h2><a class="header" href="#challenge-question" id="challenge-question">Challenge Question</a></h2>
 <p>Create a similar plot as the one produced above, but instead meet the following specifications.</p>
@@ -354,10 +354,7 @@ text(x = dwellings[locs, ]$east,
 <li>Randomly select 7 homes from the 50 total, and use a dashed spline to describe the path between each labeled dwelling unit.</li>
 <li>Title your plot.</li>
 </ul>
-<p><img src=".gitbook/assets/rplot08.png" alt="One version of the plot produced by following the Challenge Question Specifications" /></p>
-<ul>
-<li></li>
-</ul>
+<p><img src="images/rplot08.png" alt="One version of the plot produced by following the Challenge Question Specifications" /></p>
 
                     </main>
 

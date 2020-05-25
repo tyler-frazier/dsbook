@@ -153,33 +153,33 @@
   geom_point(size = .1, color = &quot;red&quot;) +
   geom_smooth()
 </code></pre>
-<p><img src=".gitbook/assets/popntl.png" alt="" /></p>
+<p><img src="images/popntl.png" alt="" /></p>
 <p>Estimate the parameters of your model using the <code>lm()</code> command and then return a <code>summary()</code> to find out more information regarding the model's fit and capacity to explain the coorelationship between your two selected variables.</p>
 <pre><code class="language-r">fit &lt;- lm(pop19 ~ ntl, data=lbr_adm2)
 summary(fit)
 </code></pre>
-<p><img src=".gitbook/assets/screen-shot-2019-09-30-at-12.47.52-am%20%281%29.png" alt="" /></p>
+<p><img src="images/screen-shot-2019-09-30-at-12.47.52-am%20%281%29.png" alt="" /></p>
 <p>Add a few more variables to the <code>lm()</code> command.  For example in the following plot I have estimated a regression model where the population of Liberia in 2019 is the dependent variable (response), while night time lights (<code>ntl</code>), urban cover (<code>dst190</code>), and bare cover (<code>dst200</code>) are the independent variables (predictors).</p>
 <pre><code class="language-r">ggplot(lm(pop19 ~ ntl + dst190 + dst200, data=lbr_adm2)) + 
   geom_point(aes(x=.fitted, y=.resid), size = .1) +
   geom_smooth(aes(x=.fitted, y=.resid))
 </code></pre>
-<p><img src=".gitbook/assets/popntlurbbare.png" alt="" /></p>
+<p><img src="images/popntlurbbare.png" alt="" /></p>
 <p>Again estimate the model and check the fit.</p>
 <pre><code class="language-r">fit &lt;- lm(pop19 ~ ntl + dst190 + dst200, data=lbr_adm2)
 summary(fit)
 </code></pre>
-<p><img src=".gitbook/assets/screen-shot-2019-09-30-at-1.06.19-am.png" alt="" /></p>
+<p><img src="images/screen-shot-2019-09-30-at-1.06.19-am.png" alt="" /></p>
 <p>Finally, add all of the variables to your regression model.  Compare the results.</p>
 <pre><code class="language-r">ggplot(lm(pop19 ~ water + dst011 + dst040 + dst130 + dst140 + dst150 + dst160 + dst190 + dst200 + topo + slope + ntl, data=lbr_adm2)) + 
   geom_point(aes(x=.fitted, y=.resid), size = .1) +
   geom_smooth(aes(x=.fitted, y=.resid))
 </code></pre>
-<p><img src=".gitbook/assets/all.png" alt="" /></p>
+<p><img src="images/all.png" alt="" /></p>
 <pre><code class="language-r">fit &lt;- lm(pop19 ~ water + dst011 + dst040 + dst130 + dst140 + dst150 + dst160 + dst190 + dst200 + topo + slope + ntl, data=lbr_adm2)
 summary(fit)
 </code></pre>
-<p><img src=".gitbook/assets/screen-shot-2019-09-30-at-1.10.44-am.png" alt="" /></p>
+<p><img src="images/screen-shot-2019-09-30-at-1.10.44-am.png" alt="" /></p>
 <h2><a class="header" href="#team-challenge-question" id="team-challenge-question">Team Challenge Question</a></h2>
 <p>Also use <code>ggplot()</code> to plot <strong>two linear models</strong>.  Use the <code>fit()</code> and <code>summary()</code> commands to describe your models.  Are you able to definitively identify coorelation between population and any of the other or combination of other land use and land cover geospatial covariates?  How about density?</p>
 <p>Meet with your group and prepare four different plots from at least three different countries (or team members) for the Friday informal group presentation.  Then as a group, upload all 5 team members plots to #data100_igps (informal group presentations) by Sunday night.  Each member should upload at least <strong>two combined histogram / density plots</strong> as well as <strong>two linear model plots</strong>.</p>
@@ -199,7 +199,7 @@ summary(fit)
   geom_point(size = 0.25) +
   geom_smooth(size = 0.5)
 </code></pre>
-<p><img src=".gitbook/assets/plot%20%281%29.png" alt="" /></p>
+<p><img src="images/plot%20%281%29.png" alt="" /></p>
 <p>The three observations beneath the curve before it begins to rise seem to evidence the final contributions to the model before it transitions towards the observation for Monrovia.  Add labels to these four points, by using the <code>subset()</code> command and creating a new object that you will use to annotate each of those four observations.</p>
 <pre><code class="language-r">text &lt;- subset(model_data, fitted &gt; add_value_here)
 </code></pre>
@@ -214,7 +214,7 @@ summary(fit)
             size = 2,
             nudge_y = value)
 </code></pre>
-<p><img src=".gitbook/assets/plot.png" alt="" /></p>
+<p><img src="images/plot.png" alt="" /></p>
 <p>Likewise manually calculate residual standard error.</p>
 <pre><code class="language-r">#How to calculate Residual Standard error (Like Standard Deviation)
 k &lt;- length(fit$coefficients)-1 #Subtract one to ignore intercept
@@ -266,10 +266,10 @@ SSyy = sum((lbr_adm2$pop19 - mean(lbr_adm2$pop19))^2)
                 y = -65000,
                 label = round(as.numeric(summary(fit)[[10]][1]), 4)))
 </code></pre>
-<p><img src=".gitbook/assets/plot%20%282%29.png" alt="" /></p>
+<p><img src="images/plot%20%282%29.png" alt="" /></p>
 <h1><a class="header" href="#modeling--predicting-spatial-values" id="modeling--predicting-spatial-values">Modeling &amp; Predicting Spatial Values</a></h1>
 <p>In this lab, you will use the model parameters your previously estimated in order to predict spatial values across the landscape of your selected LMIC.  To do this create a new script, install and load needed packages and libraries, and set your working directory.  Once you have your script set up with <code>sf::</code> , <code>raster::</code>, <code>tidyverse::</code>, <code>doParallel::</code>, and <code>snow::</code> all in place, again load your <code>RasterStack</code> into your RStudio workspace.  I named my 12 layer <code>RasterStack</code> that describes land use and land cover throughout Liberia, <code>lulc</code>, and just as before it displays the following summary characteristics.</p>
-<p><img src=".gitbook/assets/screen-shot-2019-10-06-at-6.53.01-pm.png" alt="" /></p>
+<p><img src="images/screen-shot-2019-10-06-at-6.53.01-pm.png" alt="" /></p>
 <p>Also, load the <code>adm0</code> (or international boundary), <code>adm1</code> and <code>adm2</code> for your LMIC.  If you don't have your international boundary, go back to GADM, HDX or also look on Geoboundaries for the shapefile in order to import to your RStudio work session.</p>
 <p>{% embed url=&quot;https://www.gadm.org&quot; caption=&quot;Link to GADM&quot; %}</p>
 <p>{% embed url=&quot;https://data.humdata.org&quot; caption=&quot;Link to HDX&quot; %}</p>
@@ -282,12 +282,12 @@ SSyy = sum((lbr_adm2$pop19 - mean(lbr_adm2$pop19))^2)
 <pre><code class="language-r">yourRasterStack &lt;- add_command_here(yourRasterStack, yourLMIC_intlborder)
 </code></pre>
 <p>It might take a few minutes to run the <code>mask()</code> command.  On a MBAir using the <code>mask()</code> command on a 12 layer <code>RasterStack</code> (each layer having about 25 million gridcells) it takes about 10 minutes.  Once the command is completed, you should now notice <code>min values</code> and <code>max values</code> when retrieving a summary of what has now been transformed from a <code>RasterStack</code> to a <code>RasterBrick</code>.</p>
-<p><img src=".gitbook/assets/screen-shot-2019-10-06-at-7.50.14-pm.png" alt="" /></p>
+<p><img src="images/screen-shot-2019-10-06-at-7.50.14-pm.png" alt="" /></p>
 <p>As in the previous exercise, estimate your linear model using the <code>pop15</code> variable as your response (dependent variable) and all of the covariates from your <code>adm2</code> sf object as the predictors (independent variables).</p>
 <pre><code class="language-r">model &lt;- add_command_here(depvar ~  ind1 + ... + indN, data=your_adm2_sf)
 </code></pre>
 <p>Once you have estimated your model, use the <code>summary()</code> command to review a summary of its characteristics.</p>
-<p><img src=".gitbook/assets/screen-shot-2019-10-06-at-8.23.25-pm.png" alt="" /></p>
+<p><img src="images/screen-shot-2019-10-06-at-8.23.25-pm.png" alt="" /></p>
 <p>Confirm that each variable in your <code>lulc</code> object has a corresponding variable in the linear model you just estimated.  You will use these estimates with the 12 different geospatial coverariate layers within your <code>RasterBrick</code> to predict the population at each gridcell across your LMIC.  Use the <code>predict()</code> function from the <code>raster::</code> package with your <code>lulc</code> object as well as your <code>model</code> to predict the population value of every gridcell within the borders of your LMIC.</p>
 <pre><code class="language-r">predicted_values &lt;- library::function(RasterBrick, your_model, progress=&quot;window&quot;)
 </code></pre>
@@ -325,7 +325,7 @@ lbr_adm2 &lt;- bind_cols(lbr_adm2, pred_ttls_adm2)
 [1] 4039128
 </code></pre>
 <p>R should return the same total previously used when you calcualte <code>sum(your_adm2$pop15)</code>.</p>
-<p><img src=".gitbook/assets/rplot01%20%289%29.png" alt="" /></p>
+<p><img src="images/rplot01%20%289%29.png" alt="" /></p>
 <h2><a class="header" href="#investigate-margins-of-error" id="investigate-margins-of-error">Investigate Margins of Error</a></h2>
 <p>Our model is serving to allocate population totals across all gridcells, but how accurate is it?  To start we can calculate the different of our predicted values - the worldpop values and sum the totals.</p>
 <pre><code class="language-text">diff &lt;- population - lbr_pop15
@@ -334,7 +334,7 @@ lbr_adm2 &lt;- bind_cols(lbr_adm2, pred_ttls_adm2)
 <pre><code class="language-text">cellStats(abs(diff), sum)
 </code></pre>
 <p>Taking the <code>hist(diff)</code> will also inform you of the magnitude and direction of error in your predicted values.  Use the <code>plot(diff)</code> command to have a look at the resulting raster.</p>
-<p><img src=".gitbook/assets/rplot02%20%285%29.png" alt="" /></p>
+<p><img src="images/rplot02%20%285%29.png" alt="" /></p>
 <p>By looking at the histogram and the above difference of predicted value from worldpop raster it appears that most of the error is slightly above or below 0, and is also distributed fairly evenly across the entire space.  Looking closely though, the area close to the southwest coast appears to exhibit a different phenomenon.  This is the capital of Liberia, Monrovia.  For your investigation, select the primary urban area and conduct the same analysis as follows.</p>
 <p>First subset your <code>adm2</code> by using the name of the administrative subdivision.</p>
 <pre><code class="language-text">new_name &lt;- your_adm2 %&gt;%
@@ -353,17 +353,17 @@ gmonrovia_diff &lt;- crop(gmonrovia_diff, extGMN)
 gmonrovia_pop &lt;- crop(gmonrovia_pop, extGMN)
 </code></pre>
 <p>Plot your Monrovia rasters.</p>
-<p><img src=".gitbook/assets/rplot03%20%285%29.png" alt="Error in terms of Predicted Values - WorldPop estimates" /></p>
-<p><img src=".gitbook/assets/rplot04%20%283%29.png" alt="" /></p>
+<p><img src="images/rplot03%20%285%29.png" alt="Error in terms of Predicted Values - WorldPop estimates" /></p>
+<p><img src="images/rplot04%20%283%29.png" alt="" /></p>
 <p>Finally, plot a three dimension map of the values, to gauge exactly how much variation was exhibited in the predicted values.  Install and load the <code>rgl::</code> and <code>rasterVis::</code> libraries in order to execute the following command.</p>
 <pre><code class="language-text">rasterVis::plot3D(gmonrovia_pop)
 </code></pre>
-<p><img src=".gitbook/assets/screen-shot-2019-10-07-at-12.26.00-am.png" alt="" /></p>
+<p><img src="images/screen-shot-2019-10-07-at-12.26.00-am.png" alt="" /></p>
 <p>Finally, add the <code>tmap::</code> library and overlay your differences plot.</p>
 <pre><code class="language-r">mapview::mapview(gmonrovia_diff, alpha = .5)
 </code></pre>
 <p>Do you identify a geospatial trend associated with the error resulting from your predicted values?</p>
-<p><img src=".gitbook/assets/rplot07%20%282%29.png" alt="" /></p>
+<p><img src="images/rplot07%20%282%29.png" alt="" /></p>
 <h2><a class="header" href="#team-challenge-question-1" id="team-challenge-question-1">Team Challenge Question</a></h2>
 <p>Follow the steps from above used to produce the plots describing Liberia, but instead each team member should use their own selected LMIC country.  Investigate the results from your model at different scales and locations across your selected LMIC.  How effective was your model?  Do you identify any trends?  Produce a variety of plots that investigate, describe and analyze your dasymmetric population allocation using a linear model with land use and land cover geospatial covariates.  Investigate at least two different locations and two different scales.  Use adm1, adm2 or adm3 units of analysis, either in combination or alone to define the boundaries of your analysis.</p>
 <p>Meet with your group and prepare to present three different plots from at least three different countries (or team members) for the Friday informal group presentation.  You are welcome to combine output from the previous Project 2 exercise (part 1) as you wish.  Then as a group, upload all 5 team members plots to #data100_igps (informal group presentations) by Sunday night.  Each member should upload at least <strong>four plots</strong> that describe <strong>at least two different locations of differing scales</strong> within your LMIC.</p>
@@ -586,15 +586,15 @@ plot(lbr_pop15)
 
 rgl.snapshot(&quot;diff&quot;, fmt = &quot;png&quot;, top = TRUE )
 </code></pre>
-<p><img src=".gitbook/assets/rplot%20%286%29.png" alt="Population: Predictors - Sums" /></p>
-<p><img src=".gitbook/assets/rplot10.png" alt="Difference: Predictors - Sums" /></p>
-<p><img src=".gitbook/assets/diff1.png" alt="3D Difference: Predictors - Sums" /></p>
-<p><img src=".gitbook/assets/rplot11.png" alt="Population: Predictors - Means" /></p>
-<p><img src=".gitbook/assets/rplot12.png" alt="Difference: Predictors - Means" /></p>
-<p><img src=".gitbook/assets/diff2.png" alt="3D Difference: Predictors - Means" /></p>
-<p><img src=".gitbook/assets/rplot13.png" alt="Population: Response - Log of Population" /></p>
-<p><img src=".gitbook/assets/rplot14.png" alt="Difference: Response - Log of Population " /></p>
-<p><img src=".gitbook/assets/diff.png" alt="3D Difference: Response - Log of Population " /></p>
+<p><img src="images/rplot%20%286%29.png" alt="Population: Predictors - Sums" /></p>
+<p><img src="images/rplot10.png" alt="Difference: Predictors - Sums" /></p>
+<p><img src="images/diff1.png" alt="3D Difference: Predictors - Sums" /></p>
+<p><img src="images/rplot11.png" alt="Population: Predictors - Means" /></p>
+<p><img src="images/rplot12.png" alt="Difference: Predictors - Means" /></p>
+<p><img src="images/diff2.png" alt="3D Difference: Predictors - Means" /></p>
+<p><img src="images/rplot13.png" alt="Population: Response - Log of Population" /></p>
+<p><img src="images/rplot14.png" alt="Difference: Response - Log of Population " /></p>
+<p><img src="images/diff.png" alt="3D Difference: Response - Log of Population " /></p>
 <h2><a class="header" href="#project-2-individual-deliverable" id="project-2-individual-deliverable">Project 2. Individual Deliverable</a></h2>
 <p>Upload three sets of spatial plots that describe the predicted population of your selected LMIC using each of the three models.</p>
 <ol>
@@ -659,7 +659,7 @@ model_data$logpop15 &lt;- as.numeric(log(model_data$pop15))
 model_data &lt;- as.data.frame(model_data)
 </code></pre>
 <p>Your object <code>model_data</code> should have the following structure.</p>
-<p><img src=".gitbook/assets/screen-shot-2019-10-21-at-11.23.53-pm.png" alt="" /></p>
+<p><img src="images/screen-shot-2019-10-21-at-11.23.53-pm.png" alt="" /></p>
 <p>Simplify the objects you will use as the predictors and response by creating two new objects.  The <code>x_data</code> object are your predictors and coorespond to the mean values of each <code>lulc</code> variable at each adm.  The <code>y_data</code> is your response variable, in this case log of population.</p>
 <pre><code class="language-text">x_data &lt;- model_data[ ,4:15]
 y_data &lt;- model_data[ ,16]
@@ -720,9 +720,9 @@ x_data &lt;- x_data[pos_importance]
 plot(model)
 varImpPlot(model)
 </code></pre>
-<p><img src=".gitbook/assets/screen-shot-2019-10-21-at-11.40.59-pm.png" alt="Capacity of RF model to explain variance with its 500 trees" /></p>
-<p><img src=".gitbook/assets/rplot.png" alt="Number of trees needed before Out of Bag Error stabilized" /></p>
-<p><img src=".gitbook/assets/rplot01.png" alt="Two measures of importance for each of the predictor variables" /></p>
+<p><img src="images/screen-shot-2019-10-21-at-11.40.59-pm.png" alt="Capacity of RF model to explain variance with its 500 trees" /></p>
+<p><img src="images/rplot.png" alt="Number of trees needed before Out of Bag Error stabilized" /></p>
+<p><img src="images/rplot01.png" alt="Two measures of importance for each of the predictor variables" /></p>
 <p>Confirm that the names in your random forest model match those found in your <code>rasterBrick</code>.</p>
 <pre><code class="language-text">names(lulc) &lt;- c(&quot;water1&quot;, &quot;dst0111&quot; , &quot;dst0401&quot;, &quot;dst1301&quot;, &quot;dst1401&quot;, &quot;dst1501&quot;, &quot;dst1601&quot;, &quot;dst1901&quot;, &quot;dst2001&quot;, &quot;topo1&quot;, &quot;slope1&quot;, &quot;ntl1&quot;)
 </code></pre>

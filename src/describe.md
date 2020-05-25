@@ -48,7 +48,7 @@ setwd("the/path/to_my/working/directory")
 
 The next step is to visit the [GADM](https://www.gadm.org/) website, which is a repository of spatial data that is describing global administrative subdivisions or every country on earth.  Select the data tab and become familiar with how the portal presents the administrative subdivision of each country.  Find the country link towards the top of the page that forwards you to another page with a drop down tab for downloading GADM data.
 
-![GADM webpage at UC Davis](.gitbook/assets/screen-shot-2020-02-02-at-6.53.27-pm.png)
+![GADM webpage at UC Davis](images/screen-shot-2020-02-02-at-6.53.27-pm.png)
 
 As an example, I will select the West African country of Liberia.  The result should present a number of different options for obtaining a spatial data that describes of **Liberia's administrative boundaries**.  Administrative boundaries refer to the national border as well as all of the regional, district and local government subdivisions of that country.  
 
@@ -58,11 +58,11 @@ Typically, administrative boundaries and subdivisions have been obtained and pro
 
 Once you have found the the page for downloading Liberia's administrative subdivisions, note the different available spatial data types, as well as the different levels.    
 
-![](.gitbook/assets/screen-shot-2020-02-02-at-7.06.06-pm.png)
+![](images/screen-shot-2020-02-02-at-7.06.06-pm.png)
 
 For our purposes, we want to obtain the national boundary \(LBR\_0\), first level administrative subdivisions \(LBR\_1\) and second level administrative subdivisions \(LBR\_2\).  Click on the **Shapefile** link in order to download a folder that contains a shapefile as well as a number of different corresponding files.  After the folders have been downloaded, go to your working directory and create a new folder named **data** and then move the folders describing Liberia's administrative subdivisions to within that folder.  The structure of your working directory should look something like the following \(minus the additional folders\).
 
-![](.gitbook/assets/screen-shot-2020-02-02-at-7.41.35-pm.png)
+![](images/screen-shot-2020-02-02-at-7.41.35-pm.png)
 
 You will also notice that there are a number of different files, each one with the same file name yet also having a unique file extension.  The file extension is the _three letter part of the file name that is to the right of the period_, and acts somewhat as an acronym for the file type.  For example, files that have the `.shp` file extension are called shapefiles.  A shapefile contains the geometry of the points, lines and polygons used to spatially describe, in this example, the political geography of Liberia.  A shapefile also requires most of the other files found in the folder in order for it to function properly.  For example, the `.prj` file provides the projection that is used when plotting the geometry.  The `.dbf` file provides the attributes associated with each spatial unit \(for example the name associated with each county or district\).  Other files also provide information that enables RStudio to further interpret the spatial information in order to better serve our purposes.
 
@@ -76,7 +76,7 @@ Once you have successfully executed the above function using the `sf::read_sf()`
 
 The `sf::` package also includes a function called `st_geometry()` that will enable you to view some of the basic geometry associated with the object you have named `lbr_int`.  Type the name of your object within the `st_geometry()` command so that RStudio will return some basic geometric information about our spatial object that describes Liberia's international border.  You don't necessarily need to write this command in your script, you can just enter it directly into the console
 
-![Some basic R commands](.gitbook/assets/screen-shot-2019-09-07-at-1.32.41-pm.png)
+![Some basic R commands](images/screen-shot-2019-09-07-at-1.32.41-pm.png)
 
 After using the `st_geometry()` command with our `lbr_int` object, RStudio provides us with a basic description that includes the geometry type \(polygons in this case, but it could also return points or lines\), the x & y minimum and maximum values or also know as the bounnding box \(bbox\), the epsg spatial reference identifier \(a number used to identify the projection\) and finally the projection string , which provides additional information about the projection used.
 
@@ -89,7 +89,7 @@ ggplot() +
 
 Following the `data =` argument, you can also specifiy the line weight for the border using the `size =` argument.  It is also possible to specify the `color =` as well as the opacity / transparency of your polygon using the `alpha =` argument.  With the following script I have set the international border line weight width to `1.5` , the color of the border to `"gold"` , the fill color for the internal portion of the polygon to `"green"` and the `alpha =`   value to .5 or 50% transparent.
 
-![Liberia with a green fill and gold border](.gitbook/assets/liberia%20%283%29.png)
+![Liberia with a green fill and gold border](images/liberia%20%283%29.png)
 
 It would also be helpful to have a label describing our plot.  In order to do this we can use either the `geom_sf_text()` command or the `geom_sf_label()` command.  In the following snippet of code you will notice that I have added the aesthetics argument within my `geom_sf_text()` command.  The `aes =` argument enables us to specify which variable contains the label we will place on our object.  If you click on the blue arrow to the left of the `lbr_int` object in the top right data pane, the object will expand below to reveal the names of all variables.  The second variable is named `NAME_0` and provides us with the name we will use as our label, Liberia.  Following the `aes()` argument, you can also specify the `size =` of your label as well as its `color =`.
 
@@ -106,7 +106,7 @@ ggplot() +
                color = "color")
 ```
 
-![Liberia labelled](.gitbook/assets/liberia.png)
+![Liberia labelled](images/liberia.png)
 
 Good job!  You have successfully used ggplot from the tidyverse with the simple features package in order to properly project and plot Liberia's international border, as well as to include a label.  Now continue with the first level of administrative subdivisions, Liberia's fifteen counties.  In order to do this, return to your use of the `read_sf()` command in order to import and create an object named `lbr_adm1`.   
 
@@ -142,7 +142,7 @@ ggplot() +
 
 The code above will produce the plot below when the`geom_sf()` function using the `lbr_adm1` arguments is specified with a line weight `size = 0.65`, line weight `color = "gray50"`, a polygon `fill = "gold3"` and a 65% opacity value of `alpha = 0.65`.  Additionally, I have set the `size = 2.0` , and the `alpha = 0` \(100% transparent\) for the `data = lbr_int` object. The `geom_sf()` command will default to a `color = "black"` if the line color is not specified. Additionally, since the `alpha = 0` no `fill = "color"` is needed \(since it will not appear\). The county labels have a `size = 2` \(and also defaults to a `color = "black"`, while the `geom_sf_text()` command to label Liberia has a `size = 12` argument. In order to nudge the label to the east and south I have also added the `nudge_x = 0.3` and `nudge_y = -.1` arguments to the `geom_sf_label()` command.
 
-![Liberia and its 15 Counties](.gitbook/assets/liberia%20%282%29.png)
+![Liberia and its 15 Counties](images/liberia%20%282%29.png)
 
 After adding the counties go back and add the second level of administrative subdivisions, or districts.  Again use `read_sf()` to import that shapefile as a simple feature object into your RStudio workspace.  Use the  `geom_sf_text()` command to add the labels, while also making sure to specify the correct variable name in the `aes(label = variable_name)` argument.  Size the district borders and labels so they are smaller than the internation border as well as the county delineations.
 
@@ -186,7 +186,7 @@ ggsave("liberia.png")
 
 Use `ggsave(file_name.png)` to save your plot as a `.png` file, to your working directory.
 
-![Liberia, its counties and districts](.gitbook/assets/liberia%20%281%29.png)
+![Liberia, its counties and districts](images/liberia%20%281%29.png)
 
 ## Team Challenge Question
 
@@ -228,7 +228,7 @@ lbr_adm2 %>%
 ggsave("montserrado.png")
 ```
 
-![](.gitbook/assets/montserrado%20%282%29.png)
+![](images/montserrado%20%282%29.png)
 
 Now identify the most populous urban area within your LMIC and use `ggplot() +` to plot the first and second level administrative subdivisions where it is located.
 
@@ -334,7 +334,7 @@ ggplot() +
 ggsave("details.png")
 ```
 
-![](.gitbook/assets/details.png)
+![](images/details.png)
 
 
 
@@ -343,13 +343,13 @@ ggsave("details.png")
 
 Now that you have selected your LMIC and produced a basic geospatial description of that country at both the adm1 and adm2 levels of government, you are now set to join some data to each of those units and begin conducting a basic descriptive analysis.  Start by going back to the [WorldPop](https://www.worldpop.org) website, click on the **population** tab under the **data** pull down menu, search individual countries and type the name of your selected LMIC.  Click on the 2019 data and resources tab for your country and then select the download button in order to obtain the spatial distribution of population for your selected LMIC.  For Liberia the downloaded file is named **lbr\_ppp\_2019.tif**.  Move the file to the data folder within your working directory.
 
-![](.gitbook/assets/screen-shot-2020-02-09-at-6.55.31-pm.png)
+![](images/screen-shot-2020-02-09-at-6.55.31-pm.png)
 
 You may need to right click or two finger click and choose the **download linked file** option in order to initiate the process of downloading the `.tif` file into your downloads folder.  Sometimes your web browser may be set to try and display the image file directly within the browser itself.  You should still be able to save the file directly to your downloads folder by right clicking on it and saving it.
 
 After you have succesfully downloaded the file, go to your project folder that you previously used as your working directory and create a new folder within the `/data` folder that will be dedicated to raw data from worldpop.  I have made a subdirectory within my `data` folder named `world_pop` to further categorize and organize my source data.
 
-![](.gitbook/assets/screen-shot-2020-02-09-at-6.59.34-pm.png)
+![](images/screen-shot-2020-02-09-at-6.59.34-pm.png)
 
 Once you have your `.tif` file located within a subdirectory of the data folder, you can go ahead and open up RStudio.  Create a new, R Script file, and save it in your scripts folder.  Add the `rm(list=ls(all=TRUE))` at the beginning of your code and then load the `tidyverse` and `sf` libraries.  Following your libraries, be sure to set your working directory.
 
@@ -375,7 +375,7 @@ myLMIC_raster_pop19 <- add_command_here("add_folder_name_here/add_file_name_here
 
 Once you have created your new raster object, by using the `raster()` function, you should notice a new _Formal class RasterLayer_ data object appear in the top right data pane.  In order to find out some basic information about my newly created raster object, I will type the name of my object directly into the console.
 
-![Basic Description of a Raster Layer](.gitbook/assets/screen-shot-2019-09-15-at-5.00.12-pm.png)
+![Basic Description of a Raster Layer](images/screen-shot-2019-09-15-at-5.00.12-pm.png)
 
 The name of my raster class object is `lbr_pop19` and by typing the objects name directly into the console, R informs me of the class of the object, dimensions, resolution, extent, coordinate reference system as well as the minimum and maximum values.  The information about the objects dimensions can be useful, since it is informing us of how many rows of gridcells by how many columns of gridcells are contained within the object.  In the case of the WorldPop raster layer describing Liberia's population in 2019, the object contains 24,922,800 gridcells of equal size, each one with a value describing how many people live in that location.  Resolution informs us of the size of each grid cell, which in this case is defined in terms of decimal degress.  We can also, obtain additional information about the projection of the raster layer from the crs row, which is in longitude and latitude \(decimal degrees\) while using the WGS84 datum.  We will want to confirm that our shapefiles also are using the WGS84 datum in their projection.
 
@@ -391,7 +391,7 @@ myLMIC_sf_adm1  <- add_command_here("add_folder_here/add_file_name_here.shp")
 
 In a manner similar to how we retrieved a basic description of our raster file, we can simply type the name of our simple features class object into the console.
 
-![Description of a sf class object from within an R work session](.gitbook/assets/screen-shot-2019-09-15-at-5.36.44-pm.png)
+![Description of a sf class object from within an R work session](images/screen-shot-2019-09-15-at-5.36.44-pm.png)
 
 R informs us that our simple feature collection has 15 features, each one with 7 fields \(or variables\).  R also provides us with the bounding box for our collection of polygons in terms of the minimum and maximum longitude and latitude values.  Additionally, we are able to confirm that the source shapefile used to important our sf object also used the WGS84 datum for projection.
 
@@ -404,7 +404,7 @@ plot(your_raster_object)
 plot(st_geometry(your_adm1_sf_obj), add = TRUE)
 ```
 
-![Raster Layer of Liberia&apos;s Population with ADM1 subdivisions overlayed](.gitbook/assets/rplot%20%287%29.png)
+![Raster Layer of Liberia&apos;s Population with ADM1 subdivisions overlayed](images/rplot%20%287%29.png)
 
 We can see that we now have a scale on the right hand side of the plot that is using a color scale to coorespond with all continuous values between a minimum and maximum \(from about 0 to a little more than 112\).  We can also begin to identify the locations throughout Liberia where people have settled.  Clearly there is a large clump of green and yellow gridcells located along the southern coast \(this is the location of Liberia's capital city Monrovia\).  As we move away from the centrally populated coastal urban area, inland to the north-east we also notice some less densely populated areas along the outskirts of Monrovia, which have pinkish colored gridcells.  There are also a few, less populated urban areas further to the south as well as along the northern border with Guinea.  In fact, if we looked at all 24,922,800 gridcells that indivually comprise this map, each one would have a value and cooresponding color that indicates its population.
 
@@ -438,7 +438,7 @@ endCluster()
 
 Depending on your computer, the size of the `raster` file as well as the size of your `sf` file, running the above 4 lines of code could take a few minutes.  You will want to be patient and wait for the `extract()` command to complete its evaluation of every grid cell.  If you would like to monitor the progress of your comptuer you could go to the activity monitor on a Mac or the task manager on a Windows machine.  
 
-![](.gitbook/assets/screen-shot-2019-09-15-at-8.07.45-pm%20%281%29.png)
+![](images/screen-shot-2019-09-15-at-8.07.45-pm%20%281%29.png)
 
 For example on this particular Mac, you will see that 7 processes have been allocated to R in order to evaluate the location of all ~25 million gridcells.  You will also notice the CPU load has increased considerable, to almost 90% in the above case.  With 7 i7 cores, it took about 1 minute and 10 seconds to extract the values of all 4 million persons distributed across the 25 million gridcells throughout Liberia.  Your case could be faster or slower depending on the size of the data, the speed of your machine, and how much computational power you have reserved for the given task.
 
@@ -466,7 +466,7 @@ totals_adm1 <- pop_vals_adm1 %>%
 
 Grouping the data frame we produced with the `extract()` function, by `ID` while also summing together all gridcell values that share that same `ID` will produce the following estimated population totals for every county in Liberia.  
 
-![](.gitbook/assets/screen-shot-2019-09-15-at-8.49.48-pm.png)
+![](images/screen-shot-2019-09-15-at-8.49.48-pm.png)
 
 Review the sum totals to see if they are realistic.  Execute the equivalent of  `sum(totals_adm1$pop19)` directly in the console, and consider the total returned.  In the above example, R returns a total of 4,288,144 total persons living in 15 different counties across Liberia during the year 2019.  What does R return for your LMIC?  Is the sum total realistic?  Research the population of your LMIC in 2019 and confirm your returned value is realistic.
 
@@ -492,7 +492,7 @@ ggplot(myLMIC_adm1) +
   ggsave("lbr_pop19.png")
 ```
 
-![Population of Liberia&apos;s Counties in 2019](.gitbook/assets/lbr_pop19.png)
+![Population of Liberia&apos;s Counties in 2019](images/lbr_pop19.png)
 
 
 
@@ -506,7 +506,7 @@ Meet with your group and prepare to present the two best plots for the Friday in
 
 Go back and replicate the step by step instructions from above, but instead of extracting and plotting the values for your LMIC's adm1 subdivisions, do it for adm2.  Set the `fill =`  argument by making it equal to the log transformation of your population variable `log(variable_name)`.   
 
-![Liberia&apos;s District&apos;s described in terms of Log of Population](.gitbook/assets/lbrdist_logpop19.png)
+![Liberia&apos;s District&apos;s described in terms of Log of Population](images/lbrdist_logpop19.png)
 
 ## Individual Stretch Goal 2
 
@@ -522,7 +522,7 @@ scale_fill_gradient2(low = "blue", mid="yellow", high="red", midpoint = add_valu
 
 Add other descriptive elements to your plot, such as labels for axes, title and panel background.
 
-![](.gitbook/assets/lbrdist_logpop19b.png)
+![](images/lbrdist_logpop19b.png)
 
 ## Individual Stretch Goal 3
 
@@ -546,7 +546,7 @@ Finally, create a three dimension plot of all log of density population values b
 plot_gg(gglbr_adm2, multicore = TRUE, width = 6 ,height=2.7, fov = 70)
 ```
 
-![](.gitbook/assets/pop%20%281%29.gif)
+![](images/pop%20%281%29.gif)
 
 
 
@@ -558,7 +558,7 @@ In the previous exercise, you extracted population data from a raster, and then 
 
 Rerun the code you used to create your adm1 `sf` class object in R, including the newly added population column.  Click on the `View()` grid symbol to the right of the data object in the top right, RStudio pane under the environment tab.  When the data viewer appears in the top left pane \(beside your script tab\), it should look something like the following.
 
-![Viewer displaying the attributes of an sf object](.gitbook/assets/screen-shot-2019-09-22-at-9.19.22-pm.png)
+![Viewer displaying the attributes of an sf object](images/screen-shot-2019-09-22-at-9.19.22-pm.png)
 
 Confirm that your `sf` object has the name of each first level administrative subdivision as well as the population data you calculated and introduced.  Then use the `save()` command to save your `sf` object to your working directory.
 
@@ -601,7 +601,7 @@ yourLMIC_adm1 <- yourLMIC_adm1 %>%
 
 After you execute this command, view the data associated with yout adm1 object and confirm that you have a new column named `area`. 
 
-![The last two columns of your adm1 object](.gitbook/assets/screen-shot-2019-09-22-at-10.15.28-pm.png)
+![The last two columns of your adm1 object](images/screen-shot-2019-09-22-at-10.15.28-pm.png)
 
 While these area calculations are accurate, to describe a country in square meters is probably not the most useful unit to select.  Instead of meters squared, we will convert our unit of measurement to square kilometers.  In order to do this, we must first install a new library of functions for use in RStudio.  Install the `units::` package and use the `library()` command in order to make it available for use.
 
@@ -624,7 +624,7 @@ yourLMIC_adm1 <- yourLMIC_adm1 %>%
 
 Since we have modfied the units, you should notice both the variables `area` and `density` being described in units of persons per square kilometer.
 
-![Three newly created spatial, descriptive statistical variables](.gitbook/assets/screen-shot-2019-09-22-at-10.39.17-pm.png)
+![Three newly created spatial, descriptive statistical variables](images/screen-shot-2019-09-22-at-10.39.17-pm.png)
 
 That is all the data we need for now.  Start the creation of your geometric bar plot by first piping `%>%`  your adm1 object to a newly specified `ggplot` object.  Add the aesthetics to your `ggplot` object using the `ggplot()` command and specifying the  `x` and `y` variables from your `sf` class object.  These `x` and `y` objects will be used to plot the values using the `x` and `y` axes \(although we will flip the horizontal to the verticle and _vice-versa_ in a moment\).
 
@@ -638,7 +638,7 @@ yourLMIC_adm1 %>%
   xlab("label") + ylab("label")
 ```
 
-![](.gitbook/assets/rplot03%20%281%29.png)
+![](images/rplot03%20%281%29.png)
 
 Let's order our counties in accordance with population size from largest to smallest in order to more easily associate the descriptive statistics presented in our bar plot with the spatial descriptive statistics we previosuly created with our map.  Add a second `%>%` after your adm1 object, where you will reorder the adm1 names based on the variable `pop19`.  Use the `mutate()` command again to write over the existing variable for adm1 names.  The key command you are adding within the `mutate()` argument is `fct_reorder()` which will change the order of the first named variable \(in this case `admin1name`\) based on the descending rank order of the second variable \(`pop19`\).  While I am using the raw population counts to change the county order listed along the verticle axis, you could use also the `area` or `density` variables.
 
@@ -661,7 +661,7 @@ Place the value that describes each administrative unit's share of the total pop
             size=2.0)
 ```
 
-![](.gitbook/assets/rplot01%20%285%29.png)
+![](images/rplot01%20%285%29.png)
 
 The last step of creating our geometric bar plot is to add a `fill =`  argument to the `ggplot(aes())` command that will be used to map a color to each counties population total, based on its place along the continuous scale from maximum to minimum.  As we did with our spatial description of population, also add the `scale_fill_gradient()` command to define colors that will coorespond to the `low =` and `high =`  values.  Use your assignment operator to create a new ggplot object that will be plotted with spatial description of your LMIC.
 
@@ -678,7 +678,7 @@ yourLMIC_bplt <- yourLMIC_adm1 %>%
   scale_fill_gradient(low = "yellow", high = "red")
 ```
 
-![](.gitbook/assets/rplot02%20%281%29.png)
+![](images/rplot02%20%281%29.png)
 
 Return to the spatial plot that you created in the last exercise.  Copy the snippet of code that you used with the `geom_sf(aes(fill = pop19))` command in order to plot the population of every first level administrative subdivision along a contiuous scale for your LMIC.  Paste this snippet into your new script.  Add a new line to the snippet where you use the `geom_sf_text()` command to set plot the density of each individual adm1 object beneath its name.  Use the `aes(label=command(variable,2)` argument to add the `density` values.  Also, use the `round()` command, so the values from this variable are limited to two decimal points.  Nudge the density values, so they appear benath each label, while also modifying their size and color.
 
@@ -687,7 +687,7 @@ Return to the spatial plot that you created in the last exercise.  Copy the snip
             color="color", size=add_size, nudge_y = add_value) +
 ```
 
-![](.gitbook/assets/rplot05%20%281%29.png)
+![](images/rplot05%20%281%29.png)
 
 Finally, install the package `ggpubr` and use the command `ggarrange()` to arrange your two plots together side by side.
 
@@ -707,7 +707,7 @@ To save your two plots together, use the `ggsave()` command.  Modify the `width 
 ggsave("liberia.png", width = 20, height = 10, dpi = 200)
 ```
 
-![](.gitbook/assets/liberia%20%284%29.png)
+![](images/liberia%20%284%29.png)
 
 
 
@@ -738,7 +738,7 @@ lbr_adm2 %>%
 ggsave("lbr_adm2_bp.png", width = 20, height = 15, dpi = 300)
 ```
 
-![Population by County and District](.gitbook/assets/lbr_adm2_bp.png)
+![Population by County and District](images/lbr_adm2_bp.png)
 
 Include this with your deliverable posted to \#data100\_project1.
 
@@ -756,15 +756,15 @@ Once you have created your `lulc` folder within your `data` folder, open google 
 
 After entering the path into your browser, you may be asked to enter your name and password in order to access the file transfer protocal \(ftp\) site at ftp.worldpop.uk.org.  Choose guest and then attempt to connect.
 
-![](.gitbook/assets/screen-shot-2019-09-29-at-9.05.57-pm.png)
+![](images/screen-shot-2019-09-29-at-9.05.57-pm.png)
 
 After connecting as a guest you should gain access to the folder at worldpop containing the geospatial covariates, either though the finder, file explorer, or possibly directly through your browser.  My connection protocal in OS X forwards to my finder and opens a new folder from the worldpop server.  This folder on my computer is a kind of window to the WorldPop server location where the geospatial covariates for Liberia are located.
 
-![](.gitbook/assets/screen-shot-2019-09-29-at-9.11.03-pm.png)
+![](images/screen-shot-2019-09-29-at-9.11.03-pm.png)
 
 Each of these different folders contains sets of geospatial covariates or raster files that you will need to copy and paste into your `lulc` folder.  To start, open the `ESA_CCI_Annual` folder.  There should be several years within the folder; select the folder with the 2015 data.  Copy all of the files from the `ESA_CCI_Annual` folder to your `lulc` folder.  There will be several, each one being some megabytes to tens of megabytes in size, so be patient when copying the data.  Also keep in mind, it is likely that the WorldPop server will be overloaded with all of your classmates trying to access the data at the same time.  After you have copied the `ESA_CCI_Annual` raster data for 2015, do likewise for the `ESA_CCI_Water` raster that is found within the `DST` folder \(which stands for distance\).  Following the water geospatial covariate layer, continue to the folders that contain topographical and slope data.  Finally, open the `VIIRS` folder and copy the `.tif` file into your `lulc` folder that has the night time lights values for your LMIC.  After you have finished copying all of the files to your `lulc` folder, your data structure should appear similar to the following, except each of your files will begin with the ISO code for your LMIC.
 
-![](.gitbook/assets/screen-shot-2019-09-29-at-9.17.47-pm.png)
+![](images/screen-shot-2019-09-29-at-9.17.47-pm.png)
 
 Visit the ESA-CCI Viewer at [https://maps.elie.ucl.ac.be/CCI/viewer/](https://maps.elie.ucl.ac.be/CCI/viewer/) and have a look at the ESA-CCI data you just copied into your data subdirectory.  In the bottom left hand corner of the viewer you will find a legend for the map.  Open the legend and consider the values in the left hand column as well as each one's corresponding label.  Each value cooresponds to the three digit code found within the raster files your just copied into your `lulc` folder.  For example, the file `lbr_esaccilc_dst150_100m_2015.tif` is the geospatial covariate layer for _Sparse vegetation \(tree, shrub, herbaceous cover\) \(&lt;15%\)_ since the third part of the file name **dst150** cooresponds to the 150 value in the legend.  As before, the dst part of the filename again stands for distance, since each gridcell will provide a distance measure.  Save the legend to your data folder for reference, since it is likely you will need it again later.
 
@@ -800,7 +800,7 @@ f <- list.files(pattern="add_file_name_pattern_here", recursive=TRUE)
 
 After properly executing the above command, you should notice the object `f` appear in your top right pane.  It is also possible to check the contents of `f` which should be the names of all the `esaccilc_dst` files. 
 
-![](.gitbook/assets/screen-shot-2019-09-29-at-10.13.04-pm.png)
+![](images/screen-shot-2019-09-29-at-10.13.04-pm.png)
 
 The object `f` is needed to identify all of the `raster` objects you will stack one on top of another until you have created your `RasterStack`.  You may recall in project 1 using the `raster()` command to import a `.tif` into RStudio.  This time you will use both the `raster()` command on the inside of a function as well as the `stack()` command on the outside of the function.  In combination with the `lapply()` command \(which stands for list apply\), the `raster()` command will iterate through your `f` object, identifying the name of each `.tif` file from your `lulc` folder, until each one has been imported, and then with the `stack()` command, stack each raster one by one, until your formal `RasterStack` class object has been created.  The `function(i)` part of the argument is used to indicate which function will be used to iterate the number of times as objects in your `i` argument, which in this case is equal to the number of rows in `f`.
 
@@ -810,7 +810,7 @@ lulc <- your_outside_cmd(lapply(f, function(i) your_inside_cmd(i, band=1)))
 
 Once you have executed your `stack()` command to create your `RasterStack` object in your workspace, check to confirm the contents of your `lulc` object.
 
-![](.gitbook/assets/screen-shot-2019-09-29-at-10.29.26-pm.png)
+![](images/screen-shot-2019-09-29-at-10.29.26-pm.png)
 
 You will notice that the `RasterStack` object not only is comprised of nearly 25 million gridcells in this instance, there is also a new dimension to the object named `nlayers`, which is 9.  Within this `RasterStack` is the `names` identifier, with each name representing one of the files we copied from the WorldPop website into your `lulc` data folder and then imported into RStudio.  While the name of each layer is provided on the `names` row having been directly assigned from each file name, specifically the names themselves are very long and confusing.  Rename each layer, by again identifying patterns from the object `f` we created, and replacing the superfluous parts with an empty space or `""`.  You will need to retain the part of each file name that begins with `dst` and is then followed by three digits.  For example, with the file name `lbr_esaccilc_dst040_100m_2015.tif` you will need to retain everything BUT the `dst040` part of the name.  To do this, you will first want to replace the common pattern from the last part of the file name sequence with a `""`. Then you will want to replace the first part of the common pattern from the file name sequence with a `""`.  You will do this by nesting the two commands within each other.
 
@@ -820,7 +820,7 @@ nms <- sub("last_part.tif", "", sub("first_part_", "", object_with_the_file_name
 
 Type `nms` directly into the console to confirm you have correctly created this new object that contains the truncated form of each raster layer name you plan to assign.
 
-![](.gitbook/assets/screen-shot-2019-09-29-at-11.11.48-pm.png)
+![](images/screen-shot-2019-09-29-at-11.11.48-pm.png)
 
 The first file that contains the distance to water layer had a slightly different naming pattern, but don't worry about it just yet.  Go ahead and assign it as is, but keep in mind you will also replace that layer's name momentarily.
 
@@ -832,7 +832,7 @@ add_command_here(your_RasterStack_obj) <- object_with_truncated_names
 
 Confirm you have correctly used the `names()` command with your `lulc` object to rename each layer by viewing the `RasterStack` in the console.  You should notice that there are several new names listed for each layer in your `RasterStack`.  
 
-![](.gitbook/assets/screen-shot-2019-09-29-at-11.17.41-pm.png)
+![](images/screen-shot-2019-09-29-at-11.17.41-pm.png)
 
 There are still three more raster `.tif` files in your `lulc` data folder that need to be imported and added as new layers to your `lulc` `RasterStack` object.  Import the topography, slope and night time lights layers into R by using the `raster()` command as you have done in the past.
 
@@ -860,21 +860,21 @@ With all of the geospatial covariates in place as separate layers within your `R
 plot(lulc[[12]])
 ```
 
-![](.gitbook/assets/ntl%20%282%29.png)
+![](images/ntl%20%282%29.png)
 
 ```r
 plot(lulc[[8]])
 plot(st_geometry(lbr_adm1), add = TRUE)
 ```
 
-![](.gitbook/assets/urban.png)
+![](images/urban.png)
 
 ```r
 plot(lulc[[10]])
 contour(lulc[[10]], add = TRUE)
 ```
 
-![](.gitbook/assets/contours.png)
+![](images/contours.png)
 
 ## Extracting Land Use and Land Cover Data for Description
 
@@ -900,7 +900,7 @@ lulc_ttls_adm2 <- lulc_vals_adm2 %>%
 
 Your object `lulc_ttls_adm2` should have the same number of rows as your `adm2` `sf` object as well as thirteen variables, one for each of the geospatial covariates obtained from WorldPop and the `ID` column.  You will notice that the names of each column in your `lulc_ttls_adm2` object will correspond with the names of each layer from your `RasterStack`.
 
-![Summation of gridcell values for each adm2 subdivision \(in this case numbers 60 through 81\)](.gitbook/assets/screen-shot-2019-09-30-at-12.22.03-am.png)
+![Summation of gridcell values for each adm2 subdivision \(in this case numbers 60 through 81\)](images/screen-shot-2019-09-30-at-12.22.03-am.png)
 
 Now use the `bind_cols()` command to bind each of these thirteen rows to the eleven existing variables in your adm2 object.
 
@@ -917,7 +917,7 @@ ggplot(lbr_adm2, aes(pop19)) +
 
 Compare how the histogram plot changes after adding the `log()` command to the `pop19` variable within the `aes()` argument.
 
-![](.gitbook/assets/loghist.png)
+![](images/loghist.png)
 
 Likewise, do the same with the `geom_density() +` command, also adding the `log()` command by wrapping the `pop19` variable within it.
 
@@ -926,7 +926,7 @@ ggplot(lbr_adm2, aes(pop19)) +
   geom_density()
 ```
 
-![](.gitbook/assets/logdense.png)
+![](images/logdense.png)
 
 You will notice that the density plot has a similar profile as the histogram.  We can compare the two by overlapping the histogram with the density plot or probability density function \(pdf\).  In order to transform a histogram into a density plot, the density function uses somethings called a **kernel** and **bandwidth** to smooth the data over the space.  A good analogy for thinking about how a histogram transforms into a pdf is to think of each verticle bar as stacked, square pieces of chocolate, and then you took a hairdryer to warm the chocolate squares until they melted and smoothed out over the space.  While there are statistical methods that can be used to modify the shape and profile of the pdf function, essentially the area of the histogram and the density plot should be nearly the same.
 
@@ -937,11 +937,11 @@ ggplot(lbr_adm2, aes(pop19)) +
   theme_minimal()
 ```
 
-![](.gitbook/assets/loghistdense.png)
+![](images/loghistdense.png)
 
 Create another histogram with the pdf overlapping, but this time use a different variable.  For example in the following plot, I have used the `ntl` variable, without the `log()` function added.
 
-![](.gitbook/assets/ntlhistdens.png)
+![](images/ntlhistdens.png)
 
 ## Team Challenge Question
 
