@@ -6,7 +6,7 @@ ggplot(lbr_adm2, aes(pop19, ntl)) +
   geom_smooth()
 ```
 
-![](../.gitbook/assets/popntl.png)
+![](.gitbook/assets/popntl.png)
 
 Estimate the parameters of your model using the `lm()` command and then return a `summary()` to find out more information regarding the model's fit and capacity to explain the coorelationship between your two selected variables.
 
@@ -15,7 +15,7 @@ fit <- lm(pop19 ~ ntl, data=lbr_adm2)
 summary(fit)
 ```
 
-![](../.gitbook/assets/screen-shot-2019-09-30-at-12.47.52-am%20%281%29.png)
+![](.gitbook/assets/screen-shot-2019-09-30-at-12.47.52-am%20%281%29.png)
 
 Add a few more variables to the `lm()` command.  For example in the following plot I have estimated a regression model where the population of Liberia in 2019 is the dependent variable \(response\), while night time lights \(`ntl`\), urban cover \(`dst190`\), and bare cover \(`dst200`\) are the independent variables \(predictors\).
 
@@ -25,7 +25,7 @@ ggplot(lm(pop19 ~ ntl + dst190 + dst200, data=lbr_adm2)) +
   geom_smooth(aes(x=.fitted, y=.resid))
 ```
 
-![](../.gitbook/assets/popntlurbbare.png)
+![](.gitbook/assets/popntlurbbare.png)
 
 Again estimate the model and check the fit.
 
@@ -34,7 +34,7 @@ fit <- lm(pop19 ~ ntl + dst190 + dst200, data=lbr_adm2)
 summary(fit)
 ```
 
-![](../.gitbook/assets/screen-shot-2019-09-30-at-1.06.19-am.png)
+![](.gitbook/assets/screen-shot-2019-09-30-at-1.06.19-am.png)
 
 Finally, add all of the variables to your regression model.  Compare the results.
 
@@ -44,14 +44,14 @@ ggplot(lm(pop19 ~ water + dst011 + dst040 + dst130 + dst140 + dst150 + dst160 + 
   geom_smooth(aes(x=.fitted, y=.resid))
 ```
 
-![](../.gitbook/assets/all.png)
+![](.gitbook/assets/all.png)
 
 ```r
 fit <- lm(pop19 ~ water + dst011 + dst040 + dst130 + dst140 + dst150 + dst160 + dst190 + dst200 + topo + slope + ntl, data=lbr_adm2)
 summary(fit)
 ```
 
-![](../.gitbook/assets/screen-shot-2019-09-30-at-1.10.44-am.png)
+![](.gitbook/assets/screen-shot-2019-09-30-at-1.10.44-am.png)
 
 ## Team Challenge Question
 
@@ -89,7 +89,7 @@ ggplot(data = you_data_frame, aes(x = variable, y = variable)) +
   geom_smooth(size = 0.5)
 ```
 
-![](../.gitbook/assets/plot%20%281%29.png)
+![](.gitbook/assets/plot%20%281%29.png)
 
 The three observations beneath the curve before it begins to rise seem to evidence the final contributions to the model before it transitions towards the observation for Monrovia.  Add labels to these four points, by using the `subset()` command and creating a new object that you will use to annotate each of those four observations.
 
@@ -111,7 +111,7 @@ ggplot(data = your_data, aes(x = variable, y = variable)) +
             nudge_y = value)
 ```
 
-![](../.gitbook/assets/plot.png)
+![](.gitbook/assets/plot.png)
 
 Likewise manually calculate residual standard error.
 
@@ -179,13 +179,13 @@ ggplot(data = model_data, aes(x = fitted, y = residuals)) +
                 label = round(as.numeric(summary(fit)[[10]][1]), 4)))
 ```
 
-![](../.gitbook/assets/plot%20%282%29.png)
+![](.gitbook/assets/plot%20%282%29.png)
 
 # Modeling & Predicting Spatial Values
 
 In this lab, you will use the model parameters your previously estimated in order to predict spatial values across the landscape of your selected LMIC.  To do this create a new script, install and load needed packages and libraries, and set your working directory.  Once you have your script set up with `sf::` , `raster::`, `tidyverse::`, `doParallel::`, and `snow::` all in place, again load your `RasterStack` into your RStudio workspace.  I named my 12 layer `RasterStack` that describes land use and land cover throughout Liberia, `lulc`, and just as before it displays the following summary characteristics.
 
-![](../.gitbook/assets/screen-shot-2019-10-06-at-6.53.01-pm.png)
+![](.gitbook/assets/screen-shot-2019-10-06-at-6.53.01-pm.png)
 
 Also, load the `adm0` \(or international boundary\), `adm1` and `adm2` for your LMIC.  If you don't have your international boundary, go back to GADM, HDX or also look on Geoboundaries for the shapefile in order to import to your RStudio work session.
 
@@ -211,7 +211,7 @@ yourRasterStack <- add_command_here(yourRasterStack, yourLMIC_intlborder)
 
 It might take a few minutes to run the `mask()` command.  On a MBAir using the `mask()` command on a 12 layer `RasterStack` \(each layer having about 25 million gridcells\) it takes about 10 minutes.  Once the command is completed, you should now notice `min values` and `max values` when retrieving a summary of what has now been transformed from a `RasterStack` to a `RasterBrick`.
 
-![](../.gitbook/assets/screen-shot-2019-10-06-at-7.50.14-pm.png)
+![](.gitbook/assets/screen-shot-2019-10-06-at-7.50.14-pm.png)
 
 As in the previous exercise, estimate your linear model using the `pop15` variable as your response \(dependent variable\) and all of the covariates from your `adm2` sf object as the predictors \(independent variables\).
 
@@ -221,7 +221,7 @@ model <- add_command_here(depvar ~  ind1 + ... + indN, data=your_adm2_sf)
 
 Once you have estimated your model, use the `summary()` command to review a summary of its characteristics.
 
-![](../.gitbook/assets/screen-shot-2019-10-06-at-8.23.25-pm.png)
+![](.gitbook/assets/screen-shot-2019-10-06-at-8.23.25-pm.png)
 
 Confirm that each variable in your `lulc` object has a corresponding variable in the linear model you just estimated.  You will use these estimates with the 12 different geospatial coverariate layers within your `RasterBrick` to predict the population at each gridcell across your LMIC.  Use the `predict()` function from the `raster::` package with your `lulc` object as well as your `model` to predict the population value of every gridcell within the borders of your LMIC.
 
@@ -291,7 +291,7 @@ cellStats(population, sum)
 
 R should return the same total previously used when you calcualte `sum(your_adm2$pop15)`.
 
-![](../.gitbook/assets/rplot01%20%289%29.png)
+![](.gitbook/assets/rplot01%20%289%29.png)
 
 ## Investigate Margins of Error
 
@@ -309,7 +309,7 @@ cellStats(abs(diff), sum)
 
 Taking the `hist(diff)` will also inform you of the magnitude and direction of error in your predicted values.  Use the `plot(diff)` command to have a look at the resulting raster.
 
-![](../.gitbook/assets/rplot02%20%285%29.png)
+![](.gitbook/assets/rplot02%20%285%29.png)
 
 By looking at the histogram and the above difference of predicted value from worldpop raster it appears that most of the error is slightly above or below 0, and is also distributed fairly evenly across the entire space.  Looking closely though, the area close to the southwest coast appears to exhibit a different phenomenon.  This is the capital of Liberia, Monrovia.  For your investigation, select the primary urban area and conduct the same analysis as follows.
 
@@ -343,9 +343,9 @@ gmonrovia_pop <- crop(gmonrovia_pop, extGMN)
 
 Plot your Monrovia rasters.
 
-![Error in terms of Predicted Values - WorldPop estimates](../.gitbook/assets/rplot03%20%285%29.png)
+![Error in terms of Predicted Values - WorldPop estimates](.gitbook/assets/rplot03%20%285%29.png)
 
-![](../.gitbook/assets/rplot04%20%283%29.png)
+![](.gitbook/assets/rplot04%20%283%29.png)
 
 Finally, plot a three dimension map of the values, to gauge exactly how much variation was exhibited in the predicted values.  Install and load the `rgl::` and `rasterVis::` libraries in order to execute the following command.
 
@@ -353,7 +353,7 @@ Finally, plot a three dimension map of the values, to gauge exactly how much var
 rasterVis::plot3D(gmonrovia_pop)
 ```
 
-![](../.gitbook/assets/screen-shot-2019-10-07-at-12.26.00-am.png)
+![](.gitbook/assets/screen-shot-2019-10-07-at-12.26.00-am.png)
 
 Finally, add the `tmap::` library and overlay your differences plot.
 
@@ -363,7 +363,7 @@ mapview::mapview(gmonrovia_diff, alpha = .5)
 
 Do you identify a geospatial trend associated with the error resulting from your predicted values?
 
-![](../.gitbook/assets/rplot07%20%282%29.png)
+![](.gitbook/assets/rplot07%20%282%29.png)
 
 ## Team Challenge Question
 
@@ -646,25 +646,25 @@ plot(lbr_pop15)
 rgl.snapshot("diff", fmt = "png", top = TRUE )
 ```
 
-![Population: Predictors - Sums](../.gitbook/assets/rplot%20%286%29.png)
+![Population: Predictors - Sums](.gitbook/assets/rplot%20%286%29.png)
 
-![Difference: Predictors - Sums](../.gitbook/assets/rplot10.png)
+![Difference: Predictors - Sums](.gitbook/assets/rplot10.png)
 
-![3D Difference: Predictors - Sums](../.gitbook/assets/diff1.png)
+![3D Difference: Predictors - Sums](.gitbook/assets/diff1.png)
 
-![Population: Predictors - Means](../.gitbook/assets/rplot11.png)
+![Population: Predictors - Means](.gitbook/assets/rplot11.png)
 
-![Difference: Predictors - Means](../.gitbook/assets/rplot12.png)
+![Difference: Predictors - Means](.gitbook/assets/rplot12.png)
 
-![3D Difference: Predictors - Means](../.gitbook/assets/diff2.png)
+![3D Difference: Predictors - Means](.gitbook/assets/diff2.png)
 
 
 
-![Population: Response - Log of Population](../.gitbook/assets/rplot13.png)
+![Population: Response - Log of Population](.gitbook/assets/rplot13.png)
 
-![Difference: Response - Log of Population ](../.gitbook/assets/rplot14.png)
+![Difference: Response - Log of Population ](.gitbook/assets/rplot14.png)
 
-![3D Difference: Response - Log of Population ](../.gitbook/assets/diff.png)
+![3D Difference: Response - Log of Population ](.gitbook/assets/diff.png)
 
 ## Project 2. Individual Deliverable
 
@@ -749,7 +749,7 @@ model_data <- as.data.frame(model_data)
 
 Your object `model_data` should have the following structure.
 
-![](../.gitbook/assets/screen-shot-2019-10-21-at-11.23.53-pm.png)
+![](.gitbook/assets/screen-shot-2019-10-21-at-11.23.53-pm.png)
 
 Simplify the objects you will use as the predictors and response by creating two new objects.  The `x_data` object are your predictors and coorespond to the mean values of each `lulc` variable at each adm.  The `y_data` is your response variable, in this case log of population.
 
@@ -829,11 +829,11 @@ plot(model)
 varImpPlot(model)
 ```
 
-![Capacity of RF model to explain variance with its 500 trees](../.gitbook/assets/screen-shot-2019-10-21-at-11.40.59-pm.png)
+![Capacity of RF model to explain variance with its 500 trees](.gitbook/assets/screen-shot-2019-10-21-at-11.40.59-pm.png)
 
-![Number of trees needed before Out of Bag Error stabilized](../.gitbook/assets/rplot.png)
+![Number of trees needed before Out of Bag Error stabilized](.gitbook/assets/rplot.png)
 
-![Two measures of importance for each of the predictor variables](../.gitbook/assets/rplot01.png)
+![Two measures of importance for each of the predictor variables](.gitbook/assets/rplot01.png)
 
 Confirm that the names in your random forest model match those found in your `rasterBrick`.
 
