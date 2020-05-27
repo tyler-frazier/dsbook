@@ -1,6 +1,6 @@
 # About the author
 
-Tyler Frazier ([tyler-frazier.github.io]()) is a Lecturer in the Data Science program at William & Mary.  His research and teaching focus on the use of data science methods to investigage geospatial human development processes in order to better understand our complex and adapting social and economic system.  
+Tyler Frazier ([tyler-frazier.github.io]()) is a Lecturer in the Data Science program at William & Mary.  His research and teaching focus on the use of data science methods to describe, analyze, model and predict the behavior of our planet's human population and its associated development patterns and processes as well as our larger complex and adapting social and economic system.
 
 Prior to joining William & Mary in the summer of 2015, Tyler has held academic appointments at the Santa Fe Institute, the Technical University of Berlin and the Center for Development Research in Bonn. He has also previously held visiting acadmeic positions at the Technical University of Munich and the University of Ghana, Legon.  His research has been supported by funding from the Volkswagen Foundation, the Bill and Melinda Gates Foundation and the German Federal Ministry of Education and Research. 
 
