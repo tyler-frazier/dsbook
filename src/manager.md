@@ -1,6 +1,6 @@
 # Package Manager
 
-Mac OSX - Homebrew
+Mac OSX - Homebrew (linux)
 
 [https://brew.sh]()
 
