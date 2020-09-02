@@ -9,3 +9,4 @@
 - [Data Use for Human and Community Scale Processes](./datause.md)
 	- [Spatial Population Description](./describe.md)
 	- [Spatial Population Modelling](./model.md)
+	- [Accessibility](./defacto_descript.md)

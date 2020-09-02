@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded affix "><a href="book.html">About this book</a></li><li class="expanded affix "><a href="author.html">About the author</a></li><li class="expanded "><a href="getting_started.html"><strong aria-hidden="true">1.</strong> Student Preparations</a></li><li><ol class="section"><li class="expanded "><a href="gitstart.html"><strong aria-hidden="true">1.1.</strong> Getting Started with GitHub</a></li><li class="expanded "><a href="rstart.html"><strong aria-hidden="true">1.2.</strong> Getting Started with R &amp; RStudio</a></li><li class="expanded "><a href="manager.html"><strong aria-hidden="true">1.3.</strong> Getting Started with a package manager</a></li><li class="expanded "><a href="pystart.html"><strong aria-hidden="true">1.4.</strong> Getting Started with python, pyenv and pycharm</a></li></ol></li><li class="expanded "><a href="datause.html"><strong aria-hidden="true">2.</strong> Data Use for Human and Community Scale Processes</a></li><li><ol class="section"><li class="expanded "><a href="describe.html"><strong aria-hidden="true">2.1.</strong> Spatial Population Description</a></li><li class="expanded "><a href="model.html"><strong aria-hidden="true">2.2.</strong> Spatial Population Modelling</a></li></ol></li></ol>
+                <ol class="chapter"><li class="expanded affix "><a href="book.html">About this book</a></li><li class="expanded affix "><a href="author.html">About the author</a></li><li class="expanded "><a href="getting_started.html"><strong aria-hidden="true">1.</strong> Student Preparations</a></li><li><ol class="section"><li class="expanded "><a href="gitstart.html"><strong aria-hidden="true">1.1.</strong> Getting Started with GitHub</a></li><li class="expanded "><a href="rstart.html"><strong aria-hidden="true">1.2.</strong> Getting Started with R &amp; RStudio</a></li><li class="expanded "><a href="manager.html"><strong aria-hidden="true">1.3.</strong> Getting Started with a package manager</a></li><li class="expanded "><a href="pystart.html"><strong aria-hidden="true">1.4.</strong> Getting Started with python, pyenv and pycharm</a></li></ol></li><li class="expanded "><a href="datause.html"><strong aria-hidden="true">2.</strong> Data Use for Human and Community Scale Processes</a></li><li><ol class="section"><li class="expanded "><a href="describe.html"><strong aria-hidden="true">2.1.</strong> Spatial Population Description</a></li><li class="expanded "><a href="model.html"><strong aria-hidden="true">2.2.</strong> Spatial Population Modelling</a></li><li class="expanded "><a href="defacto_descript.html"><strong aria-hidden="true">2.3.</strong> Accessibility</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -1662,6 +1662,420 @@ rasterVis::plot3D(gridcell_pops)
 rasterVis::plot3D(diff)
 </code></pre>
 <p>What can you surmise?  Have you improved your predictive power by applying a machine learning approach?</p>
+<h1><a class="header" href="#de-facto-description-of-human-settlements-and-urban-areas" id="de-facto-description-of-human-settlements-and-urban-areas">De facto description of human settlements and urban areas</a></h1>
+<p>For project 3, instead of starting with your LMIC at the scale of its international boundary, this time you will increase the scale of your focus area to an adm2 or adm3 within your country.  You will then use the probability distribution from your population raster as the basis for distributing of all persons within your adm2.  Then you will identify the <em>de facto</em> boundaries of all urban areas based on the density of identified human settlements, instead of the typically used administrative boundaries, which are politically defined and do not necessarily represent the spatial continuity of urbanization.  Finally, you will use those organically derived boundaries to extract population totals for each <em>de facto</em> city, town and village.</p>
+<p>To begin, load the typical packages that we have been using in our previous labs.  Additionally, we will add two new packages <code>maptools</code> and <code>spatstat</code>.  Set your working directory, use the <code>raster()</code> command to load your worldpop ppp raster, and also use the <code>read_sf()</code> command to load your adm2 or adm3.  If you haven't been using the GADM shapefiles, be sure to make the switch at the beginning of this lab, as they have demonstrated over the course of this semester to be more reliable and better maintained than HDX adm shapefiles.</p>
+<pre><code class="language-text">rm(list=ls(all=TRUE))
+
+# install.packages(&quot;raster&quot;, dependencies = TRUE)
+# install.packages(&quot;sf&quot;, dependencies = TRUE)
+# install.packages(&quot;tidyverse&quot;, dependencies = TRUE)
+# install.packages(&quot;maptools&quot;, dependencies = TRUE)
+# install.packages(&quot;spatstat&quot;, dependencies = TRUE)
+
+library(raster)
+library(sf)
+library(tidyverse)
+library(maptools)
+library(spatstat)
+
+setwd(&quot;~/path_to/your/working_directory/&quot;)
+
+your_pop15 &lt;- raster(&quot;your_ppp_2015.tif&quot;)
+
+your_adm2  &lt;- read_sf(&quot;gadm36_YOUR_2.shp&quot;)
+</code></pre>
+<p>After reading your adm2 into R as a <code>sf</code> object, view the data and consider the names of the different adm2s that comprise your LMIC.  Select one of the adm2s that you think might be interesting to analyze at a higher resolution.  You might need to google the name of the adm2 within your country in order to find out more information about it, in particular its population.  For my analysis, I am considering an administrative subdivision in Liberia that is located in the county Nimba near the northern border with Guinea, named Sanniquelleh-Mahn.</p>
+<p><img src="images/screen-shot-2019-10-27-at-9.11.20-pm.png" alt="" /></p>
+<p>I enter the name of my prospective district into google and search for its population, which returns an estimate of about 125,000 persons inhabiting the district.  This is a good size to work with for this lab, although you could possibly select a district or area that is slightly larger, to start, try to keep the population under 200,000.  I will then use the <code>%&gt;%</code> pipe operator and <code>filter()</code> command to subset the Sanniquelleh-Mahn district from my adm2 <code>sf</code> object.  If your adm2s are too large, you are also welcome to use an adm3 from within your LMIC.  If you country is smaller in size, it might also be best to select an adm1.  It just depends on the circumstances.</p>
+<pre><code class="language-r">your_subset_district &lt;- your_adm2 %&gt;%
+  filter(NAME_2 == &quot;Name-of-district&quot;)
+</code></pre>
+<p>Confirm your subset object exists.  You can also have a look at it using the <code>plot(st_geometry(your_adm2))</code>. </p>
+<p><img src="images/screen-shot-2019-10-27-at-9.26.30-pm.png" alt="" /></p>
+<p>As you have done in previous exercises, use the <code>crop()</code> and <code>mask()</code> function to subset your <code>rasterLayer</code> to just that part that is located within your selected adm2.  After cropping and masking your world pop person per pixel raster layer, use the <code>cellStats()</code> command to calculate the total number of people in your adm2 and assign it as a value to an object.</p>
+<pre><code class="language-text">your_adm2_pop15 &lt;- crop(your_LMIC_pop15, your_subset_district)
+your_adm2_pop15 &lt;- mask(your_adm2_pop15, your_subset_district)
+
+pop &lt;- floor(cellStats(your_adm2_pop15, 'sum'))
+</code></pre>
+<p>Entering <code>pop</code> into the console in my case returns a value of 124388, which is the estimated population of Sanniquelleh-Mahn in 2015.  Also use the <code>pdf()</code> and <code>dev.off()</code> commands to produce a pdf file of your subset raster with the subset <code>sf</code> adm2 object added to the plot.</p>
+<pre><code class="language-text">png(&quot;sm_pop15.png&quot;, width = 800, height = 800)
+plot(your_masked_raster, main = NULL)
+plot(st_geometry(your_subset_sf), add = TRUE)
+dev.off()
+</code></pre>
+<p>The above script produces the following plot as a pdf file in your working directory.  In addition to seeking an adm2 subdivision that is between 100,000 and 200,000 persons, also notice that the area of my selected district is about .7 degree longitude by .6 degrees latitude.  Likewise, select an area that is less than 1 degree longitude by 1 degree latitude.  If you want to increase the size of the area being analyzed and likewise the population residing within that space, you will have an opportuntity to do that later, but for now, start small.</p>
+<p><img src="images/sm_pop15%20%283%29.png" alt="" /></p>
+<p>For the next step, you will use a slightly older, but very powerful R package called <code>spatstat</code>, which is used for all kinds of spatial statistics.  Spatial statistics typically involves much more than simply descriptive statistics, analytical models, and inference, it typically also involves some description and analysis of points, lines and polygons in that space.  For example, one might want to know how to describe a pattern of points that exists throughout a plane, and how it compares to a similarly existing pattern of points that is considered completely spatially randomly dispersed.  Additionally, one might also want to know if there is a spatial relationship with certain points within a point pattern and other points within that point pattern based on attributes of those points or other geospatial features.  In many ways, spatial statistics is just like traditional statistics, with the exception that an additinal layer of spatial and potentially geospatial complexity has been added.</p>
+<p>To start your basic spatial analysis, of your selected adm2, you will need to use the <code>st_write()</code> command to write your <code>sf</code> object as a shapefile back to your working directory, in order to reimport using a command that is compatible with <code>spatstat</code>.</p>
+<pre><code class="language-text">st_write(your_adm2_sf, &quot;name_of_file.shp&quot;, delete_dsn=TRUE)
+your_adm2_with_mtools &lt;- readShapeSpatial(&quot;name_of_file.shp&quot;)
+</code></pre>
+<p>The <code>readShapeSpatial()</code> command is from the <code>maptools::</code> library and will create a <code>SpatialPolygonsDataFrame</code> in your workspace, which I have named above just <code>your_adm2_with_map_tools</code>.  You should only briefly need to use this command.  After creating your adm2_with_mtools object, use the <code>as(obj, &quot;owin&quot;)</code> command to create a window object that will be used with the <code>rpoint()</code> function from the <code>spatstat::</code> library.  You can just call the new object <code>win</code>, and also have a look at it by executing <code>plot(win)</code>.</p>
+<pre><code class="language-text">win &lt;- as(your_adm2_with_mtools, &quot;owin&quot;)
+</code></pre>
+<p>For the next command, you will use this <code>win</code> object as the window or boundary for locating  a number of points equal to the total population of your adm2, and where each point represents one person.  In order to determine each persons location, use the spatial probability distribution of population decribed by your masked raster of your adm2.</p>
+<pre><code class="language-text">my_adm2_ppp &lt;- rpoint(pop, f = as.im(my_masked_adm2_raster), win = win)
+</code></pre>
+<p>After creating your point pattern, have a look at it, by typing the name of your object in the R console.  You should notice that R recognizes your object that represents the geospatial distribution of all persons throughout your adm2 as a planar point pattern (or <code>.ppp</code> class object) as well as the number of points within that <code>ppp</code>.   Plot both the <code>win</code> and <code>ppp</code> objects together as a <code>.png</code>.</p>
+<pre><code class="language-text">png(&quot;your_file.pdf&quot;, width = add_width, height = add_height)
+plot(win, main = NULL)
+plot(your_ppp, cex = add_number, add = TRUE)
+dev.off()
+</code></pre>
+<p>The following image is one instance from a probability model (based on 2015 data) used to distribute all 124,388 persons geospatially throughout Sanniquelleh-Mahn.  I have plotted both my window and planar point patter as a <code>.png</code> graphics object and have set the <code>width =</code> and <code>height =</code> arguments to <code>2000</code> each, while the <code>cex =</code>  argument is set to <code>0.15</code>.  You will want to test some of the parameters with the output on your own computer to see what produces the best results.</p>
+<p><img src="images/sm_pipo.png" alt="" /></p>
+<p>In order to best use this newly created object, we need to estimate a model that describes the spatial probability density function of this planar point pattern.  Spatial probability density function or kernel density estimation is a three dimension version of the density plot that we looked at in a previous project.  You may recall that the two dimension probability density function created a line or smoothed function that closely followed the histogram of our observations.  Now with a three dimension, spatial probability density function, we will estimate a density function that will match histograms of observations in both the x &amp; y directions (or longitude and latitude).  The good news is, there is a function to do this for us, but it requires two steps.  The first step is to calculate the bandwidth that will be used in the <code>density.ppp()</code> function.  While the bandwidth produced will simply be a number, in order to calculate this number, over a three dimensional space, can be fairly computationally intense.  Fortunately, we have limited the scope of our study area, as well as the number of points located within that bounary, and it shouldn't take to terribly long.  The following command took about 15 minutes on my MacBook Air for the ~125,000 point pattern.</p>
+<pre><code class="language-text">bw &lt;- bw.ppl(your_ppp)
+</code></pre>
+<p>Once you have calculated the value of your bandwidth (in my case &quot;sigma&quot; resulted in a 0.003077435) use the <code>save()</code> and <code>load()</code> commands, so you don't need to rerun <code>bw.ppl()</code> each time.</p>
+<pre><code class="language-text">#bw &lt;- bw.ppl(sm_pipo)
+#save(bw, file = &quot;bw.RData&quot;)
+load(&quot;bw.RData&quot;)
+</code></pre>
+<p>After you have estimated the value of the bandwidth for your spatial probability density function, then execute the function itself.</p>
+<pre><code class="language-text">your_density_image &lt;- density.ppp(your_ppp, sigma = bw)
+</code></pre>
+<p>The resulting object is a real valued pixel image, which is kind of like a raster layer, and it represents a function that describes the probability of the population density at each pixel throughout the entire space.</p>
+<p><img src="images/sm_dens.png" alt="" /></p>
+<p>As you may notice, the scale on the right hand side of our density image, provides a representation of where population densities are the highest, or in more common terms, where urbanization has occurred.  The goal of this part of the lab is to identify the boundaries of each uniform and continuous urban area and then to assign the summed population value to each of those polygons.  To start that process, you will need to convert your density image to a spatial grid, then back to an image, and finally to contour lines that we will use to begin creating our polygons.  A key part of the <code>contourLines()</code> command is the <code>levels =</code>  argument on line 3 below.  In my example, I have set the <code>levels = 1000000</code>, which is the equivalent of the 1000000 density estimate contour line in the plot above.  What that means, is that R will produce a line that is equivalent to that contour value across the entire probabilty density function of the population.  You will want to modify your <code>levels =</code>  arugment to coorespond with the values on your produced density plot.  The value you choose will represnt the threshold set that uniformily and continuously differentiates urban areas from non-urban areas.  Later you will reassess this threshold after considering each polygon's area as well as its population.</p>
+<pre><code class="language-text">Dsg &lt;- as(your_ppp, &quot;SpatialGridDataFrame&quot;)  # convert to spatial grid class
+Dim &lt;- as.image.SpatialGridDataFrame(Dsg)  # convert again to an image
+Dcl &lt;- contourLines(Dim, levels = 1000000)  # create contour object
+SLDF &lt;- ContourLines2SLDF(Dcl, CRS(&quot;+proj=longlat +datum=WGS84 +no_defs&quot;))
+</code></pre>
+<p>Once you have your object named <code>SLDF</code>, which is a Spatial Lines Data Frame, convert it back to an <code>sf</code> object using the <code>st_as_sf()</code> command.  The resulting object will be a <code>MULTILINESTRING</code>.</p>
+<pre><code class="language-text">sf_multiline_obj &lt;- st_as_sf(SLDF, sf)
+</code></pre>
+<p>By plotting the spatial grid data frame with the newly created multiline object on top, the goal of our exercise will begin to become more readily visible.</p>
+<p><img src="images/rplot%20%288%29.png" alt="" /></p>
+<p>You will notice that a number of the contour lines are closed and already prepared for conversion from multiline objects to polygons.  This is particularly true in the central areas, where a number of enclosed lines have been created.  On the contrary, the more densely populated area represented by the more red, orange and yellow collored gridcells, intersects directly with the edge of our administrative boundary and will present a more difficult challenge in order to create its polygon.  In order to create polygons that represent each indiividual urbanized area, we will need to isolate inside area polygons from outside area polygons.  First start with the <code>st_polygonize()</code> command to convert all of the closed polylines that are valid for conversion to polygons.</p>
+<pre><code class="language-text">inside_polys &lt;- st_polygonize(SLDFs)
+</code></pre>
+<p>Run <code>plot(st_geometry(inside_polys))</code> and you should notice a plot produced with only the internal polygons.  To recapture the contour lines from our density plot that did not close, use the <code>st_difference()</code> command to isolate these linear elements.</p>
+<pre><code class="language-text">outside_lines &lt;- st_difference(SLDFs, inside_polys)
+</code></pre>
+<p>Use <code>plot(st_geometry(outside_lines))</code> to view the resulting difference from the two objects and notice that these are the contour lines that did not close since they intersected with the adm2 boundary.</p>
+<p>In order to fuse these unenclosed contour lines with the administrative boundary, I will use the <code>st_buffer()</code> command to offset each line, just a little bit, so as to make a cut in the adm2 border, after I intersect the two objects.  Also use the <code>st_cast()</code> command to convert the geometric collection of objects into individual polygons, where each one potentially represents one urbanized area.</p>
+<pre><code class="language-text">z &lt;- st_buffer(outside_lines, 0.001)
+zz &lt;- st_difference(adm2_sf, z)
+zzz &lt;- st_cast(zz, &quot;POLYGON&quot;)
+</code></pre>
+<p>You will notice that the resutant polygon, has been subdivided into many different polygons with a very small space where the unenclosed contour lines intersected the adm2 border.  While this is helpful in the regard that now we in fact have polygons representing each area, it also presents two subsequent problems.  First, we now have a very large polygon that represents all of Sanniquelleh-Mahn that had values below the selected contour line value.  Second, there are also polygons that resulted from urbanized areas intersecting and then reintersecting the adm2 border and thus resulting in smaller pockets of areas that also have values below the selected density contour line.  We will need to execute two appraoches in resolving these two issues.</p>
+<p><img src="images/screen-shot-2019-10-28-at-12.02.21-am.png" alt="" /></p>
+<p>The large polygon that represents that entire area of the adm2 that was not within the contour line, is also the largest polygon in the simple feature collection.  To remove it, calculate the area of all polygons in the collection using <code>st_area()</code> and then <code>filter()</code> based on the size of the largest feature.  To simpify the calculation, set the class of the area variable to numeric when calculating the area.</p>
+<pre><code class="language-text">zzz$area &lt;- as.numeric(st_area(zzz))
+</code></pre>
+<p>Now look at the data for your created sf object (I have named it <code>zzz</code> in the above example) and order the area from largest to smallest.</p>
+<p><img src="images/screen-shot-2019-10-28-at-12.38.55-am.png" alt="" /></p>
+<p>In this example, the largest polygon has an area of about 1.28 x 10^9 m^2.  Remove that polygon, but retain the rest.</p>
+<pre><code class="language-text">subpolys &lt;- zzz %&gt;%
+  filter(area &lt; 250000000)
+</code></pre>
+<p>To evaluate the remaining polygons that were created from the intersection of the outside lines with your adm2 border, we will use the extracted population for each polygon.  First <code>extract()</code> the population values from your adm2 world pop raster and assign each polygons ID to each gridcell.  Next, aggregate the extracted values, group by polygon ID while also calculating the sum of all gridcells within each polygon.  Finally, add those values to your newly created subpolygon sf object (that represents the intersection of the outside lines with the adm2 border).  Since we are using a masked raster of your adm2 area, this single layer <code>extract()</code> command should take significantly less time than with the larger, stacked <code>rasterBrick</code> used in previous projects.</p>
+<pre><code class="language-text">subpolys_extract &lt;- raster::extract(sm_pop15, subpolys, df = TRUE)
+
+subpolys_totals &lt;- subpolys_extract %&gt;%
+  group_by(ID) %&gt;%
+  summarize(pop15 = sum(lbr_ppp_2015, na.rm = TRUE))
+
+subpolys &lt;- subpolys %&gt;%
+  add_column(pop15 = subpolys_totals$pop15)
+</code></pre>
+<p>Have a look at the <code>pop15</code> value for each polygon in your <code>subpolys</code> object.</p>
+<p><img src="images/screen-shot-2019-10-28-at-12.50.22-am.png" alt="" /></p>
+<p>Removing the largest polygon was very effective at removing all areas that represented densities below the selected contour line.  You may also want to plot the subpolys (over the density function) to consider location and size.</p>
+<pre><code class="language-text">png(&quot;subpolys.png&quot;, width = 1200, height = 1200)
+plot(sm_dens, main = NULL)
+plot(st_geometry(subpolys), add = TRUE)
+dev.off()
+</code></pre>
+<p>I'm going to use the <code>filter()</code> command to remove only those polygons with populations less than 750 persons.  You may want to increase or decrease this value based on your results.  A more thorough analysis might involve considering population density in setting this threshold, but for now just use an <em>ad hoc</em> measure.</p>
+<pre><code class="language-text">subpolys_filtered &lt;- subpolys %&gt;%
+  filter(pop15 &gt; 750)
+</code></pre>
+<p>You can compare earlier results with the newly produced filtered subpolys.</p>
+<pre><code class="language-text">png(&quot;subpolys_filtered.png&quot;, width = 1200, height = 1200)
+plot(sm_dens, main = NULL)
+plot(st_geometry(subpolys_filtered), add = TRUE)
+dev.off()
+</code></pre>
+<p>We have evalutated the outside polygons by area and population, now let's likewise evaluate the inside polygons we have already created by population.  To transform a geometric collection into individual polygons use the <code>st_geometric_extract()</code> command.  Follow that by again extracting population values then aggregating and summing their values by each polygons ID.  Finally, add those values as a column to your inside_polys <code>sf</code> object.</p>
+<pre><code class="language-text">inside_polys &lt;- st_collection_extract(inside_polys, &quot;POLYGON&quot;)
+
+ips_extract &lt;- raster::extract(sm_pop15, inside_polys, df = TRUE)
+
+ips_totals &lt;- ips_extract %&gt;%
+  group_by(ID) %&gt;%
+  summarize(pop15 = sum(lbr_ppp_2015, na.rm = TRUE))
+
+inside_polys &lt;- inside_polys %&gt;%
+  add_column(pop15 = ips_totals$pop15)
+</code></pre>
+<p>As with the outside polygons, set a value to filter population densities that do not qualify as urbanized.</p>
+<pre><code class="language-text">inside_polys_filtered &lt;- inside_polys %&gt;%
+  filter(pop15 &gt; 150)
+</code></pre>
+<p>We finally at the point where we will union the two sets of polygons, extract all population values and designate our de facto human settlements and urbanized areas.  First use the <code>st_union()</code> command to combine both sets of polygons into a single <code>sf</code> feature.</p>
+<pre><code class="language-text">uas &lt;- st_union(inside_polys_filtered, subpolys_filtered)
+</code></pre>
+<p>Use the <code>st_cast()</code> command to transform any multipolygons into individual entities.</p>
+<pre><code class="language-text">urban_areas &lt;- st_cast(uas, &quot;POLYGON&quot;)
+</code></pre>
+<p>At this point, most of the columns in our <code>urban_areas</code> are nonsensical and can be simply removed.  Just be sure to keep the geometry.</p>
+<pre><code class="language-text">urban_areas[ ,1:19] &lt;- NULL
+</code></pre>
+<p>Have a quick look at the urban area polygons and density.</p>
+<p><img src="images/sm_pop15.png" alt="" /></p>
+<p>Extract all population values and add them to your urban_areas polygons.</p>
+<pre><code class="language-text">uas_extract &lt;- raster::extract(sm_pop15, urban_areas, df = TRUE)
+
+uas_totals &lt;- uas_extract %&gt;%
+  group_by(ID) %&gt;%
+  summarize(pop15 = sum(lbr_ppp_2015, na.rm = TRUE))
+
+urban_areas &lt;- urban_areas %&gt;%
+  add_column(pop15 = uas_totals$pop15)
+</code></pre>
+<p>Again, look at your <code>sf</code> object <code>urban_areas</code> by entering its name into the console.</p>
+<p><img src="images/screen-shot-2019-10-29-at-11.50.30-pm.png" alt="" /></p>
+<p>Compare the output when controlling for the number of unique polygons in your simple feature object.</p>
+<pre><code class="language-text">urban_areas %&gt;%
+  unique()
+</code></pre>
+<p><img src="images/screen-shot-2019-10-30-at-12.28.31-am.png" alt="" /></p>
+<p>It seems somehow through the process of spatial modifcations and unions, I captured some repetitive polygons.  This might have an impact on plotting, so I will go ahead and assign the <code>unique()</code> set of simple features to the object, by simply overwritting it <code>urban_areas &lt;- urban_areas %&gt;% unique()</code>.</p>
+<p>Use <code>ggplot()</code> to plot each of your de facto human settlements and urban areas.</p>
+<pre><code class="language-text">ggplot() +
+  geom_sf(data = sm,
+          size = 0.75,
+          color = &quot;gray50&quot;,
+          fill = &quot;gold3&quot;,
+          alpha = 0.15) +
+  geom_sf(data = urban_areas,
+          fill = &quot;lightblue&quot;,
+          size = 0.45,
+          alpha = 0.5)
+</code></pre>
+<p>Use <code>ggsave()</code> to save your plot.</p>
+<p><img src="images/sm1%20%281%29.png" alt="" /></p>
+<p>In addition to identifying the urban areas, also describe their population and density.  You should already have population as a variable in your <code>urban_areas</code> object, but now also add density.  You will recall that we used this same snippet in the previous exercise.  Be sure to load the <code>library(units)</code> before using the <code>set_units()</code> command.</p>
+<pre><code class="language-text">your_sf_obj &lt;- your_sf_object %&gt;%
+    mutate(add_name_here = st_area(your_sf_object) %&gt;%
+             set_units(km^2)) %&gt;%
+    mutate(density = as.numeric(pop_variable_here / area_variable_name_here))
+</code></pre>
+<p>Instead of assigning a geometric scale to the actual polygons, use a point that will be sized and assigned a color according to both population and density.  First <code>cast()</code> the centroid of each polygon as a new simple features object.</p>
+<pre><code class="language-text">ua_cntr_pts &lt;-  urban_areas %&gt;% 
+  st_centroid() %&gt;% 
+  st_cast(&quot;MULTIPOINT&quot;)
+</code></pre>
+<p>Again, use <code>ggplot()</code> to plot a map of de facto urban areas and human settlements where each uniform and continuous area is statistically described in terms of its population as well as its density.</p>
+<pre><code class="language-text">ggplot() +
+  geom_sf(data = adm2_sf,
+          size = 0.75,
+          color = &quot;gray50&quot;,
+          fill = &quot;gold3&quot;,
+          alpha = 0.15) +
+  geom_sf(data = urban_areas_sf,
+          fill = &quot;lightblue&quot;,
+          size = 0.25,
+          alpha = 0.5) +
+  geom_sf(data = cntr_pts_sf,
+          aes(size = add_var_here, 
+              color = add_var_here),
+          show.legend = 'point') +
+  scale_color_gradient(low = &quot;add_color&quot;, high = &quot;add_color&quot;)
+</code></pre>
+<p><img src="images/sm2%20%282%29.png" alt="" /></p>
+<h2><a class="header" href="#team-challenge-question-5" id="team-challenge-question-5">Team Challenge Question</a></h2>
+<p>Follow the steps from above used to produce the plots describing Liberia, but instead each team member should use their own selected LMIC country.  Produce <strong>a geospatial plot</strong> that describes the <em>de facto</em> boundaries of human settlements and urbanization throughout your selected (and subset) administrative area.  Represent the continuum of values (using size and color) of two continuous variables, simultaneously.</p>
+<p>Meet with your group and prepare two different plots for the Friday informal group presentation (at the end of class).  Then as a group, upload all 5 team members plots to #data100_igps (informal group presentations) by Sunday night.</p>
+<h2><a class="header" href="#individual-stretch-goal-1-5" id="individual-stretch-goal-1-5">Individual Stretch Goal 1</a></h2>
+<p>Go back and plot all of the subdivisions within your adm2, adm3 or adm4 and add their names so you can identify which subdivision is adjacent to the one you have already selected.  The following code will filter from my adm2 <code>sf</code> object all of the districts that are located within the county (adm1) named Nimba.  You may recall using the filter and plot like during Project 1.</p>
+<pre><code class="language-text">lbr_adm2 %&gt;%
+  filter(NAME_1 == &quot;Nimba&quot;) %&gt;%
+  ggplot() +
+  geom_sf(size = .15) +
+  geom_sf_text(aes(label = NAME_2),
+               size = 2.5)
+</code></pre>
+<p>This will produce the following ggplot output.</p>
+<p><img src="images/nm%20%281%29.png" alt="" /></p>
+<p>The central and most dominant urban area within Sanniquelleh-Mahn was along the south-western border of the district, not only presenting urban densities with the shared international border with Guinnea to the north, but also with the internal Liberian district to the south.  The name of this district in my case Saclepea.  Choose an adm2 that borders with the original one you selected and then continue to conduct an analysis that defines de facto urbanized areas.  Instead of using <code>area</code> and <code>population</code> as the <code>filter()</code> variables, this time we will simply use <code>density</code>.</p>
+<p>As before, use the pipe operators to filter your newly selected adm2 district.</p>
+<pre><code class="language-text">sp &lt;- lbr_adm2 %&gt;%
+  filter(NAME_2 == &quot;Saclepea&quot;)
+</code></pre>
+<p>Again, <code>crop()</code>, <code>mask()</code>, and use <code>cellStats()</code> to define a variable that represents the adm2's population. </p>
+<pre><code class="language-text">sp_pop15 &lt;- crop(lbr_pop15, sp)
+sp_pop15 &lt;- mask(sp_pop15, sp)
+
+pop &lt;- floor(cellStats(sp_pop15, 'sum'))
+</code></pre>
+<p>Use the <code>st_write()</code> command from the <code>sf::</code> package to export your simple features object to your working directory then reimport it using the <code>readShapeSpatial()</code> command frmo the <code>maptools::</code> package.  You may get some warnings from R but use the <code>plot(win)</code> command to confirm your newly created <code>win</code> object plots fine.</p>
+<pre><code class="language-text">st_write(sp, &quot;sp.shp&quot;, delete_dsn=TRUE)
+sp_mt &lt;- readShapeSpatial(&quot;sp.shp&quot;)
+win &lt;- as(sp_mt, &quot;owin&quot;)
+</code></pre>
+<p>Create your planar point pattern object using the random point command from <code>spatstat::</code> with the newly created <code>sp_pop15</code> raster object as the basis for the spatial probability distribution and the <code>win</code> object as the window or boundary for those randomly placed points (each one again representing one person).</p>
+<pre><code class="language-text">sp_ppp &lt;- rpoint(pop, f = as.im(sp_pop15), win = win)
+</code></pre>
+<p>Again use the <code>bw.ppl()</code> command to define the value of the bandwidth you will use in the spatial probability function that will describe population density throughout your newly selected adm2.  Also, again, use the <code>save()</code> and <code>load()</code> command to expedite your script after running the <code>bw.ppl()</code> command one time.</p>
+<pre><code class="language-text">#bw &lt;- bw.ppl(sp_ppp)
+#save(bw, file = &quot;bw_sp.RData&quot;)
+load(&quot;bw_sp.RData&quot;)
+</code></pre>
+<p>Use the <code>density.ppp()</code> command to produce a spatial probability density function from the window that serves as the boundary of your planar point pattern and your calculated band width.</p>
+<pre><code class="language-text">sp_dens &lt;- density.ppp(sp_ppp, sigma = bw)
+</code></pre>
+<p>Again, convert your density function to a spatial grid data frame in order to extract the contour line that will be used in your extract.  Use the same value in your <code>levels =</code> argument from your previous adm2 object.  Convert your spatial lines data frame object to an <code>sf</code> object using the <code>st_as_sf()</code> command. </p>
+<pre><code class="language-text">Dsg &lt;- as(sp_dens, &quot;SpatialGridDataFrame&quot;)  # convert to spatial grid class
+Dim &lt;- as.image.SpatialGridDataFrame(Dsg)  # convert again to an image
+Dcl &lt;- contourLines(Dim, levels = 1000000)  # create contour object
+SLDF &lt;- ContourLines2SLDF(Dcl, CRS(&quot;+proj=longlat +datum=WGS84 +no_defs&quot;))
+
+SLDFs &lt;- st_as_sf(SLDF, sf)
+</code></pre>
+<p>Check your output by plotting a <code>png()</code> object to your working directory.  Don't forget to use <code>dev.off()</code> to close the graphical device after plotting the <code>png</code>.</p>
+<p><img src="images/sp_dsg_conts.png" alt="" /></p>
+<p>Create polygons from the enclosed, inside lines using the <code>st_polygonize()</code> command.</p>
+<pre><code class="language-text">inside_polys &lt;- st_polygonize(SLDFs)
+</code></pre>
+<p>Again use the <code>st_difference()</code> command to isolate unenclosed lines that intersect the border of your adm2 or adm3.</p>
+<pre><code class="language-text">outside_lines &lt;- st_difference(SLDFs, inside_polys)
+</code></pre>
+<p>Then buffer, intersect and create new polygons.</p>
+<pre><code class="language-text">outside_buffers &lt;- st_buffer(outside_lines, 0.001)
+outside_intersects &lt;- st_difference(sp, outside_buffers)
+</code></pre>
+<p>Use the <code>st_cast()</code> command to convert all of the outside intersecting enclosed areas to polygons.</p>
+<pre><code class="language-text">oi_polys &lt;- st_cast(outside_intersects, &quot;POLYGON&quot;)
+</code></pre>
+<p>Use the <code>st_collection_extract()</code> command to convert all internal, enclosed geometric collections to polygons.</p>
+<pre><code class="language-text">in_polys &lt;- st_collection_extract(inside_polys, &quot;POLYGON&quot;)
+</code></pre>
+<p>Remove all columns that are not geometries.</p>
+<pre><code class="language-text">in_polys[ ,1] &lt;- NULL
+oi_polys[ ,1:15] &lt;- NULL
+</code></pre>
+<p>Use the <code>st_union()</code> command to combine the inside, enclosed polygons with the outside, intersecting polygons.</p>
+<pre><code class="language-text">all_polys &lt;- st_union(in_polys, oi_polys)
+</code></pre>
+<p>Use convert the resulting geometric collection <code>sf</code> object by first extracting and then casting to individual polygons.  You will likely have duplicated geometries.  Use the <code>unique()</code> command to remove all duplicates from your simple feature object.  Uniquely identify your simple feature object to distinguish it from your originally selected adm2 or adm3.  In the following example, I have named the <code>sf</code> object <code>all_polys_sp</code> to distinguish Saclepea from Sanniquelleh-Mahn.</p>
+<pre><code class="language-text">all_polys &lt;- st_collection_extract(all_polys, &quot;POLYGON&quot;)
+all_polys &lt;- st_cast(all_polys, &quot;POLYGON&quot;)
+all_polys_sp &lt;- all_polys %&gt;%
+  unique()
+</code></pre>
+<p>Use the familiar snippet of code to extract your population values and group by each individually defined urban area while also summing the population totals.  Add this column to your <code>sf</code> object, while also creating a variable that describes <code>area</code> as well as <code>density</code>.</p>
+<pre><code class="language-text">all_polys_sp_ext &lt;- raster::extract(sp_pop15, all_polys_sp, df = TRUE)
+
+all_polys_sp_ttls &lt;- all_polys_sp_ext %&gt;%
+  group_by(ID) %&gt;%
+  summarize(pop15 = sum(lbr_ppp_2015, na.rm = TRUE))
+
+all_polys_sp &lt;- all_polys_sp %&gt;%
+  add_column(pop15 = all_polys_sp_ttls$pop15) %&gt;%
+  mutate(area = as.numeric(st_area(all_polys_sp) %&gt;%
+                             set_units(km^2))) %&gt;%
+  mutate(density = as.numeric(pop15 / area))
+</code></pre>
+<p>Use the <code>filter()</code> command to remove all polygons that are below urban densities.  Order the data based on the <code>density</code> variable and compare each polygons <code>area</code> and <code>population</code>.  You may also have some non-sensicial extremely large densities in places where slivers of polygons remained and due to the size exagerrated the density measure.  I'm setting my maxium value to <code>250</code> but consider your max based on your output.  Executing the following <code>filter()</code> command is different from the original adm2 analysis you conducted, where you used both <code>area</code> and <code>population</code>.  Using the <code>density</code> variable as a filter will likely be more effective, but be sure to review and interpret your output and confirm it makes sense.</p>
+<pre><code class="language-text">all_polys_sp &lt;- all_polys_sp %&gt;%
+  filter(density &gt; 75) %&gt;%
+  filter(density &lt; 250)
+</code></pre>
+<p>Again, create your center points for use in your ggplot.</p>
+<pre><code class="language-text">sp_cntr_pts &lt;-  all_polys_sp %&gt;% 
+  st_centroid() %&gt;% 
+  st_cast(&quot;MULTIPOINT&quot;)
+</code></pre>
+<p>Produce your spatial plot that defines all de facto settlements and urban areas.</p>
+<pre><code class="language-text">ggplot() +
+  geom_sf(data = sp,
+          size = 0.75,
+          color = &quot;gray50&quot;,
+          fill = &quot;gold3&quot;,
+          alpha = 0.15) +
+  geom_sf(data = all_polys_sp,
+          fill = &quot;lightblue&quot;,
+          size = 0.25,
+          alpha = 0.5) +
+  geom_sf(data = sp_cntr_pts,
+          aes(size = pop15,
+              color = density),
+          show.legend = 'point') +
+  scale_color_gradient(low = &quot;yellow&quot;, high = &quot;red&quot;) +
+  xlab(&quot;longitude&quot;) + ylab(&quot;latitude&quot;) +
+  ggtitle(&quot;Urbanized Areas throughout Saclepea, Liberia&quot;)
+</code></pre>
+<p>Review the output using <code>ggsave(&quot;sp.png&quot;, width = 10, height = 10)</code>.  Return to your analysis and modify the <code>density &gt;</code> or <code>density &lt;</code> arguments as needed.</p>
+<p><img src="images/sp.png" alt="" /></p>
+<p>Finally, combine your earlier output describing your original adm2 with your newly produced spatial description.  Start by using the <code>st_union()</code> command to combine the two original <code>sf</code> objects.  Use the <code>summarize()</code> command to dissolve the two polygons into one.</p>
+<pre><code class="language-text">combined_adm2s &lt;- sm %&gt;%
+  st_union(sp) %&gt;%
+  summarize()
+</code></pre>
+<p>Also combine your urban area polygons from both the first adm2 district and the second one you created.  Again use the <code>summarize()</code> command to dissolve polygons that share common boundaries into single entities, such as those that share a the border between the two administrative areas.  Use <code>st_cast()</code> to covnert all multipolygons into single polygons.</p>
+<pre><code class="language-text">combined_polys &lt;- all_polys_sp %&gt;% 
+  st_union(all_polys_sm) %&gt;%
+  summarize() %&gt;% 
+  st_cast(&quot;POLYGON&quot;)
+</code></pre>
+<p>Merge both of your raster objects into a single raster layer.</p>
+<pre><code class="language-text">comb_raster &lt;- merge(sm_pop15, sp_pop15)
+</code></pre>
+<p>Use the <code>sf</code> object that combined the urban area polygons from both administrative subdivisions to extract all values from the merged raster layer.</p>
+<pre><code class="language-text">combined_ext &lt;- raster::extract(comb_raster, combined_polys, df = TRUE)
+</code></pre>
+<p>Sum population totals by polygon.</p>
+<pre><code class="language-text">combined_ttls &lt;- combined_ext %&gt;%
+  group_by(ID) %&gt;%
+  summarize(pop15 = sum(layer, na.rm = TRUE))
+</code></pre>
+<p>Add the totals as a column to your <code>sf</code> object and also create the <code>area</code> and <code>density</code> variables.</p>
+<pre><code class="language-text">combined_polys &lt;- combined_polys %&gt;%
+  add_column(pop15 = combined_ttls$pop15) %&gt;%
+  mutate(area = as.numeric(st_area(combined_polys) %&gt;%
+                             set_units(km^2))) %&gt;%
+  mutate(density = as.numeric(pop15 / area))
+</code></pre>
+<p>Filter polygons based on <code>density</code>, <code>area</code> or <code>population</code> as needed.</p>
+<pre><code class="language-text">combined_polys &lt;- combined_polys %&gt;%
+  filter(density &gt; 80) %&gt;%
+  filter(density &lt; 175)
+</code></pre>
+<p>Create the center points</p>
+<pre><code class="language-text">combined_pts &lt;-  combined_polys %&gt;% 
+  st_centroid() %&gt;% 
+  st_cast(&quot;MULTIPOINT&quot;)
+</code></pre>
+<p>Use ggplot to produce your spatial description of all human settlements and urban areas throughout your two adm2s or adm3s.</p>
+<pre><code class="language-text">ggplot() +
+  geom_sf(data = combined_adm2s,
+          size = 0.75,
+          color = &quot;gray50&quot;,
+          fill = &quot;gold3&quot;,
+          alpha = 0.15) +
+  geom_sf(data = combined_polys,
+          fill = &quot;lightblue&quot;,
+          size = 0.25,
+          alpha = 0.5) +
+  geom_sf(data = combined_pts,
+          aes(size = pop15,
+              color = density),
+          show.legend = 'point') +
+  scale_color_gradient(low = &quot;yellow&quot;, high = &quot;red&quot;) +
+  xlab(&quot;longitude&quot;) + ylab(&quot;latitude&quot;) +
+  ggtitle(&quot;Urbanized Areas throughout Sanniquelleh-Mahn &amp; Saclepea, Liberia&quot;)
+
+</code></pre>
+<p>Review the output using <code>ggsave(&quot;combined.png&quot;, width = 12, height = 12)</code>.  Modify the <code>density &gt;</code> or <code>density &lt;</code> arguments as needed.</p>
+<p><img src="images/combined.png" alt="" /></p>
+<h2><a class="header" href="#individual-stretch-goal-2-4" id="individual-stretch-goal-2-4">Individual Stretch Goal 2</a></h2>
+<p>Apply Zipf's Law to your de facto human settlements.  Is a power law in effect?</p>
 
                     </main>
 
