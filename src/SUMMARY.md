@@ -10,5 +10,5 @@
 	- [Spatial Population Description](./describe.md)
 	- [Spatial Population Modelling](./model.md)
 	- [Accessibility 1](./defacto_descript.md)
-	- [Accessibility 2](./topography.md)
-	- [Accessibility 3](./transport_health.md)
+	- [Accessibility 2](./transport_health.md)
+	- [Accessibility 3](./topography.md)

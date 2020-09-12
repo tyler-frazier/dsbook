@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded affix "><a href="book.html">About this book</a></li><li class="expanded affix "><a href="author.html">About the author</a></li><li class="expanded "><a href="getting_started.html"><strong aria-hidden="true">1.</strong> Student Preparations</a></li><li><ol class="section"><li class="expanded "><a href="gitstart.html"><strong aria-hidden="true">1.1.</strong> Getting Started with GitHub</a></li><li class="expanded "><a href="rstart.html"><strong aria-hidden="true">1.2.</strong> Getting Started with R &amp; RStudio</a></li><li class="expanded "><a href="manager.html"><strong aria-hidden="true">1.3.</strong> Getting Started with a package manager</a></li><li class="expanded "><a href="pystart.html"><strong aria-hidden="true">1.4.</strong> Getting Started with python, pyenv and pycharm</a></li></ol></li><li class="expanded "><a href="datause.html"><strong aria-hidden="true">2.</strong> Data Use for Human and Community Scale Processes</a></li><li><ol class="section"><li class="expanded "><a href="describe.html"><strong aria-hidden="true">2.1.</strong> Spatial Population Description</a></li><li class="expanded "><a href="model.html"><strong aria-hidden="true">2.2.</strong> Spatial Population Modelling</a></li><li class="expanded "><a href="defacto_descript.html"><strong aria-hidden="true">2.3.</strong> Accessibility 1</a></li><li class="expanded "><a href="topography.html"><strong aria-hidden="true">2.4.</strong> Accessibility 2</a></li><li class="expanded "><a href="transport_health.html"><strong aria-hidden="true">2.5.</strong> Accessibility 3</a></li></ol></li></ol>
+                <ol class="chapter"><li class="expanded affix "><a href="book.html">About this book</a></li><li class="expanded affix "><a href="author.html">About the author</a></li><li class="expanded "><a href="getting_started.html"><strong aria-hidden="true">1.</strong> Student Preparations</a></li><li><ol class="section"><li class="expanded "><a href="gitstart.html"><strong aria-hidden="true">1.1.</strong> Getting Started with GitHub</a></li><li class="expanded "><a href="rstart.html"><strong aria-hidden="true">1.2.</strong> Getting Started with R &amp; RStudio</a></li><li class="expanded "><a href="manager.html"><strong aria-hidden="true">1.3.</strong> Getting Started with a package manager</a></li><li class="expanded "><a href="pystart.html"><strong aria-hidden="true">1.4.</strong> Getting Started with python, pyenv and pycharm</a></li></ol></li><li class="expanded "><a href="datause.html"><strong aria-hidden="true">2.</strong> Data Use for Human and Community Scale Processes</a></li><li><ol class="section"><li class="expanded "><a href="describe.html"><strong aria-hidden="true">2.1.</strong> Spatial Population Description</a></li><li class="expanded "><a href="model.html"><strong aria-hidden="true">2.2.</strong> Spatial Population Modelling</a></li><li class="expanded "><a href="defacto_descript.html"><strong aria-hidden="true">2.3.</strong> Accessibility 1</a></li><li class="expanded "><a href="transport_health.html"><strong aria-hidden="true">2.4.</strong> Accessibility 2</a></li><li class="expanded "><a href="topography.html"><strong aria-hidden="true">2.5.</strong> Accessibility 3</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -2076,6 +2076,97 @@ all_polys_sp &lt;- all_polys_sp %&gt;%
 <p><img src="images/combined.png" alt="" /></p>
 <h2><a class="header" href="#individual-stretch-goal-2-4" id="individual-stretch-goal-2-4">Individual Stretch Goal 2</a></h2>
 <p>Apply Zipf's Law to your de facto human settlements.  Is a power law in effect?</p>
+<h1><a class="header" href="#adding-transportation-facilities--health-care-services" id="adding-transportation-facilities--health-care-services">Adding transportation facilities &amp; health care services</a></h1>
+<p>To start the final part of project 3, head back to the HDX website that we used all the way back during the first few weeks of the semester and enter the name of your selected LMIC.  Again, I will select Liberia and begin to browse through the available data.  Identify the road network dataset for your LMIC and then select it.  Select the download button on the subsequent webpage and obtain the available data.  Move the folder you just downloaded (including the shapefile and all of its other associated files) to your working directory.</p>
+<p>Import the roads shapefile into RStudio using the <code>read_sf()</code> command.</p>
+<pre><code class="language-text">LMIC_roads  &lt;- add_command_here(&quot;data_folder/LMIC_roads.shp&quot;)
+</code></pre>
+<p>Using the polygon you created at the end of the previous exercise use the <code>st_crop()</code> command to crop your <code>LMIC_roads</code> object to just those roadways that are located within the adm2 or adm3 previously selected.</p>
+<pre><code class="language-text">adm2_roads &lt;- add_command_here(LMIC_roads, unioned_adm2_borders)
+</code></pre>
+<p>Use the <code>table()</code> command to review the different classifications of roads that populate your adm2.  Most likely the variable you will be interested in producing a table that describes the different discrete values is named <code>CATEGORY</code>.</p>
+<pre><code class="language-text">add_command_here(object$variable)
+</code></pre>
+<p>Take each of these different discrete outcomes within your roads <code>sf</code> object and use the <code>filter()</code> command to subset based on each different classification.</p>
+<pre><code class="language-text">primary &lt;- adm2_roads %&gt;%
+  add_command_here(VARIABLE == &quot;Primary Routes&quot;)
+
+secondary &lt;- adm2_roads %&gt;%
+  add_command_here(VARIABLE == &quot;Paved&quot;)
+
+tertiary &lt;- adm2_roads %&gt;%
+  add_command_here(VARIABLE == &quot;Tracks&quot;)
+</code></pre>
+<p>Use <code>ggplot()</code> to produce a plot that describes the location of all urban areas as well as the transportation network throughout your selected adm2.</p>
+<pre><code class="language-text">ggplot() +
+  geom_sf(data = combined_adm2s_border,
+          size = 0.75,
+          color = &quot;gray50&quot;,
+          fill = &quot;gold3&quot;,
+          alpha = 0.15) +
+  geom_sf(data = combined_urban_areas,
+          size = 0.75,
+          color = &quot;gray50&quot;,
+          fill = &quot;gold3&quot;,
+          alpha = 0.15) +
+  geom_sf(data = primary_roads,
+          size = set_size,
+          color = &quot;color&quot;) +
+  geom_sf(data = seondary_roads,
+          size = set_size,
+          color = &quot;color&quot;) +
+  geom_sf(data = tertiary_roads,
+          size = set_size,
+          color = &quot;color&quot;) +
+  xlab(&quot;longitude&quot;) + ylab(&quot;latitude&quot;) +
+  ggtitle(&quot;Roadways throughout your selected adminitrative units&quot;)
+</code></pre>
+<p>The previous code will produce the following plot for the two Liberian administrative subdivisions that were previously selected and unioned into a single <code>sf</code> object.</p>
+<p><img src="images/rplot02%20%286%29.png" alt="" /></p>
+<p>Go back to the HDX website for your LMIC and download the data that describes health care facilities.  Use the <code>read_sf()</code> command to load the data into RStudio.  Use <code>st_crop()</code> to crop the health care facilities to your selected adm2 or adm3 area.  Use <code>table()</code> to identify all of the different types of health care facilities.  Subset each of the health care facility types in the same manner you previously subset transportation facility classifications.</p>
+<pre><code class="language-text">hospitals &lt;- adm_hcf %&gt;%
+  add_command_here(add_variable_here == &quot;hospital&quot;)
+
+clinics &lt;- adm_hcf %&gt;%
+  add_command_here(add_variable_here == &quot;clinic&quot;)
+
+other_hcfs &lt;- adm_hcf %&gt;%
+  add_command_here(add_variable_here == &quot;doctors&quot; | add_variable_here == &quot;dentist&quot; | add_variable_here == &quot;pharmacy&quot;)
+</code></pre>
+<p>Add each health care facility type to your plot.</p>
+<pre><code class="language-text">ggplot() +
+
+...
+  
+  geom_sf(data = hospital,
+          size = add_size,
+          color = &quot;color&quot;) +
+  geom_sf(data = clinic,
+          size = add_size,
+          color = &quot;color&quot;) +
+  geom_sf(data = ohcf,
+          size = add_size,
+          color = &quot;color&quot;) +
+  
+  ...
+  
+  ggtitle(&quot;Access to Health Care Serivces throughout Sanniquelleh-Mahn &amp; Saclepea, Liberia&quot;)
+
+</code></pre>
+<p>The previous plot will produce the following output.</p>
+<p><img src="images/rplot01%20%281%29.png" alt="" /></p>
+<p>Finally, add the scale that describes the size and density of each urban area.  Produce the plot that describes access to health care services via transportation facilities throughout your selected and combined adm2 areas.</p>
+<p><img src="images/rplot04%20%282%29.png" alt="" /></p>
+<h2><a class="header" href="#project-3-individual-deliverable" id="project-3-individual-deliverable">Project 3. Individual Deliverable</a></h2>
+<p>Upload the spatial plot that describes the <em>de facto</em> location of human settlements and urban areas, the center lines of classified roadways and the location of health care facilities by type throughout your selected and combined adm2, adm3 or adm4 areas.</p>
+<p>Accompany your plot with a written statement that provides answers to the following information. </p>
+<ol>
+<li>Total population of selected and combined adm2, adm3 or adm4 areas and the total number of distinctly defined human settlements or urban areas</li>
+<li>A description of the distribution of sizes and densities of all human settlements and urban areas throughout your selected and combined adm2, adm3 or adm4 areas</li>
+<li>A description of the roadways and your estimate of the transportation networks level of service in comparison to the spatial distriubtion of human settlements and urban areas</li>
+<li>A description of health care facilities and your estimate of service accessibility in comparison to the spatial distriubtion of human settlements and urban areas</li>
+</ol>
+<p>Each team member should be prepared to present their final draft results on Friday, November 15th during the informal group presentations.  Upload your finished product to the slack channel #data100_project3 no later than 11:59PM on Sunday, November 17th.</p>
 <h1><a class="header" href="#rendering-topography" id="rendering-topography">Rendering Topography</a></h1>
 <p>In this last project, you will revist the de facto urban areas you defined as well as the transportation infrastructure and health care facilites you spatially located.  Using your combined adm2 or adm3, you will intersect those land use, transport and health care geographies with the topography of your selected adm2 or adm3.  You may recall that we used the <code>rayshader::</code> package back in project 1, which we will use again, but this time will focus on its application with rasters rather than starting with a <code>sf</code> object.</p>
 <p>To start, be certain you have the <code>raster::</code>,<code>sf::</code> and <code>tidyverse::</code> library of functions available for your current R worksession.  Also, install and load the <code>rayshader::</code> and <code>rayrender::</code> packages.</p>
@@ -2218,97 +2309,6 @@ dev.off()
 <li>Has producing your three-dimensional map resulted in an interpretion that is different from your previous analysis?</li>
 </ol>
 <p>Upload your group's finished product to the slack channel #data100_project4 no later than midnight on Thursday, April 30th.  Your team will present an extended, comparison of your selected administrative areas within each LMIC, during the final group presentation, held on May 1st.</p>
-<h1><a class="header" href="#adding-transportation-facilities--health-care-services" id="adding-transportation-facilities--health-care-services">Adding transportation facilities &amp; health care services</a></h1>
-<p>To start the final part of project 3, head back to the HDX website that we used all the way back during the first few weeks of the semester and enter the name of your selected LMIC.  Again, I will select Liberia and begin to browse through the available data.  Identify the road network dataset for your LMIC and then select it.  Select the download button on the subsequent webpage and obtain the available data.  Move the folder you just downloaded (including the shapefile and all of its other associated files) to your working directory.</p>
-<p>Import the roads shapefile into RStudio using the <code>read_sf()</code> command.</p>
-<pre><code class="language-text">LMIC_roads  &lt;- add_command_here(&quot;data_folder/LMIC_roads.shp&quot;)
-</code></pre>
-<p>Using the polygon you created at the end of the previous exercise use the <code>st_crop()</code> command to crop your <code>LMIC_roads</code> object to just those roadways that are located within the adm2 or adm3 previously selected.</p>
-<pre><code class="language-text">adm2_roads &lt;- add_command_here(LMIC_roads, unioned_adm2_borders)
-</code></pre>
-<p>Use the <code>table()</code> command to review the different classifications of roads that populate your adm2.  Most likely the variable you will be interested in producing a table that describes the different discrete values is named <code>CATEGORY</code>.</p>
-<pre><code class="language-text">add_command_here(object$variable)
-</code></pre>
-<p>Take each of these different discrete outcomes within your roads <code>sf</code> object and use the <code>filter()</code> command to subset based on each different classification.</p>
-<pre><code class="language-text">primary &lt;- adm2_roads %&gt;%
-  add_command_here(VARIABLE == &quot;Primary Routes&quot;)
-
-secondary &lt;- adm2_roads %&gt;%
-  add_command_here(VARIABLE == &quot;Paved&quot;)
-
-tertiary &lt;- adm2_roads %&gt;%
-  add_command_here(VARIABLE == &quot;Tracks&quot;)
-</code></pre>
-<p>Use <code>ggplot()</code> to produce a plot that describes the location of all urban areas as well as the transportation network throughout your selected adm2.</p>
-<pre><code class="language-text">ggplot() +
-  geom_sf(data = combined_adm2s_border,
-          size = 0.75,
-          color = &quot;gray50&quot;,
-          fill = &quot;gold3&quot;,
-          alpha = 0.15) +
-  geom_sf(data = combined_urban_areas,
-          size = 0.75,
-          color = &quot;gray50&quot;,
-          fill = &quot;gold3&quot;,
-          alpha = 0.15) +
-  geom_sf(data = primary_roads,
-          size = set_size,
-          color = &quot;color&quot;) +
-  geom_sf(data = seondary_roads,
-          size = set_size,
-          color = &quot;color&quot;) +
-  geom_sf(data = tertiary_roads,
-          size = set_size,
-          color = &quot;color&quot;) +
-  xlab(&quot;longitude&quot;) + ylab(&quot;latitude&quot;) +
-  ggtitle(&quot;Roadways throughout your selected adminitrative units&quot;)
-</code></pre>
-<p>The previous code will produce the following plot for the two Liberian administrative subdivisions that were previously selected and unioned into a single <code>sf</code> object.</p>
-<p><img src="images/rplot02%20%286%29.png" alt="" /></p>
-<p>Go back to the HDX website for your LMIC and download the data that describes health care facilities.  Use the <code>read_sf()</code> command to load the data into RStudio.  Use <code>st_crop()</code> to crop the health care facilities to your selected adm2 or adm3 area.  Use <code>table()</code> to identify all of the different types of health care facilities.  Subset each of the health care facility types in the same manner you previously subset transportation facility classifications.</p>
-<pre><code class="language-text">hospitals &lt;- adm_hcf %&gt;%
-  add_command_here(add_variable_here == &quot;hospital&quot;)
-
-clinics &lt;- adm_hcf %&gt;%
-  add_command_here(add_variable_here == &quot;clinic&quot;)
-
-other_hcfs &lt;- adm_hcf %&gt;%
-  add_command_here(add_variable_here == &quot;doctors&quot; | add_variable_here == &quot;dentist&quot; | add_variable_here == &quot;pharmacy&quot;)
-</code></pre>
-<p>Add each health care facility type to your plot.</p>
-<pre><code class="language-text">ggplot() +
-
-...
-  
-  geom_sf(data = hospital,
-          size = add_size,
-          color = &quot;color&quot;) +
-  geom_sf(data = clinic,
-          size = add_size,
-          color = &quot;color&quot;) +
-  geom_sf(data = ohcf,
-          size = add_size,
-          color = &quot;color&quot;) +
-  
-  ...
-  
-  ggtitle(&quot;Access to Health Care Serivces throughout Sanniquelleh-Mahn &amp; Saclepea, Liberia&quot;)
-
-</code></pre>
-<p>The previous plot will produce the following output.</p>
-<p><img src="images/rplot01%20%281%29.png" alt="" /></p>
-<p>Finally, add the scale that describes the size and density of each urban area.  Produce the plot that describes access to health care services via transportation facilities throughout your selected and combined adm2 areas.</p>
-<p><img src="images/rplot04%20%282%29.png" alt="" /></p>
-<h2><a class="header" href="#project-3-individual-deliverable" id="project-3-individual-deliverable">Project 3. Individual Deliverable</a></h2>
-<p>Upload the spatial plot that describes the <em>de facto</em> location of human settlements and urban areas, the center lines of classified roadways and the location of health care facilities by type throughout your selected and combined adm2, adm3 or adm4 areas.</p>
-<p>Accompany your plot with a written statement that provides answers to the following information. </p>
-<ol>
-<li>Total population of selected and combined adm2, adm3 or adm4 areas and the total number of distinctly defined human settlements or urban areas</li>
-<li>A description of the distribution of sizes and densities of all human settlements and urban areas throughout your selected and combined adm2, adm3 or adm4 areas</li>
-<li>A description of the roadways and your estimate of the transportation networks level of service in comparison to the spatial distriubtion of human settlements and urban areas</li>
-<li>A description of health care facilities and your estimate of service accessibility in comparison to the spatial distriubtion of human settlements and urban areas</li>
-</ol>
-<p>Each team member should be prepared to present their final draft results on Friday, November 15th during the informal group presentations.  Upload your finished product to the slack channel #data100_project3 no later than 11:59PM on Sunday, November 17th.</p>
 
                     </main>
 
