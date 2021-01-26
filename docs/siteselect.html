@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Project 1: Site Selection - Population and Development Data Science</title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded affix "><a href="book.html">About this book</a></li><li class="expanded affix "><a href="author.html">About the author</a></li><li class="expanded "><a href="getting_started.html"><strong aria-hidden="true">1.</strong> Student Preparations</a></li><li><ol class="section"><li class="expanded "><a href="gitstart.html"><strong aria-hidden="true">1.1.</strong> Getting Started with GitHub, Markdown &amp; Webstorm</a></li><li class="expanded "><a href="manager.html"><strong aria-hidden="true">1.2.</strong> Getting Started with Homebrew or Chocolatey</a></li><li class="expanded "><a href="rstart.html"><strong aria-hidden="true">1.3.</strong> Getting Started with R &amp; RStudio</a></li><li class="expanded "><a href="pystart.html"><strong aria-hidden="true">1.4.</strong> Getting Started with Python &amp; Pycharm</a></li></ol></li><li class="expanded "><a href="datause.html"><strong aria-hidden="true">2.</strong> Data Use for Human and Community Scale Development Processes</a></li><li><ol class="section"><li class="expanded "><a href="describe.html"><strong aria-hidden="true">2.1.</strong> Spatial Population Description</a></li><li class="expanded "><a href="model.html"><strong aria-hidden="true">2.2.</strong> Spatial Population Modelling</a></li><li class="expanded "><a href="defacto_descript.html"><strong aria-hidden="true">2.3.</strong> Accessibility 1</a></li><li class="expanded "><a href="transport_health.html"><strong aria-hidden="true">2.4.</strong> Accessibility 2</a></li><li class="expanded "><a href="topography.html"><strong aria-hidden="true">2.5.</strong> Accessibility 3</a></li></ol></li><li class="expanded "><a href="abm.html"><strong aria-hidden="true">3.</strong> Simulating Human Development Processes from Neighborhood to Regional Scales</a></li><li><ol class="section"><li class="expanded "><a href="siteselect.html" class="active"><strong aria-hidden="true">3.1.</strong> Project 1: Site Selection</a></li><li class="expanded "><a href="synpop.html"><strong aria-hidden="true">3.2.</strong> Project 2: Generating Synthetic Populations</a></li><li class="expanded "><a href="gravity.html"><strong aria-hidden="true">3.3.</strong> Project 3: Transportation Model</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Population and Development Data Science</h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#project-1-site-selection" id="project-1-site-selection">Project 1: Site Selection</a></h1>
+<h2><a class="header" href="#part-1" id="part-1">Part 1</a></h2>
+<p><a href="https://tyler-frazier.github.io/dsbook/describe.html#creating-a-geometric-bar-plot-with-your-simple-feature-object">Creating a Geometric Bar Plot with your Simple Feature object</a></p>
+<ul>
+<li>Select a location. Produce a spatial statistical description of your selected areas administrative subdivisions. Also produce an accompanying geometric bar plot that also describes the population of your selected administrative subdivisions.</li>
+<li>Select a subdivision from within your initially selected location that will be the bases for your agent-based model.  Set the boundary of your selected location such that the aggregate population is between 250,000 and 400,000 persons.</li>
+<li>Return to the previous exercise and repeat it, although this time produce the spatial statistical description and accompanying geometric barplot for your newly selected, higher resolution focus area with its increased scale.</li>
+<li>Do your best to include all administrative subdivisions available.  If a simple feature object that describes higher resolution administrative subdivisions in their disaggregate (i.e. adm2, adm3 or adm4) is not available from GADM, check other source (geoBoundaries).  Additionally, if higher resolution administrative subdivisions are not available, include all of the bordering subdivisions when generating your newly created units spatial description and accompanying bar plot.</li>
+</ul>
+<h2><a class="header" href="#part-2" id="part-2">Part 2</a></h2>
+<p><a href="https://tyler-frazier.github.io/dsbook/defacto_descript.html">De facto description of human settlements and urban areas</a></p>
+<ul>
+<li>define <em>de facto</em> settlement boundaries.</li>
+<li>Continue by further investigating your site for selection by defining <em>de facto</em> settlement boundaries.</li>
+<li>Continue by further investigating your site for selection by defining <em>de facto</em> settlement boundaries.</li>
+<li>Increase the scope of your investigation by adding an additional administrative unit or applying the previous exercise to the parent administrative subdivision.</li>
+<li>Apply Zipf's law</li>
+</ul>
+<h2><a class="header" href="#part-3" id="part-3">Part 3</a></h2>
+<p><a href="https://tyler-frazier.github.io/dsbook/transport_health.html">Description of Transport Systems</a></p>
+<ul>
+<li>measures of access</li>
+<li>system description and analysis</li>
+</ul>
+<p><a href="https://tyler-frazier.github.io/dsbook/topography.html">Description of Topography</a></p>
+<h2><a class="header" href="#project-1-deliverables--please-include-the-following" id="project-1-deliverables--please-include-the-following">Project 1 deliverables : please include the following</a></h2>
+<ul>
+<li>Geometric bar plots that describe the population distribution of the political subdivisions associated with your selected location.  Include a justification for your selection and a basic description with your plot.</li>
+<li>Plot of the de facto settlement boundaries with geometric measures of population and density for all locations.  Include linear descriptions of all transportation facilities.  Also, include a description and analysis of the system of settlements that populate your selected location.</li>
+<li>Provide an analysis of the system of settlements sizes and relative location to one another.</li>
+<li>Provide an analysis of the transportation network and its capacity to facilitate access across your selected area.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="abm.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="synpop.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="abm.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="synpop.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
