@@ -1,4 +1,4 @@
-# Project 1, site selection. 
+# Project 1: Site Selection
 
 ## Part 1
 [Creating a Geometric Bar Plot with your Simple Feature object](https://tyler-frazier.github.io/dsbook/describe.html#creating-a-geometric-bar-plot-with-your-simple-feature-object)
