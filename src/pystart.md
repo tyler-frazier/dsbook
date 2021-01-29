@@ -1,6 +1,60 @@
 # Local Installation of Python and PyCharm
 
-## Using a Package Manager
+## Downloading Python and Pycharm installation files
+
+In order to install python, you can also simply go to the python website and find the correct version, download and install.  The latest version of python is 3.9.1, although if you are planning to use the tensorflow library of functions (to employ applied machine learning methods for example), at this time, the tensorflow library is only functional up to python version 3.8.7.
+
+[Python Installation Website](https://www.python.org/downloads/)
+
+[Python 3.8.7](https://www.python.org/downloads/release/python-387/)
+
+Once you have Python installed, next you can proceed to install the Jetbrains IDE (integrated developer environment)  that has been created for use with python called PyCharm.  We are going to select the professional version, and then register with JetBrains as educational users, which should offer us nearly the full functionality of the IDE.
+
+[PyCharm Professional](https://www.jetbrains.com/pycharm/download/#section=mac)
+
+Once PyCharm is installed you should find it in your applications folder (Mac) or search for it in your Windows search box (bottom left-hand corner).  In order to gain full functionality of PyCharm, you will want to register your product, and obtain an educational license as a student and then enter that license to your local installation.  Once you have registered your product, give your Pure Python project a name, select the virtual environment, your base interpreter (Python 3.8.7) and then create your new project.
+
+Once you have installed PyCharm, you should be able to find it in your applications folder.  You are welcome to go ahead and open it and look for the add license tab.  Before entering a new license for your PyCharm software you will need to create a JetBrains account.  You can do so at the following website.
+
+[JetBrains Products for Learning](https://www.jetbrains.com/shop/eform/students)
+
+It might take a few minutes to complete the registration, but once finished you should be able to enter your e-mail and password in order to activate PyCharm.  Once you have activated your software, and started up PyCharm, you should see a "Welcome to PyCharm" window where you can open a new project.  Go ahead and select "new project."  Following this step, you should see a window that has a similar appearance to the following image.  Choose "pure python" and give your project a name there it will be located within your `PycharmProjects` home folder. I will assign the name of my course and select the "virtual environment" and python@3.8 as the base interpreter for this newly created project.
+
+![](images/pyproject.png)
+
+Once you have created your new project and designated the python interpreter, your integrated developer environment should appear.
+
+![](images/pycharm_start.png)
+
+If your PyCharm IDE appears similar to the previous image, you are pretty much ready to get started using python!
+
+## Remote access via William & Mary Virtual Desktop
+
+The William & Mary IT department offers virtual access to most of our physical labs using a virtual desktop.
+
+![](images/vmdesktop.png)
+
+Point your browser to the web address in the image above and follow the instructions in order to gain remote access to a lab computer on campus.  The computers in ISC 3248 should have Python and PyCharm available for your use.  For additional instructions please see the following link.
+
+[general VDI instructions](https://www.wm.edu/offices/it/services/network/virtualdesktop/index.php)
+
+Also, if you wish to simply visit the computer lab in ISC3 #3248 (or elsewhere on campus) and open PyCharm on a local machine at that location that is also an option.
+
+## Remote access via Jupyter Notebooks or Google Colab
+
+[Jupyter notebooks](https://en.wikipedia.org/wiki/Project_Jupyter) employ a slightly different approach to running python or alternatively R or Julia.  An advantage of using a Jupyter Notebook is that the installation process is typically removed from the local workstation and executed on a remote server.  Project notebooks employ cells and integrated text that sequentially alternating instruction and execution of code in order to faciliate teaching and learning.  Jupyter notebooks are a popular choice for running python and we have a local server that is available for your use and can be found at the following webaddress.
+
+[jupyterhub@wm](https://jupyterhub.wm.edu/)
+
+While the configuration may be slightly different in appearance, with your professional version of PyCharm and your educational license, you should be able to run `.ipynb` file types (jupyter notebooks) within your PyCharm IDE.
+
+Another possible option for remote python execution is Google developers free Jupyter notebook environment called Colaboratory or often just simply Google Colab.  Like the jupyter hub installation, google colab also runs in a webbrowser and is accessed via the following address.
+
+[Google Colaboratory](https://colab.research.google.com/notebooks/intro.ipynb)
+
+Both Jupyter notebooks and Google Colaboratory offer simple, remote interfaces that readily enable access to python from the outset.
+
+## More advanced option: using a Package Manager
 
 [Package managers or package management systems](https://en.wikipedia.org/wiki/Package_manager) are an effective way to keep track and automate the process of installing, upgrading, configuring and removing computer programs for a computer operating system consistently.  While there are several possible options available, there are two recommended options, depending on the operating system you are running on your local machine.  It is worth noting that a package manager is not 100% necessary, it is likely equally possible to download the software installation file and run it, in order to install any of the needed programs.  The package manager itself, requires a bit more investment on the front-end in order to implement and understand, but ultimately in the long run, this investment can pay off with a more smoothly running operating system and encountering few technical problems and difficulties.
 
@@ -41,7 +95,7 @@ From the following image of my terminal you can see that I already have python 3
 
 ![](images/python1.png)
 
-Once you have python installed, next you can proceed to install the Jetbrains IDE (integrated developer environment)  that has been created for use with python called PyCharm.  We are going to select the professional version, and then register with JetBrains as educational users, which should offers us nearly the full functionality of the IDE.
+Once you have python installed, next you can proceed to install the Jetbrains IDE (integrated developer environment)  that has been created for use with python called PyCharm.  We are going to select the professional version, and then register with JetBrains as educational users, which should offer us nearly the full functionality of the IDE.
 
 ```shell
 brew install pycharm
@@ -81,41 +135,3 @@ choco install pycharm
 ```
 
 Once you have installed the PyCharm IDE to your operating system, follow the instructions above under the homebrew installation in order to register with Jetbrains and to obtain a student educational license.  After licensing your product, go ahead and create a new project, select a virtual python interpreter and open your PyCharm IDE!
-
-## Downloading Python and Pycharm installation files
-
-Rather than using a package manager, you can also simply go to the python website and find the correct version, download and install.
-
-[Python Installation Website](https://www.python.org/downloads/)
-
-[Python 3.8.7](https://www.python.org/downloads/release/python-387/)
-
-Once you have Python installed it is also possible to download and install PyCharm from the JetBrains website.
-
-[PyCharm Professional](https://www.jetbrains.com/pycharm/download/#section=mac)
-
-Once PyCharm is installed you should find it in your applications folder (Mac) or search for it in your Windows search box (bottom left-hand corner).  As was described above, you will want to register your product, obtain a license and then enter that license with your local installation.  Once you have registered your product, give your Pure Python project a name, select the virtual environment, your base interpreter (Python 3.8.7) and then create your new project.
-
-# Other options: Jupyter Notebooks, Google Colab & accessing a lab computer through the William & Mary Virtual Desktop
-
-[Jupyter notebooks](https://en.wikipedia.org/wiki/Project_Jupyter) employ a slightly different approach to running python or alternatively R or Julia.  An advantage of using a Jupyter Notebook is that the installation process is typically removed from the local workstation and executed on a remote server.  Project notebooks employ cells and integrated text that sequentially alternating instruction and execution of code in order to faciliate teaching and learning.  Jupyter notebooks are a popular choice for running python and we have a local server that is available for your use and can be found at the following webaddress.
-
-[jupyterhub@wm](https://jupyterhub.wm.edu/)
-
-While the configuration may be slightly different in appearance, with your professional version of PyCharm and your educational license, you should be able to run `.ipynb` file types (jupyter notebooks) within your PyCharm IDE.
-
-Another possible option for remote python execution is Google developers free Jupyter notebook environment called Colaboratory or often just simply Google Colab.  Like the jupyter hub installation, google colab also runs in a webbrowser and is accessed via the following address.
-
-[Google Colaboratory](https://colab.research.google.com/notebooks/intro.ipynb)
-
-Both Jupyter notebooks and Google Colaboratory offer simple, remote interfaces that readily enable access to python from the outset.
-
-Finally, the William & Mary IT department offers virtual access to most of our physical labs using a virtual desktop.
-
-![](images/vmdesktop.png)
-
-Point your browser to the web address in the image above and follow the instructions in order to gain remote access to a lab computer on campus.  The computers in ISC 3248 should have Python and PyCharm available for your use.  For additional instructions please see the following link.
-
-[general VDI instructions](https://www.wm.edu/offices/it/services/network/virtualdesktop/index.php)
-
-Finally, if you wish to simply visit the computer lab in ISC3 #3248 (or elsewhere on campus) and open PyCharm on a local machine at that location that is also an option.
