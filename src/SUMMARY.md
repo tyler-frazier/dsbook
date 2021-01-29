@@ -3,7 +3,6 @@
 [About the author](author.md)
 - [Student Preparations](getting_started.md)
 	- [Getting Started with GitHub, Markdown & Webstorm](gitstart.md)
-	- [Getting Started with Homebrew or Chocolatey](manager.md)
 	- [Getting Started with R & RStudio](rstart.md)
 	- [Getting Started with Python & Pycharm](pystart.md)
 - [Data Use for Human and Community Scale Development Processes](datause.md)
