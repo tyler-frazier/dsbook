@@ -511,96 +511,246 @@ text(x = dwellings[locs, ]$east,
 <li>Title your plot.</li>
 </ul>
 <p><img src="images/rplot08.png" alt="One version of the plot produced by following the Challenge Question Specifications" /></p>
-<h1><a class="header" href="#local-installation-of-python-and-pycharm-1" id="local-installation-of-python-and-pycharm-1">Local Installation of Python and PyCharm</a></h1>
-<h2><a class="header" href="#downloading-python-and-pycharm-installation-files-1" id="downloading-python-and-pycharm-installation-files-1">Downloading Python and Pycharm installation files</a></h2>
-<p>In order to install python, you can simply go to the python website and find the correct version, download and install it.  The latest version of python is 3.9.1, although if you are planning to use the tensorflow library of functions (to employ applied machine learning methods for example), at this time, the tensorflow library is only functional up to python version 3.8.7.  For our purposes let's just stick with Python 3.8.7, although I will also provide the main link below.</p>
-<p><a href="https://www.python.org/downloads/">Python Installation Website</a></p>
-<p><a href="https://www.python.org/downloads/release/python-387/">Python 3.8.7</a></p>
-<p>Once you have Python installed, go ahead and open the application and run it.  On a Mac, you should find a Python 3.8 folder within your applications folder.  If you run the IDLE app, a shell window running python 3.8.7 should open.  Later you may need to know the path to your python 3.8.7 executable file, so go ahead and enter the following commands and copy the output.</p>
-<pre><code class="language-python">import sys
-print(sys.executable)
+<h1><a class="header" href="#python-review" id="python-review">Python Review</a></h1>
+<p>Professor Ron Smith<br />
+Data Science Program<br />
+William &amp; Mary</p>
+<ol start="0">
+<li>Do some basic operations in Python</li>
+<li>Import a data file</li>
+<li>Do some basic processing with the file</li>
+<li>Main goal: Be comfortable working with data using the pandas library</li>
+</ol>
+<pre><code class="language-python">
 </code></pre>
-<p>The interpreter should return the path to the executable file being used to run this version of python.  Make a note of that path for later use.</p>
-<p><img src="images/idle.png" alt="" /></p>
-<p>Next proceed to install the Jetbrains IDE (integrated developer environment)  that has been created for use with python called PyCharm.  We are going to select the professional version, and then register with JetBrains as educational users, which should offer us nearly the full functionality of the IDE.</p>
-<p><a href="https://www.jetbrains.com/pycharm/download/#section=mac">PyCharm Professional</a></p>
-<p>Once PyCharm is installed you should find it in your applications folder (Mac) or search for it in your Windows search box (bottom left-hand corner).  In order to gain full functionality of PyCharm, you will want to register your product as a student license, which you should be able to accomplish from the &quot;Welcome to PyCharm&quot; screen.  Before entering a new license for your PyCharm software you will need to create a JetBrains account.  You can do so at the following website.</p>
-<p><a href="https://www.jetbrains.com/shop/eform/students">JetBrains Products for Learning</a></p>
-<p>Once you have registered your product, from the Welcome to PyCharm screen, select New Project.  You should see a window that gives you the option to name your new project and select an interpreter.  Since you just installed python 3.8.7 we should find that interpreter and add it to your newly created project.  To do this select &quot;previously configured interpreter&quot; and select the ... off to the right. </p>
-<p><img src="images/pyproject.png" alt="" /></p>
-<p>On this screen, again click the ... off to the right of the pull down to select your &quot;Interpreter&quot; in the &quot;Virtualenv Environment&quot; pane.  Recall the path you previously recorded from when you initially installed python 3.8.7. and recalled the path the <code>sys/executable</code>.  Find this file using the &quot;Select Python Interpreter&quot; window and then select &quot;OK&quot;.</p>
-<p><img src="images/interpreter.png" alt="" /> </p>
-<p>Upon completing the previous steps, you should return to the &quot;New Project&quot; window.  Go ahead and create your new python project.</p>
-<p><img src="images/pyproject2.png" alt="" /></p>
-<p>Once you have created your new project and designated the python interpreter, your integrated developer environment should appear.  If you left the &quot;create a main.py welcome script&quot; check box selected, then you should also have a <code>main.py</code> script in the right pane of your console.  To execute this script, select the entire code either by highlighting it with your cursor or using command-A, and then right click on the selected code select the option &quot;Execute Selection in Python Console&quot;.</p>
-<p><img src="images/pystart.png" alt="" /></p>
-<p>Alternatively you can also run your selected code by executing the option-shift-E combination of keys.  If your console returns a &quot;Hi, PyCharm&quot; then you have successfully installed Python and PyCharm!</p>
-<h2><a class="header" href="#remote-access-via-william--mary-virtual-desktop-1" id="remote-access-via-william--mary-virtual-desktop-1">Remote access via William &amp; Mary Virtual Desktop</a></h2>
-<p>A good back-up option for running Python and PyCharm is to remotely access a laboratory computer.  The William &amp; Mary IT department offers virtual access to most of our physical labs using a virtual desktop.</p>
-<p><img src="images/vmdesktop.png" alt="" /></p>
-<p>Point your browser to the web address in the image above and follow the instructions in order to gain remote access to a lab computer on campus.  The computers in ISC 3248 should have Python and PyCharm available for your use.  For additional instructions please see the following link.</p>
-<p><a href="https://www.wm.edu/offices/it/services/network/virtualdesktop/index.php">general VDI instructions</a></p>
-<p>Also, if you wish to simply visit the computer lab in ISC3 #3248 (or elsewhere on campus) and open PyCharm on a local machine at that location that is also an option.</p>
-<h2><a class="header" href="#remote-access-via-jupyter-notebooks-or-google-colab-1" id="remote-access-via-jupyter-notebooks-or-google-colab-1">Remote access via Jupyter Notebooks or Google Colab</a></h2>
-<p><a href="https://en.wikipedia.org/wiki/Project_Jupyter">Jupyter notebooks</a> employ a slightly different approach to running python or alternatively R or Julia.  An advantage of using a Jupyter Notebook is that the installation process is typically removed from the local workstation and executed on a remote server.  Project notebooks employ cells and integrated text that sequentially alternate instruction and execution of code in order to facilitate teaching and learning.  Jupyter notebooks are a popular choice for running python, and we have a local server that is available for your use and can be found at the following web address.</p>
-<p><a href="https://jupyterhub.wm.edu/">jupyterhub@wm</a></p>
-<p>Another possible option for remote python execution is Google developers free Jupyter notebook environment called Colaboratory or often just simply Google Colab.  Like the jupyter hub installation, google colab also runs in a webbrowser and is accessed via the following address.</p>
-<p><a href="https://colab.research.google.com/notebooks/intro.ipynb">Google Colaboratory</a></p>
-<p>Both Jupyter notebooks and Google Colaboratory offer simple, remote interfaces that readily enable access to python from the outset.</p>
-<p>One final note regarding jupyter notebooks.  With your professional version of PyCharm, you should be able to run and modify <code>.ipynb</code> file types (jupyter notebooks) within your PyCharm IDE.</p>
-<h2><a class="header" href="#more-advanced-option-using-a-package-manager-1" id="more-advanced-option-using-a-package-manager-1">More advanced option: using a Package Manager</a></h2>
-<p><a href="https://en.wikipedia.org/wiki/Package_manager">Package managers or package management systems</a> are an effective way to keep track and automate the process of installing, upgrading, configuring and removing computer programs for a computer operating system.  While there are several possible options available, there are two recommended options, depending on the operating system you are running on your local machine.  The package manager itself, requires a bit more investment on the front-end in order to implement and understand, but ultimately in the long run, this investment can pay off with a more smoothly running operating system and encountering fewer technical complications and conflicts.</p>
-<h2><a class="header" href="#installing-homebrew-for-mac-operating-systems-1" id="installing-homebrew-for-mac-operating-systems-1">Installing Homebrew for Mac Operating Systems</a></h2>
-<p>One of the most preferred Mac OSX package managers is <a href="https://brew.sh">homebrew</a>.  To install homebrew on your Mac, go to the homebrew webpage, copy the link beneath where it says &quot;Install Homebrew&quot; and then paste it into your terminal.  Your operating system may ask you to provide your password in order to install the package manager with administrative privileges.</p>
-<p><img src="images/homebrew.png" alt="" /></p>
-<p>One of the first things you will want to do with your new homebrew installation is to run a few commands in order to get your system up to date, cleaned up and ready to go.</p>
-<pre><code class="language-shell">% brew upgrade 
+<pre><code class="language-python">
 </code></pre>
-<ul>
-<li>Upgrades your homebrew installation to the current version</li>
-</ul>
-<pre><code class="language-shell">% brew update
+<pre><code class="language-python">
 </code></pre>
-<ul>
-<li>Updates the package installation formulas</li>
-</ul>
-<pre><code class="language-shell">% brew cleanup
+<pre><code class="language-python">
 </code></pre>
-<ul>
-<li>checks system links and removes them as needed</li>
-</ul>
-<pre><code class="language-shell">% brew doctor
+<h3><a class="header" href="#logical-operators" id="logical-operators">Logical Operators</a></h3>
+<p>Working with data can often require making logical comparisons, either to find specific data we are looking for, or to 
+filter out rows of data, etc.</p>
+<pre><code class="language-python">
 </code></pre>
-<ul>
-<li>Checks the installation of your programs for possible configuration conflicts.  Ideally this command returns &quot;ready to brew&quot; although some possible warnings can be laborious to investigate and fix, and may require further study for novices.</li>
-</ul>
-<p>Once you have homebrew installed you can start by installing python.  Go back to the main homebrew page and have a look at the [Homebrew Packages](Homebrew Packages), formulas that are available.  Scroll down through the list until you find the formulas for python.  The basic syntax for installing a package using homebrew is <code>brew install [package name here]</code>.</p>
-<p>The latest version of python is 3.9.1, although if you are planning to use the tensorflow library of functions (to employ applied machine learning methods for example), at this time, the tensorflow library is only functional up to python version 3.8.7.  I will start with the python version 3.8.7, which can be installed using the basic homebrew command.  If you find the <a href="https://formulae.brew.sh/formula/python@3.8">python@3.8</a> formula page, you can simply copy the formula to your clipboard and paste into your terminal.</p>
-<pre><code class="language-shell">brew install python@3.8
+<pre><code class="language-python">
 </code></pre>
-<p>From the following image of my terminal you can see that I already have python 3.8.7 installed, but none the less, I have decided to go ahead and reinstall again. There are a number of symlinks that probably need to be addressed, which also show up when I run <code>brew doctor</code>, but I'm simply going to ignore these for the time being.  At the end, I did go ahead and run the command that exported a path to my configuration file (in my case zshell) and likewise did for compilers and also package configuration.  Just as you did above, you will want to identify the location of your newly installed python interpreter for use when creating your new python project and initially selecting an interpreter.</p>
-<p><img src="images/python1.png" alt="" /></p>
-<p>Once you have python installed, next you can proceed to install the Jetbrains IDE (integrated developer environment)  that has been created for use with python called PyCharm.  We are going to select the professional version, and then register with JetBrains as educational users, which should offer us nearly the full functionality of the IDE.</p>
-<pre><code class="language-shell">brew install pycharm
+<p>Which is greater, $4^6$ or $6^4$? <em>(BTW - don't forget that exponentiation in Python is different than some other languages)</em></p>
+<pre><code class="language-python">
 </code></pre>
-<p>Once you have installed PyCharm, you should be able to find it in your applications folder.  You are welcome to go ahead and open it and look for the add license tab.  Before entering a new license for your PyCharm software you will need to create a JetBrains account.  You can do so at the following website.</p>
-<p><a href="https://www.jetbrains.com/shop/eform/students">JetBrains Products for Learning</a></p>
-<p>It might take a few minutes to complete the registration, but once finished you should be able to enter your e-mail and password in order to activate PyCharm.  Once you have activated your software, and started up PyCharm, you should see a &quot;Welcome to PyCharm&quot; window where you can open a new project.  Go ahead and select &quot;new project.&quot;  Following this step, you should see a window that has a similar appearance to the following image.  Choose &quot;pure python&quot; and give your project a name there it will be located within your <code>PycharmProjects</code> home folder. I will assign the name of my course and select the &quot;virtual environment&quot; and python@3.8 as the base interpreter for this newly created project.</p>
-<p><img src="images/pyproject.png" alt="" /></p>
-<p>Once you have created your new project and designated the python interpreter (see the steps above), your integrated developer environment should appear.</p>
-<p><img src="images/pystart.png" alt="" /></p>
-<p>If your PyCharm IDE appears similar to the previous image, you are pretty much ready to get started using python!</p>
-<h2><a class="header" href="#installing-chocolatey-for-windows-operating-systems-1" id="installing-chocolatey-for-windows-operating-systems-1">Installing Chocolatey for Windows Operating Systems</a></h2>
-<p>Chocolatey is a relatively new package manager that is similar to homebrew but is designed for use with the Windows operating system rather than a Mac.  To install chocolatey on your Windows computer go to the <a href="https://chocolatey.org/install">Chocolatey installation webpage</a> and follow the instruction under &quot;Step 2.&quot;</p>
-<p>Chocolatey functions in a manner very similar to homebrew (as described in the previous step), although instead of entering your commands at the terminal of a unix shell, on a windows system you will enter the installation command using the powershell.  Copy the command using your clip board and paste it into your powershell.</p>
-<p>Once you have the Chocolatey package manager in place, you should be able to begin installing software using the chocolatey formulas.  Have a look at the <a href="https://chocolatey.org/packages/python3/3.8.7">python 3.8.7 formula page</a> and copy the formula onto your clip board and then enter it into your powershell.</p>
-<pre><code class="language-shell">choco install python3 --version=3.8.7
+<p>AND: Both A and B are true.</p>
+<pre><code class="language-python">
 </code></pre>
-<p>Which should effectively install python to your system.</p>
-<p>Again, in a manner that is quite similar to applying a homebrew installation formula, go ahead and install the PyCharm IDE using that particular formula.</p>
-<pre><code class="language-shell">choco install pycharm
+<p>Inclusive OR:  Either A or B, or both, is true.</p>
+<pre><code class="language-python">
 </code></pre>
-<p>Once you have installed the PyCharm IDE to your operating system, follow the instructions above under the homebrew installation in order to register with Jetbrains and to obtain a student educational license.  After licensing your product, go ahead and create a new project, select a virtual python interpreter and open your PyCharm IDE!</p>
+<p>Exclusive OR (XOR).  Either A or B, but not both, is true.</p>
+<pre><code class="language-python">
+</code></pre>
+<p>Logical negation (NOT):</p>
+<pre><code class="language-python">
+</code></pre>
+<p><strong>Special note about NaN!</strong></p>
+<p>Next up is something you should definitely be aware of!  NaN (&quot;not a number&quot;) <strong>is not equal to itself</strong>!  It is also the ONLY value for which this is the case!</p>
+<p>This is important, because missing records in a data set are often treated as NaN, and you will sometimes need to be careful about how you handle them.  It may not happen very often, but it will happen eventually and can cause confusion if you're not aware of it.</p>
+<pre><code class="language-python">
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
+<p>From the results of the logical comparison, you could conclude that x must be NaN.  This may show up at some time in the future, don't forget it!  There's also usually special operations for checking if something is NaN.  In Python:</p>
+<pre><code class="language-python">
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
+<p>The benefit of this approach becomes apparant when you have a list of values. Here's how you can make a list:</p>
+<pre><code class="language-python">
+</code></pre>
+<p>Here's how you can extract the individual elements of the list (this is called &quot;indexing&quot;):</p>
+<pre><code class="language-python">
+</code></pre>
+<p>What if we wanted to check if any values in y are NaN? Since y is a list, the output here will not be what we want:</p>
+<pre><code class="language-python">
+</code></pre>
+<p>This is because y is a list, and we just asked whether the list is equal to itself, which is True. To test the individual values in the list we could write a loop:</p>
+<pre><code class="language-python">
+</code></pre>
+<p>Which you could also do in a single line (in Python, this is referred to as &quot;list comprehension&quot;):</p>
+<pre><code class="language-python">
+</code></pre>
+<p>Or, if you want to save yourself some typing:</p>
+<pre><code class="language-python">
+</code></pre>
+<p>Last but not least, you might want to identify which values in a list match some criteria, and then perhaps remove/keep those elements from the list.  Let's suppose that we wanted to remove the NaN values from y:</p>
+<pre><code class="language-python"># First, identify the elements in the list that match your criteria.  
+
+</code></pre>
+<pre><code class="language-python"># We can negate all of these boolean values like so:
+
+</code></pre>
+<pre><code class="language-python"># We can use the inverted boolean array to index y, but first we'll need to make y into an array.  
+# A bit annoying, but lists and arrays are handled differently, and this will not work with a list:
+
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
+<h3><a class="header" href="#the-pandas-library-and-dataframes" id="the-pandas-library-and-dataframes">The pandas library and DataFrames</a></h3>
+<p>The first thing you'll usually do when writing Python code is to import any libraries that you'll need. When working with data files, the pandas library offers all sorts of convenient functionality.</p>
+<pre><code class="language-python"># You can also give the library a shorter name (alias) in the process using &quot;as&quot;, 
+# that'll save typing later on:
+
+</code></pre>
+<p>Next, let's get our file imported.  First, open up the file in the text editor and take a look at it.  You'll notice that there are tabs between each value in the file.  In other words, it's a tab-separated file.  We'll need to let pandas know this when we import it because, by default, it's going to assume a comma-separated file.</p>
+<pre><code class="language-python"># I usually like to do this in two steps.  First, specify where the file is located:
+
+# Now import the file, but let's suppose we forgot about the whole tab-separated thing:
+
+</code></pre>
+<p>It's important to learn how to troubleshoot errors like this.  As you can see, we receive quite a long error from what we know is a very simple problem.  Usually, you'll want to start at the bottom of the error message, and then work your way to the top.</p>
+<pre><code class="language-python">
+</code></pre>
+<p>'data' is now an object called a DataFrame, and it contains an array-like representation of our data.  Important to note here that DataFrames are not arrays - they have a lot of additional built-in functionality. </p>
+<p>If we just enter the name of the DataFrame, it'll print the top and bottom:</p>
+<pre><code class="language-python">
+</code></pre>
+<pre><code class="language-python"># You can also look at just the top, or just the bottom, using .head() and .tail()
+
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
+<p>To check the size of your data, you can use the .size and .shape commands</p>
+<pre><code class="language-python"># .shape will return the number of rows and number of columns.  
+# Note that the first column (the one in bold) is called the index of the DataFrame,
+# and does not count as an actual column.
+#
+# Also, the header row, if there is one, does not count as an actual row of data
+
+</code></pre>
+<pre><code class="language-python"># .size will return the number of individual cells in the DataFrame
+
+</code></pre>
+<pre><code class="language-python"># ...which is equivalent to the number of rows * the number of columns
+
+</code></pre>
+<pre><code class="language-python"># To get a quick summary of the names of the columns, as well as what type of data...
+
+</code></pre>
+<pre><code class="language-python"># Or if you just want a quick list of the column names:
+
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
+<pre><code class="language-python"># ... even better:
+
+</code></pre>
+<pre><code class="language-python"># Here's a quick way to get a summary of your numerical data:
+
+</code></pre>
+<pre><code class="language-python"># Let's extract all the data for Asia and store it in a new DataFrame
+
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
+<pre><code class="language-python"># Oops!  Wrong column.  Good thing we checked.
+
+</code></pre>
+<pre><code class="language-python"># What if we only wanted the data for the most recent year, from Asia?
+
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
+<pre><code class="language-python"># You could, of course, have done that all in one step, but...
+
+</code></pre>
+<pre><code class="language-python"># The error occurred because _____________.
+
+</code></pre>
+<p>Even though the results above are what we wanted, the logic we used is not equivalent to what we were originally trying to do.  For example, if there were no records for Asia for 2007, then we would have gotten back an empty DataFrame.</p>
+<pre><code class="language-python"># So, here's a better way. First, I would write down what I want to do:
+
+#   Goal: Specify a continent, and extract the most recent data from that continent
+
+# Next, do one operation at a time to get to the desired result:
+
+
+</code></pre>
+<pre><code class="language-python"># And if this was something I thought I would be using a lot, I might even write a function:
+
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
+<p>Back to the original dataset - can we get a list of all the countries that exist in the data?</p>
+<pre><code class="language-python">
+</code></pre>
+<p>How many countries are in that list?  It's a little long to count manually.</p>
+<pre><code class="language-python">
+</code></pre>
+<p>What if we wanted to know how many records there are for each individual country?</p>
+<pre><code class="language-python">
+</code></pre>
+<p>Is there a way to see the entire list?</p>
+<pre><code class="language-python">
+</code></pre>
+<p>Can we sort the list by the country name?</p>
+<p>Yes - but we need to understand what type of object we are working with first...</p>
+<pre><code class="language-python">
+</code></pre>
+<p>This is a series object.  A Series is basically a column of a DataFrame, and just like a DataFrame, it is a special type of object that has all sorts of built-in functionality.</p>
+<p>The column with the country names is the index of the Series.  Just like with DataFrames, the index is not an actual column.  If you want to sort by it, then you would need to use the sort_index() function.</p>
+<pre><code class="language-python">
+</code></pre>
+<h3><a class="header" href="#indexing-dataframes" id="indexing-dataframes">Indexing DataFrames</a></h3>
+<p>There are several ways to extract individual rows from a DataFrame, usually you will be using .loc or .iloc.</p>
+<p>Let's identify the record with the largest GDP per capita:</p>
+<pre><code class="language-python">
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
+<pre><code class="language-python"># If this were an array, you might try this:
+
+</code></pre>
+<p>Instead, use .loc.  What we want to do here is extract the row with the label (index) 853.</p>
+<pre><code class="language-python">
+</code></pre>
+<p>.iloc is a little different.  To see why, let's look at the Asia data:</p>
+<pre><code class="language-python">
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
+<p>iloc is fetching the row by it's integer position, whereas loc is fetching the row by its label.  In this case, the first row of the data (starting counting at 0) has the label 11.</p>
+<p>Sometimes, you might want to reset the index so that the rows are labeled sequentially again:</p>
+<pre><code class="language-python">
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
+<h3><a class="header" href="#exercises" id="exercises">Exercises</a></h3>
+<p><strong>1)</strong> Get a list of all the years in this data, without any duplicates.  How many unique values are there, and what are they?</p>
+<pre><code class="language-python">
+</code></pre>
+<p><strong>2)</strong> What is the largest value for population (pop) in this data?  When and where did this occur?</p>
+<pre><code class="language-python">
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
+<p><strong>3)</strong> Extract all the records for Europe.  In 1952, which country had the smallest population, and what was the population in 2007?</p>
+<pre><code class="language-python">
+</code></pre>
+<pre><code class="language-python">
+</code></pre>
 <h1><a class="header" href="#chapter-2" id="chapter-2">Chapter 2</a></h1>
 <h2><a class="header" href="#describe" id="describe">Describe</a></h2>
 <hr />
