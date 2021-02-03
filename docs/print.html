@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded affix "><a href="book.html">About this book</a></li><li class="expanded affix "><a href="author.html">About the author</a></li><li class="expanded "><a href="getting_started.html"><strong aria-hidden="true">1.</strong> Student Preparations</a></li><li><ol class="section"><li class="expanded "><a href="gitstart.html"><strong aria-hidden="true">1.1.</strong> Getting Started with GitHub, Markdown &amp; Webstorm</a></li><li class="expanded "><a href="rinstall.html"><strong aria-hidden="true">1.2.</strong> Installing R &amp; RStudio</a></li><li class="expanded "><a href="pyinstall.html"><strong aria-hidden="true">1.3.</strong> Installing Python &amp; Pycharm</a></li><li class="expanded "><a href="rstart.html"><strong aria-hidden="true">1.4.</strong> Getting Started with R &amp; RStudio</a></li><li class="expanded "><a href="pystart.html"><strong aria-hidden="true">1.5.</strong> Getting Started with Python &amp; Pycharm</a></li></ol></li><li class="expanded "><a href="datause.html"><strong aria-hidden="true">2.</strong> Data Use for Human and Community Scale Development Processes</a></li><li><ol class="section"><li class="expanded "><a href="describe.html"><strong aria-hidden="true">2.1.</strong> Spatial Population Description</a></li><li class="expanded "><a href="model.html"><strong aria-hidden="true">2.2.</strong> Spatial Population Modelling</a></li><li class="expanded "><a href="defacto_descript.html"><strong aria-hidden="true">2.3.</strong> Accessibility 1</a></li><li class="expanded "><a href="transport_health.html"><strong aria-hidden="true">2.4.</strong> Accessibility 2</a></li><li class="expanded "><a href="topography.html"><strong aria-hidden="true">2.5.</strong> Accessibility 3</a></li></ol></li><li class="expanded "><a href="abm.html"><strong aria-hidden="true">3.</strong> Simulating Human Development Processes from Neighborhood to Regional Scales</a></li><li><ol class="section"><li class="expanded "><a href="siteselect.html"><strong aria-hidden="true">3.1.</strong> Project 1: Site Selection</a></li><li class="expanded "><a href="synpop.html"><strong aria-hidden="true">3.2.</strong> Project 2: Generating Synthetic Populations</a></li><li class="expanded "><a href="gravity.html"><strong aria-hidden="true">3.3.</strong> Project 3: Transportation Model</a></li></ol></li></ol>
+                <ol class="chapter"><li class="expanded affix "><a href="book.html">About this book</a></li><li class="expanded affix "><a href="author.html">About the author</a></li><li class="expanded "><a href="getting_started.html"><strong aria-hidden="true">1.</strong> Student Preparations</a></li><li><ol class="section"><li class="expanded "><a href="gitstart.html"><strong aria-hidden="true">1.1.</strong> Getting Started with GitHub, Markdown &amp; Webstorm</a></li><li class="expanded "><a href="rinstall.html"><strong aria-hidden="true">1.2.</strong> Installing R &amp; RStudio</a></li><li class="expanded "><a href="pyinstall.html"><strong aria-hidden="true">1.3.</strong> Installing Python &amp; PyCharm</a></li><li class="expanded "><a href="rstart.html"><strong aria-hidden="true">1.4.</strong> Getting Started with R &amp; RStudio</a></li><li class="expanded "><a href="pystart.html"><strong aria-hidden="true">1.5.</strong> Getting Started with Python &amp; PyCharm</a></li></ol></li><li class="expanded "><a href="datause.html"><strong aria-hidden="true">2.</strong> Data Use for Human and Community Scale Development Processes</a></li><li><ol class="section"><li class="expanded "><a href="describe.html"><strong aria-hidden="true">2.1.</strong> Spatial Population Description</a></li><li class="expanded "><a href="model.html"><strong aria-hidden="true">2.2.</strong> Spatial Population Modelling</a></li><li class="expanded "><a href="defacto_descript.html"><strong aria-hidden="true">2.3.</strong> Accessibility 1</a></li><li class="expanded "><a href="transport_health.html"><strong aria-hidden="true">2.4.</strong> Accessibility 2</a></li><li class="expanded "><a href="topography.html"><strong aria-hidden="true">2.5.</strong> Accessibility 3</a></li></ol></li><li class="expanded "><a href="abm.html"><strong aria-hidden="true">3.</strong> Simulating Human Development Processes from Neighborhood to Regional Scales</a></li><li><ol class="section"><li class="expanded "><a href="siteselect.html"><strong aria-hidden="true">3.1.</strong> Project 1: Site Selection</a></li><li class="expanded "><a href="synpop.html"><strong aria-hidden="true">3.2.</strong> Project 2: Generating Synthetic Populations</a></li><li class="expanded "><a href="gravity.html"><strong aria-hidden="true">3.3.</strong> Project 3: Transportation Model</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -515,172 +515,68 @@ text(x = dwellings[locs, ]$east,
 <p>Professor Ron Smith<br />
 Data Science Program<br />
 William &amp; Mary</p>
-<ol start="0">
-<li>Do some basic operations in Python</li>
-<li>Import a data file</li>
-<li>Do some basic processing with the file</li>
-<li>Main goal: Be comfortable working with data using the pandas library</li>
-</ol>
-<pre><code class="language-python">
+<h2><a class="header" href="#some-basic-operations" id="some-basic-operations">Some basic operations</a></h2>
+<p>First lets do some basic operations in Python.  See if you can execute the following tasks.</p>
+<ul>
+<li>add 1 + 1</li>
+<li>print 'Hello World!'</li>
+<li>create a variable x that is equal to 1</li>
+<li>create a variable x that is equal to x + 1</li>
+</ul>
+<p>Logical operators can be important when working with data that requires us to assess logical comparisons, such as equality, greater than or less than.  Logical operators can be used to find specific data we are looking for, or perhaps to filter out rows of data that we may need.</p>
+<h2><a class="header" href="#practicing-with-logical-operators" id="practicing-with-logical-operators">Practicing with logical operators</a></h2>
+<p>Now let's practice comparing values using some of the logical operators available in Python.</p>
+<ul>
+<li>write a logical operation that compares the sum of 1 + 1 with the numerical value 2</li>
+<li>compare the character values of the words 'cat' and 'dog'</li>
+<li>write a logical expression that determines whether 4^6 is greater than 6^4</li>
+<li>write an inclusive &quot;or&quot; statement (use the pipe which is the <strong>|</strong> character as the &quot;or&quot; operator) evaluating both the character values of the words 'cat' and 'dog' AND whether 2 is greater than or less than 1 -- in this case either A or B, or both is true</li>
+<li>write an exclusive &quot;or&quot; statement evaluating both the character values of the words 'cat' and 'dog' AND whether 2 is greater than or less than 1 -- in this case either A or B, but not both is true</li>
+</ul>
+<p>Next up is something you should definitely be aware of!  NaN (&quot;not a number&quot;) <strong>is not equal to itself</strong>!  It is also the ONLY value for which this is the case!  This is important, because missing records in a data set are often treated as NaN, and you will sometimes need to be careful about how you handle them.  It may not happen very often, but it will happen eventually and can cause confusion if you're not aware of it.</p>
+<p>Try assigning <code>float('nan')</code> to the variable <code>x</code> and then evaluating that same variable with itself in an equality statement (using the <code>==</code> logical operator).  Also try using the not equal logical operator (in this case !=) to evaluate <code>x</code> with itself. </p>
+<p>From the results of the logical comparison, you could conclude that x must be NaN.  This may show up at some time in the future, don't forget it!  There's also usually special operations for checking if something is NaN.  Use the <code>import()</code> to load the <code>math</code> library of functions into your PyCharm work session.  Now evaluate <code>x</code> with the command <code>math.isnan()</code>.  Also try running the same command from the <code>numpy</code> library by again first using the <code>import()</code> library command and then using the <code>isnan()</code> command.  To distinguish the two similarly named functions from the two different libraries, specify the library in the command itself <code>numpy.isnan()</code>.</p>
+<h3><a class="header" href="#evaluating-lists-and-subscripting-with-an-index" id="evaluating-lists-and-subscripting-with-an-index">Evaluating Lists and Subscripting with an Index</a></h3>
+<p>If we attempt a similar approach where we evaluate each term in a list, we might not obtain the expected results.  For example try the following.</p>
+<pre><code class="language-python">y = [1,2,float('nan'),4,5,float('nan')]
+y
 </code></pre>
-<pre><code class="language-python">
+<p>First we could extract one of the values in the list by using a subscripting operator such as <code>y[2]</code>.  Notice that Python indexes values in a list starting with 0, thus the <code>2</code> will in essence retrieve the third value in the list.  Also, consider the evaluation of <code>y == y</code>, which is evaluating the equality of two lists rather than two float objects as in our previous example.  To isolate and evaluate individual values within the list we could evaluate each term as part of a loop, one by one.</p>
+<pre><code class="language-python">for yi in y:
+    print(yi==yi)
 </code></pre>
-<pre><code class="language-python">
+<p>To simplify the command in a single line of code, use &quot;list comprehension&quot; syntax.</p>
+<pre><code class="language-python">[yi==yi for yi in y]
 </code></pre>
-<pre><code class="language-python">
-</code></pre>
-<h3><a class="header" href="#logical-operators" id="logical-operators">Logical Operators</a></h3>
-<p>Working with data can often require making logical comparisons, either to find specific data we are looking for, or to 
-filter out rows of data, etc.</p>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
-<p>Which is greater, $4^6$ or $6^4$? <em>(BTW - don't forget that exponentiation in Python is different than some other languages)</em></p>
-<pre><code class="language-python">
-</code></pre>
-<p>AND: Both A and B are true.</p>
-<pre><code class="language-python">
-</code></pre>
-<p>Inclusive OR:  Either A or B, or both, is true.</p>
-<pre><code class="language-python">
-</code></pre>
-<p>Exclusive OR (XOR).  Either A or B, but not both, is true.</p>
-<pre><code class="language-python">
-</code></pre>
-<p>Logical negation (NOT):</p>
-<pre><code class="language-python">
-</code></pre>
-<p><strong>Special note about NaN!</strong></p>
-<p>Next up is something you should definitely be aware of!  NaN (&quot;not a number&quot;) <strong>is not equal to itself</strong>!  It is also the ONLY value for which this is the case!</p>
-<p>This is important, because missing records in a data set are often treated as NaN, and you will sometimes need to be careful about how you handle them.  It may not happen very often, but it will happen eventually and can cause confusion if you're not aware of it.</p>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
-<p>From the results of the logical comparison, you could conclude that x must be NaN.  This may show up at some time in the future, don't forget it!  There's also usually special operations for checking if something is NaN.  In Python:</p>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
-<p>The benefit of this approach becomes apparant when you have a list of values. Here's how you can make a list:</p>
-<pre><code class="language-python">
-</code></pre>
-<p>Here's how you can extract the individual elements of the list (this is called &quot;indexing&quot;):</p>
-<pre><code class="language-python">
-</code></pre>
-<p>What if we wanted to check if any values in y are NaN? Since y is a list, the output here will not be what we want:</p>
-<pre><code class="language-python">
-</code></pre>
-<p>This is because y is a list, and we just asked whether the list is equal to itself, which is True. To test the individual values in the list we could write a loop:</p>
-<pre><code class="language-python">
-</code></pre>
-<p>Which you could also do in a single line (in Python, this is referred to as &quot;list comprehension&quot;):</p>
-<pre><code class="language-python">
-</code></pre>
-<p>Or, if you want to save yourself some typing:</p>
-<pre><code class="language-python">
-</code></pre>
-<p>Last but not least, you might want to identify which values in a list match some criteria, and then perhaps remove/keep those elements from the list.  Let's suppose that we wanted to remove the NaN values from y:</p>
-<pre><code class="language-python"># First, identify the elements in the list that match your criteria.  
-
-</code></pre>
-<pre><code class="language-python"># We can negate all of these boolean values like so:
-
-</code></pre>
-<pre><code class="language-python"># We can use the inverted boolean array to index y, but first we'll need to make y into an array.  
-# A bit annoying, but lists and arrays are handled differently, and this will not work with a list:
-
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
-<h3><a class="header" href="#the-pandas-library-and-dataframes" id="the-pandas-library-and-dataframes">The pandas library and DataFrames</a></h3>
-<p>The first thing you'll usually do when writing Python code is to import any libraries that you'll need. When working with data files, the pandas library offers all sorts of convenient functionality.</p>
-<pre><code class="language-python"># You can also give the library a shorter name (alias) in the process using &quot;as&quot;, 
-# that'll save typing later on:
-
-</code></pre>
+<p>An even simpler approach is to evaluate the list <code>y</code> using the <code>np.isnan()</code> command.</p>
+<p>Last but not least, you might want to identify which values in a list match some criteria, and then perhaps remove or keep those elements from the list.  Let's suppose that we wanted to remove the NaN values from y.  To do this, first, identify the elements in the list that match your criteria by creating an object <code>idx</code> and then assigning the output from <code>y</code> using the <code>np.isnan()</code> command.  You can negate boolean values using the <code>~</code> preceding the object (in this case <code>idx</code>).</p>
+<p>To isolate and drop our <code>Nan</code> values we start by assigning the output from <code>np.array(y)</code> command back to the <code>y</code> object and essentially writing over and replacing that object.  Now use the inverted values to retain those values that have true records in the list by subscripting the index like this <code>y[~idx]</code>.  Go ahead and assign those values to a new object named <code>y_filtered</code>.</p>
+<h3><a class="header" href="#using-the-pandas-library-and-dataframes" id="using-the-pandas-library-and-dataframes">Using the pandas library and DataFrames</a></h3>
+<p>The first thing you'll usually do when writing Python code is to import any libraries that you'll need. When working with data files, the pandas library offers all sorts of convenient functionality.  You can also give the library a shorter name (alias) in the process using &quot;as&quot; like this <code>import pandas as pd</code>.</p>
 <p>Next, let's get our file imported.  First, open up the file in the text editor and take a look at it.  You'll notice that there are tabs between each value in the file.  In other words, it's a tab-separated file.  We'll need to let pandas know this when we import it because, by default, it's going to assume a comma-separated file.</p>
-<pre><code class="language-python"># I usually like to do this in two steps.  First, specify where the file is located:
-
-# Now import the file, but let's suppose we forgot about the whole tab-separated thing:
-
+<p>First, specify where the file is located by creating an object named <code>path_to_data</code> and then assign the path of your tab separated values file to that object.  If your <code>gapminder.tsv</code> file is in your project folder, then you only need to specify the name of the file itself.  Don't forget to nest the file name in <code>''</code> quotes.</p>
+<p>To import the data use the <code>read_csv()</code> command from the pandas library of functions with the <code>path_to_data</code> object you already created.  In order to specify that command first use the library alias followed by the command itself, <code>pd.read_csv()</code>.  Assign the output from reading your <code>gapminder.tsv</code> file to a new object that is simply named <code>data</code>.  Finally, in order to inform Python that our data is in a tab separated format, we need to add an additional argument following the <code>path_to_data</code> object.  Use the <code>\t</code> specification in your argument to execute the command as follows.</p>
+<pre><code class="language-python">new_object = library_name.function_name(path_to_file_object, sep = '\t')
 </code></pre>
-<p>It's important to learn how to troubleshoot errors like this.  As you can see, we receive quite a long error from what we know is a very simple problem.  Usually, you'll want to start at the bottom of the error message, and then work your way to the top.</p>
-<pre><code class="language-python">
+<p>To interrogate the new data frame object we just created, you can start by simply typing <code>data</code> in the console.  You can also look at just the top, or just the bottom, using <code>data.head()</code> and <code>data.tail()</code>.  To further specify the number of lines from the data object you would like printed in the console add that number as a value within the <code>.head()</code> or <code>.tail()</code> command.</p>
+<p>You can check the number of rows and columns in your data frame with the <code>.shape</code> command or if you would like to have the number of total cells returned you can use <code>.size</code>.  If you would like to manually confirm the number of cells, you can subscript the first and second values from the shape of the data.  Keep in mind that the first value is in the 0 place while the second value is in the 1 place.</p>
+<pre><code class="language-python">data.shape[0]*data.shape[1]
 </code></pre>
-<p>'data' is now an object called a DataFrame, and it contains an array-like representation of our data.  Important to note here that DataFrames are not arrays - they have a lot of additional built-in functionality. </p>
-<p>If we just enter the name of the DataFrame, it'll print the top and bottom:</p>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python"># You can also look at just the top, or just the bottom, using .head() and .tail()
-
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
-<p>To check the size of your data, you can use the .size and .shape commands</p>
-<pre><code class="language-python"># .shape will return the number of rows and number of columns.  
-# Note that the first column (the one in bold) is called the index of the DataFrame,
-# and does not count as an actual column.
-#
-# Also, the header row, if there is one, does not count as an actual row of data
-
-</code></pre>
-<pre><code class="language-python"># .size will return the number of individual cells in the DataFrame
-
-</code></pre>
-<pre><code class="language-python"># ...which is equivalent to the number of rows * the number of columns
-
-</code></pre>
-<pre><code class="language-python"># To get a quick summary of the names of the columns, as well as what type of data...
-
-</code></pre>
-<pre><code class="language-python"># Or if you just want a quick list of the column names:
-
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python"># ... even better:
-
-</code></pre>
-<pre><code class="language-python"># Here's a quick way to get a summary of your numerical data:
-
-</code></pre>
-<pre><code class="language-python"># Let's extract all the data for Asia and store it in a new DataFrame
-
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python"># Oops!  Wrong column.  Good thing we checked.
-
-</code></pre>
-<pre><code class="language-python"># What if we only wanted the data for the most recent year, from Asia?
-
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python"># You could, of course, have done that all in one step, but...
-
-</code></pre>
-<pre><code class="language-python"># The error occurred because _____________.
-
-</code></pre>
+<p>To get a quick summary of the names of the columns, as well as what type of data use <code>data.info()</code> or if you just want a quick list of the column names use <code>data.columns</code>.  If you check the your <code>data.columns</code> output with the <code>type()</code> command, you will find that the columns themselves within your pandas data frame are an Index.  To return a list of just the column names, instead use <code>list(data.columns)</code>.  Using the <code>.describe()</code> command is a good way for Python to return descriptive statistics about your data frame.</p>
+<h2><a class="header" href="#subsetting-our-data-frame" id="subsetting-our-data-frame">Subsetting our data frame</a></h2>
+<p>Let's extract all the data for Asia and store it in a new DataFrame</p>
+<p>Oops!  Wrong column.  Good thing we checked.</p>
+<p>What if we only wanted the data for the most recent year, from Asia?</p>
+<p>You could, of course, have done that all in one step, but...</p>
+<p>The error occurred because _____________.</p>
 <p>Even though the results above are what we wanted, the logic we used is not equivalent to what we were originally trying to do.  For example, if there were no records for Asia for 2007, then we would have gotten back an empty DataFrame.</p>
-<pre><code class="language-python"># So, here's a better way. First, I would write down what I want to do:
+<p>So, here's a better way. First, I would write down what I want to do:</p>
+<p>Goal: Specify a continent, and extract the most recent data from that continent</p>
+<h1><a class="header" href="#next-do-one-operation-at-a-time-to-get-to-the-desired-result" id="next-do-one-operation-at-a-time-to-get-to-the-desired-result">Next, do one operation at a time to get to the desired result:</a></h1>
+<pre><code>
 
-#   Goal: Specify a continent, and extract the most recent data from that continent
-
-# Next, do one operation at a time to get to the desired result:
-
-
-</code></pre>
-<pre><code class="language-python"># And if this was something I thought I would be using a lot, I might even write a function:
+```python
+# And if this was something I thought I would be using a lot, I might even write a function:
 
 </code></pre>
 <pre><code class="language-python">
