@@ -149,9 +149,6 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#python-review" id="python-review">Python Review</a></h1>
-<p>Professor Ron Smith<br />
-Data Science Program<br />
-William &amp; Mary</p>
 <h2><a class="header" href="#some-basic-operations" id="some-basic-operations">Some basic operations</a></h2>
 <p>First lets do some basic operations in Python.  See if you can execute the following tasks.</p>
 <ul>
@@ -201,89 +198,81 @@ y
 </code></pre>
 <p>To get a quick summary of the names of the columns, as well as what type of data use <code>data.info()</code> or if you just want a quick list of the column names use <code>data.columns</code>.  If you check the your <code>data.columns</code> output with the <code>type()</code> command, you will find that the columns themselves within your pandas data frame are an Index.  To return a list of just the column names, instead use <code>list(data.columns)</code>.  Using the <code>.describe()</code> command is a good way for Python to return descriptive statistics about your data frame.</p>
 <h2><a class="header" href="#subsetting-our-data-frame" id="subsetting-our-data-frame">Subsetting our data frame</a></h2>
-<p>Let's extract all the data for Asia and store it in a new DataFrame</p>
-<p>Oops!  Wrong column.  Good thing we checked.</p>
-<p>What if we only wanted the data for the most recent year, from Asia?</p>
-<p>You could, of course, have done that all in one step, but...</p>
-<p>The error occurred because _____________.</p>
-<p>Even though the results above are what we wanted, the logic we used is not equivalent to what we were originally trying to do.  For example, if there were no records for Asia for 2007, then we would have gotten back an empty DataFrame.</p>
-<p>So, here's a better way. First, I would write down what I want to do:</p>
-<p>Goal: Specify a continent, and extract the most recent data from that continent</p>
-<h1><a class="header" href="#next-do-one-operation-at-a-time-to-get-to-the-desired-result" id="next-do-one-operation-at-a-time-to-get-to-the-desired-result">Next, do one operation at a time to get to the desired result:</a></h1>
-<pre><code>
+<p>Now let's extract all the data for Asia and store it in a new DataFrame.  To do this create an index of all the rows where <code>data['continent']=='Asia'</code> is true.  Then once you have your index in place, use it to subset from your <code>data</code> object with all of the records where <code>data['continent'] == 'Asia'</code>.  You could use the subscripting operator to subset on the fly like this.</p>
+<pre><code class="language-python">data_asia = data[idx_asia]
+</code></pre>
+<p>Now consider if we only wanted the data for the most recent year, from Asia?  We could again select by using our data frame <code>data_asia</code> with the column (or variable) identified using the <code>['year']</code> syntax and then append a <code>.max()</code> command to the end.  This value for the maximum year from the data frame can be assigned to a new object, and used to create an index for subsetting all rows (or observations) where the <code>year</code> variable is equal to the maximum year</p>
+<pre><code class="language-python">new_obj_w_max_yr = all_countries_in_asia_df['year_variable'].max()
+idx_year = (countries_in_asia_df['yr_var'] == max_year)
+data_asia = data_asia[idx_year]
+data_asia
+</code></pre>
+<p>Alternatively, you could have setup the subscript from your data frame as one command.</p>
+<pre><code class="language-python">data_asia = data[(data['variable']=='select_continent') &amp; (data['yr_var'] == data['yr_var'].max())]
+</code></pre>
+<p>Even though the results above are what we wanted, the logic we used is not equivalent to what we were originally trying to do.  For example, if there were no records for Asia for 2007, then we would have gotten back an empty DataFrame. So, here's a better way. First, I would write down what I want to do:</p>
+<h3><a class="header" href="#goal-specify-a-continent-and-extract-the-most-recent-data-from-that-continent" id="goal-specify-a-continent-and-extract-the-most-recent-data-from-that-continent">Goal: Specify a continent, and extract the most recent data from that continent</a></h3>
+<p>Next, do one operation at a time to get to the desired result:</p>
+<pre><code class="language-python">cont = 'select_continent'
+idxCont = data['variable']==cont
+temp = data[idxCont]
 
-```python
-# And if this was something I thought I would be using a lot, I might even write a function:
+year = temp['variable'].max()
+idxYear = temp['variable']==year
+data_final = temp[idxYear]
 
+data_final
 </code></pre>
-<pre><code class="language-python">
+<p>And if this was something I thought I would be using a lot, I might even write a function.  Start out with the <code>def</code> command and follow it by the name of the function you wish to define and specifications within a parenthesis.</p>
+<pre><code class="language-python">def GetRecentDataByContinent(data,continent):
+    idxCont = data['continent']==continent
+    temp = data[idxCont]
+    year = temp['year'].max()
+    idxYear = temp['year']==year
+    return temp[idxYear]
 </code></pre>
-<p>Back to the original dataset - can we get a list of all the countries that exist in the data?</p>
-<pre><code class="language-python">
+<p>Now execute the function you just created by running <code>GetRecentDataByContinent()</code> with your <code>data</code> object and the <code>'Asia'</code> outcome for the <code>continent</code> variable.  Assign it to a new object and review the output.</p>
+<p>Back to the original dataset - can we get a list of all the countries that exist in the data? As you did before, append a function to the end of your data frame object where your variable specified.  In this case the <code>unique()</code> function will help us to isolate all of the individual country names.</p>
+<pre><code class="language-python">data['variable'].function()
 </code></pre>
-<p>How many countries are in that list?  It's a little long to count manually.</p>
-<pre><code class="language-python">
+<p>How many countries are in that list?  It's a little long to count manually.  Nest the entire previous command in a the <code>len()</code> function in order to return the number of unique observations in the list.</p>
+<pre><code class="language-python">function2(data['variable'].function1())
 </code></pre>
-<p>What if we wanted to know how many records there are for each individual country?</p>
-<pre><code class="language-python">
+<p>What if we wanted to know how many records there are for each individual country?  Append the <code>value_counts()</code> command to your data frame and variable specification in order to return these results. If you would like to return the entire list, assign the results to a new object and <code>print()</code> this data frame with the <code>.to_string()</code> command appended.</p>
+<pre><code class="language-python">new_data = data['variable'].value_counts()
+print(your_new_data.to_string())
 </code></pre>
-<p>Is there a way to see the entire list?</p>
-<pre><code class="language-python">
-</code></pre>
-<p>Can we sort the list by the country name?</p>
-<p>Yes - but we need to understand what type of object we are working with first...</p>
-<pre><code class="language-python">
-</code></pre>
-<p>This is a series object.  A Series is basically a column of a DataFrame, and just like a DataFrame, it is a special type of object that has all sorts of built-in functionality.</p>
-<p>The column with the country names is the index of the Series.  Just like with DataFrames, the index is not an actual column.  If you want to sort by it, then you would need to use the sort_index() function.</p>
-<pre><code class="language-python">
+<p>Can we sort the list by the country name? Yes - but we need to understand what type of object we are working with first.  Use the <code>type()</code> command to return the class of our object. It appears this is a series object.  A Series is basically a column of a DataFrame, and just like a DataFrame, it is a special type of object that has all sorts of built-in functionality.  The column with the country names is the index of the Series.  Just like with DataFrames, the index is not an actual column.  If you want to sort by it, then you would need to use the <code>sort_index()</code> function.</p>
+<pre><code class="language-python">print(your_df.sort_index().to_string())
 </code></pre>
 <h3><a class="header" href="#indexing-dataframes" id="indexing-dataframes">Indexing DataFrames</a></h3>
-<p>There are several ways to extract individual rows from a DataFrame, usually you will be using .loc or .iloc.</p>
-<p>Let's identify the record with the largest GDP per capita:</p>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python"># If this were an array, you might try this:
+<p>There are several ways to extract individual rows from a DataFrame, usually you will be using <code>.loc</code> or <code>.iloc</code>. Let's identify the record with the largest GDP per capita:</p>
+<pre><code class="language-python">max_gdp = data['variable'].max()
+max_gdp
 
+max_gdp_idx = data['variable'].idxmax()
+max_gdp_idx
 </code></pre>
-<p>Instead, use .loc.  What we want to do here is extract the row with the label (index) 853.</p>
-<pre><code class="language-python">
-</code></pre>
-<p>.iloc is a little different.  To see why, let's look at the Asia data:</p>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
-<p>iloc is fetching the row by it's integer position, whereas loc is fetching the row by its label.  In this case, the first row of the data (starting counting at 0) has the label 11.</p>
-<p>Sometimes, you might want to reset the index so that the rows are labeled sequentially again:</p>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python">
+<p>If this were an array, you might try <code>data[max_gdp_idx]</code> but instead use the location command <code>.loc</code> to extract the row with the label (index) 853 <code>data.loc[max_gdp_idx]</code>.</p>
+<p>Using <code>.iloc</code> is a little different.  To see why, compare the output from <code>data_asia.loc[11]</code> and <code>data_asia.iloc[0]</code>, and notice how <code>.iloc</code> is fetching the row by it's integer position, whereas <code>.loc</code> is fetching the row by its label.  In this case, the first row of the data (starting counting at 0) has the label 11.</p>
+<p>Sometimes, you might want to reset the index so that the rows are labeled sequentially again.  Append the <code>reset_index()</code> command to your data frame to do this.  Adding the <code>drop=True</code> argument drops the previous used index as it is no longer needed.</p>
+<pre><code class="language-python">data_frame = data_frame.reset_index(drop=True)
+data_asia
 </code></pre>
 <h3><a class="header" href="#exercises" id="exercises">Exercises</a></h3>
-<p><strong>1)</strong> Get a list of all the years in this data, without any duplicates.  How many unique values are there, and what are they?</p>
-<pre><code class="language-python">
-</code></pre>
-<p><strong>2)</strong> What is the largest value for population (pop) in this data?  When and where did this occur?</p>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
-<p><strong>3)</strong> Extract all the records for Europe.  In 1952, which country had the smallest population, and what was the population in 2007?</p>
-<pre><code class="language-python">
-</code></pre>
-<pre><code class="language-python">
-</code></pre>
+<ul>
+<li>
+<p>Get a list of all the years in this data, without any duplicates.  How many unique values are there, and what are they?</p>
+</li>
+<li>
+<p>What is the largest value for population (pop) in this data?  When and where did this occur?</p>
+</li>
+<li>
+<p>Extract all the records for Europe.  In 1952, which country had the smallest population, and what was the population in 2007?</p>
+</li>
+</ul>
+<h1><a class="header" href="#references" id="references">References</a></h1>
+<p>Python Review by Ron Smith, Data Science Program, William &amp; Mary. Converted from an <code>.ipynb</code>. 2021.</p>
 
                     </main>
 

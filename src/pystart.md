@@ -1,7 +1,4 @@
 # Python Review
-Professor Ron Smith  
-Data Science Program  
-William & Mary  
 
 ## Some basic operations  
 
@@ -83,191 +80,115 @@ To get a quick summary of the names of the columns, as well as what type of data
 
 ## Subsetting our data frame
 
+Now let's extract all the data for Asia and store it in a new DataFrame.  To do this create an index of all the rows where `data['continent']=='Asia'` is true.  Then once you have your index in place, use it to subset from your `data` object with all of the records where `data['continent'] == 'Asia'`.  You could use the subscripting operator to subset on the fly like this.
 
-Let's extract all the data for Asia and store it in a new DataFrame
+```python
+data_asia = data[idx_asia]
+```
 
-Oops!  Wrong column.  Good thing we checked.
+Now consider if we only wanted the data for the most recent year, from Asia?  We could again select by using our data frame `data_asia` with the column (or variable) identified using the `['year']` syntax and then append a `.max()` command to the end.  This value for the maximum year from the data frame can be assigned to a new object, and used to create an index for subsetting all rows (or observations) where the `year` variable is equal to the maximum year
 
-What if we only wanted the data for the most recent year, from Asia?
+```python
+new_obj_w_max_yr = all_countries_in_asia_df['year_variable'].max()
+idx_year = (countries_in_asia_df['yr_var'] == max_year)
+data_asia = data_asia[idx_year]
+data_asia
+```
 
-You could, of course, have done that all in one step, but...
+Alternatively, you could have setup the subscript from your data frame as one command.
 
-The error occurred because _____________.
+```python
+data_asia = data[(data['variable']=='select_continent') & (data['yr_var'] == data['yr_var'].max())]
+```
 
-Even though the results above are what we wanted, the logic we used is not equivalent to what we were originally trying to do.  For example, if there were no records for Asia for 2007, then we would have gotten back an empty DataFrame.
+Even though the results above are what we wanted, the logic we used is not equivalent to what we were originally trying to do.  For example, if there were no records for Asia for 2007, then we would have gotten back an empty DataFrame. So, here's a better way. First, I would write down what I want to do:
 
- So, here's a better way. First, I would write down what I want to do:
+###   Goal: Specify a continent, and extract the most recent data from that continent
 
+Next, do one operation at a time to get to the desired result:
 
+```python
+cont = 'select_continent'
+idxCont = data['variable']==cont
+temp = data[idxCont]
 
-Goal: Specify a continent, and extract the most recent data from that continent
+year = temp['variable'].max()
+idxYear = temp['variable']==year
+data_final = temp[idxYear]
 
-# Next, do one operation at a time to get to the desired result:
-
-
+data_final
 ```
 
 
-```python
-# And if this was something I thought I would be using a lot, I might even write a function:
+And if this was something I thought I would be using a lot, I might even write a function.  Start out with the `def` command and follow it by the name of the function you wish to define and specifications within a parenthesis.
 
+```python
+def GetRecentDataByContinent(data,continent):
+    idxCont = data['continent']==continent
+    temp = data[idxCont]
+    year = temp['year'].max()
+    idxYear = temp['year']==year
+    return temp[idxYear]
 ```
 
+Now execute the function you just created by running `GetRecentDataByContinent()` with your `data` object and the `'Asia'` outcome for the `continent` variable.  Assign it to a new object and review the output.
+
+Back to the original dataset - can we get a list of all the countries that exist in the data? As you did before, append a function to the end of your data frame object where your variable specified.  In this case the `unique()` function will help us to isolate all of the individual country names.
 
 ```python
+data['variable'].function()
+```
+How many countries are in that list?  It's a little long to count manually.  Nest the entire previous command in a the `len()` function in order to return the number of unique observations in the list.
 
+
+```python
+function2(data['variable'].function1())
 ```
 
-Back to the original dataset - can we get a list of all the countries that exist in the data?
-
+What if we wanted to know how many records there are for each individual country?  Append the `value_counts()` command to your data frame and variable specification in order to return these results. If you would like to return the entire list, assign the results to a new object and `print()` this data frame with the `.to_string()` command appended.
 
 ```python
-
+new_data = data['variable'].value_counts()
+print(your_new_data.to_string())
 ```
 
-How many countries are in that list?  It's a little long to count manually.
-
-
-```python
-
-```
-
-What if we wanted to know how many records there are for each individual country?
-
+Can we sort the list by the country name? Yes - but we need to understand what type of object we are working with first.  Use the `type()` command to return the class of our object. It appears this is a series object.  A Series is basically a column of a DataFrame, and just like a DataFrame, it is a special type of object that has all sorts of built-in functionality.  The column with the country names is the index of the Series.  Just like with DataFrames, the index is not an actual column.  If you want to sort by it, then you would need to use the `sort_index()` function.
 
 ```python
-
-```
-
-Is there a way to see the entire list?
-
-
-```python
-
-```
-
-Can we sort the list by the country name?
-
-Yes - but we need to understand what type of object we are working with first...
-
-
-```python
-
-```
-
-This is a series object.  A Series is basically a column of a DataFrame, and just like a DataFrame, it is a special type of object that has all sorts of built-in functionality.
-
-The column with the country names is the index of the Series.  Just like with DataFrames, the index is not an actual column.  If you want to sort by it, then you would need to use the sort_index() function.
-
-
-```python
-
+print(your_df.sort_index().to_string())
 ```
 
 ### Indexing DataFrames
 
-There are several ways to extract individual rows from a DataFrame, usually you will be using .loc or .iloc.
-
-Let's identify the record with the largest GDP per capita:
-
+There are several ways to extract individual rows from a DataFrame, usually you will be using `.loc` or `.iloc`. Let's identify the record with the largest GDP per capita:
 
 ```python
+max_gdp = data['variable'].max()
+max_gdp
 
+max_gdp_idx = data['variable'].idxmax()
+max_gdp_idx
 ```
 
+If this were an array, you might try `data[max_gdp_idx]` but instead use the location command `.loc` to extract the row with the label (index) 853 `data.loc[max_gdp_idx]`.
+
+Using `.iloc` is a little different.  To see why, compare the output from `data_asia.loc[11]` and `data_asia.iloc[0]`, and notice how `.iloc` is fetching the row by it's integer position, whereas `.loc` is fetching the row by its label.  In this case, the first row of the data (starting counting at 0) has the label 11.
+
+Sometimes, you might want to reset the index so that the rows are labeled sequentially again.  Append the `reset_index()` command to your data frame to do this.  Adding the `drop=True` argument drops the previous used index as it is no longer needed.
 
 ```python
-
-```
-
-
-```python
-# If this were an array, you might try this:
-
-```
-
-Instead, use .loc.  What we want to do here is extract the row with the label (index) 853.
-
-
-```python
-
-```
-
-.iloc is a little different.  To see why, let's look at the Asia data:
-
-
-```python
-
-```
-
-
-```python
-
-```
-
-
-```python
-
-```
-
-iloc is fetching the row by it's integer position, whereas loc is fetching the row by its label.  In this case, the first row of the data (starting counting at 0) has the label 11.
-
-Sometimes, you might want to reset the index so that the rows are labeled sequentially again:
-
-
-```python
-
-```
-
-
-```python
-
-```
-
-
-```python
-
-```
-
-
-```python
-
+data_frame = data_frame.reset_index(drop=True)
+data_asia
 ```
 
 ### Exercises
 
-**1)** Get a list of all the years in this data, without any duplicates.  How many unique values are there, and what are they?
+- Get a list of all the years in this data, without any duplicates.  How many unique values are there, and what are they?
 
+- What is the largest value for population (pop) in this data?  When and where did this occur?
 
-```python
+- Extract all the records for Europe.  In 1952, which country had the smallest population, and what was the population in 2007?
 
-```
+# References
 
-**2)** What is the largest value for population (pop) in this data?  When and where did this occur?
-
-
-```python
-
-```
-
-
-```python
-
-```
-
-
-```python
-
-```
-
-**3)** Extract all the records for Europe.  In 1952, which country had the smallest population, and what was the population in 2007?
-
-
-```python
-
-```
-
-
-```python
-
-```
+Python Review by Ron Smith, Data Science Program, William & Mary. Converted from an `.ipynb`. 2021.
