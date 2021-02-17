@@ -1,10 +1,6 @@
----
-description: >-
-  Locating and retrieving administrative subdivisions for your selected LMIC, as
-  well as plotting boundaries and labelling each local government unit.
----
+# Locating and retrieving administrative subdivisions for your selected LMIC, as well as plotting boundaries and labelling each local government unit.
 
-# Projecting, Plotting and Labelling Administrative Subdivisions
+## Projecting, Plotting and Labelling Administrative Subdivisions
 
 We have had a bit of practice creating a theoretical environment, but now we will move to a more practical application.  In this exercise you will learn how to **install a package** and **load a library of functions** into R, **install spatial data as a simple feature** and then **use the grammar of graphics** \(aka `ggplot::`\) to plot your geospatial data.  To begin, install a package that will be used in order to describe and analyze our simple features.
 
@@ -78,7 +74,7 @@ The `sf::` package also includes a function called `st_geometry()` that will ena
 
 ![Some basic R commands](images/screen-shot-2019-09-07-at-1.32.41-pm.png)
 
-After using the `st_geometry()` command with our `lbr_int` object, RStudio provides us with a basic description that includes the geometry type \(polygons in this case, but it could also return points or lines\), the x & y minimum and maximum values or also know as the bounnding box \(bbox\), the epsg spatial reference identifier \(a number used to identify the projection\) and finally the projection string , which provides additional information about the projection used.
+After using the `st_geometry()` command with our `lbr_int` object, RStudio provides us with a basic description that includes the geometry type \(polygons in this case, but it could also return points or lines\), the x & y minimum and maximum values or also known as the bounding box \(bbox\), the epsg spatial reference identifier \(a number used to identify the projection\) and finally the projection string , which provides additional information about the projection used.
 
 Now that we have conducted a cursory investigation of our simple feature object geometry, let's plot our simple features class object that describes the international border of Liberia.  To plot, we will use a series of functions from a package called `ggplot()`.  The gg in the package name `ggplot::` stands for the grammar of graphics, and is a very useful package for plotting all sorts of data, including spatial data classes created with the `sf::` package.  To start add `ggplot() +` to your script and then on the following line add the `geom_sf(data = your_sf_obj)` in order to specify the data that `ggplot()` should use in producing its output.  
 
@@ -87,7 +83,7 @@ ggplot() +
   geom_sf(data = your_sf_obj)
 ```
 
-Following the `data =` argument, you can also specifiy the line weight for the border using the `size =` argument.  It is also possible to specify the `color =` as well as the opacity / transparency of your polygon using the `alpha =` argument.  With the following script I have set the international border line weight width to `1.5` , the color of the border to `"gold"` , the fill color for the internal portion of the polygon to `"green"` and the `alpha =`   value to .5 or 50% transparent.
+Following the `data =` argument, you can also specify the line weight for the border using the `size =` argument.  It is also possible to specify the `color =` as well as the opacity / transparency of your polygon using the `alpha =` argument.  With the following script I have set the international border line weight width to `1.5` , the color of the border to `"gold"` , the fill color for the internal portion of the polygon to `"green"` and the `alpha =`   value to .5 or 50% transparent.
 
 ![Liberia with a green fill and gold border](images/liberia%20%283%29.png)
 
@@ -188,19 +184,19 @@ Use `ggsave(file_name.png)` to save your plot as a `.png` file, to your working 
 
 ![Liberia, its counties and districts](images/liberia%20%281%29.png)
 
-## Team Challenge Question
+### Challenge Question
 
 Follow the steps from above that you used to produce your plot of Liberia, but instead each team member should select their own LMIC country and produce the output for it.  Refer this [World Bank](https://datahelpdesk.worldbank.org/knowledgebase/articles/906519) guide for a list of low, middle and high income economies.  Go back to the GADM website and find the administrative boundaries for the LMIC country you have selected.  Plot and label the international border, the first level of administrative subdivisions and the second level of administrative subdivisions.  Make sure you designate heavier line widths for the higher level administrative subdivisions and thinner line widths for the more local governments.  You may also use darker and lighter colors to discern hierarchy.  Please be sure to use different label sizes and/or colors to further differentiate administrative hierarchies.  Modifying annotation transparency also as needed.
 
 Meet with your group and prepare to present the best two plots for the Friday informal group presentation.  Then as a group, upload all 5 team members plots to [\#data100\_project1](https://wmdsi.slack.com/archives/CTJDRU4VC) \(informal group presentations\) by Sunday night.
 
-## Individual Stretch Goal 1
+### Stretch Goal 1
 
 Go to the [HDX](https://data.humdata.org) website, find and download the shapefiles for your selected country.  Compare their administrative subdivisions to those obtained from GADM.  Are they the same?  Are there any differences?  Which source do you think more closely describes the local political reality within your selected LMIC?  Do the HDX shapefiles work?
 
 Alternatively, do the same using the [geoBoundaries](https://www.geoboundaries.org) website, which is housed right here at William & Mary!  When comparing GADM, HDX and geoBoundaries, be sure to identify the source of the data you are presenting.  Are these administrative boundaries primary or secondary sources?  Are you able to identify who produced the data?  How did each repository obtain the data they are sharing with you?
 
-## Individual Stretch Goal 2
+### Stretch Goal 2
 
 Create a new `ggplot() +` as you did before.  This time `filter` your `lbr_adm1` object by using the `%>%` \(pipe\) operator and using the assignment operator to create a new sf object that includes only the county named Montserrado.  Inside the `filter()` command you will need to specify the `admin1name = "Montserrado".` Then continue to use the `%>%` operator with your `lbr_adm2` object again filtering based on the `admin1Name == "Montserrado"` .  Follow that `%>%` with your `ggplot()`, `geom_sf()` and `geom_sf_text()` commands to plot the geometries and labels for both the first and second level administrative subdivisions of Montserrado, Liberia.
 
@@ -232,7 +228,7 @@ ggsave("montserrado.png")
 
 Now identify the most populous urban area within your LMIC and use `ggplot() +` to plot the first and second level administrative subdivisions where it is located.
 
-## Individual Stretch Goal 3
+### Stretch Goal 3
 
 Produce detailed maps of your more densely populated areas and include them in your final product.  Use the `geom_rect() +` command to identify the area of increased scale.  Also use the `annotation_custom() +` command to arrange each plot within a larger graphical layout. The following is a fully working example for Liberia.  Translate the script to your LMIC.  You may need to install and load the package `ggsflabel`.
 
@@ -336,10 +332,7 @@ ggsave("details.png")
 
 ![](images/details.png)
 
-
-
-
-# Extracting Populations from a Raster and Aggregating to each Unit
+## Extracting Populations from a Raster and Aggregating to each Unit
 
 Now that you have selected your LMIC and produced a basic geospatial description of that country at both the adm1 and adm2 levels of government, you are now set to join some data to each of those units and begin conducting a basic descriptive analysis.  Start by going back to the [WorldPop](https://www.worldpop.org) website, click on the **population** tab under the **data** pull down menu, search individual countries and type the name of your selected LMIC.  Click on the 2019 data and resources tab for your country and then select the download button in order to obtain the spatial distribution of population for your selected LMIC.  For Liberia the downloaded file is named **lbr\_ppp\_2019.tif**.  Move the file to the data folder within your working directory.
 
@@ -442,7 +435,7 @@ Depending on your computer, the size of the `raster` file as well as the size of
 
 For example on this particular Mac, you will see that 7 processes have been allocated to R in order to evaluate the location of all ~25 million gridcells.  You will also notice the CPU load has increased considerable, to almost 90% in the above case.  With 7 i7 cores, it took about 1 minute and 10 seconds to extract the values of all 4 million persons distributed across the 25 million gridcells throughout Liberia.  Your case could be faster or slower depending on the size of the data, the speed of your machine, and how much computational power you have reserved for the given task.
 
-After your `raster::extract()` has finished, you should have a new data frame object in your top right data pane that is populated with probably hundreds of thousands if not millions of rows \(observations\), and two columns \(variables\).  Each row will have a number between 1 and 15 in the above case \(each number cooresonding to each of Liberia's counties\) and then a following column that provides the WorldPop estimate for how many people occupy each individual gridcell.  You may notice that all of the observational values have fractions and even quite a large number are likely to be a fraction less than 1.  While not an ideal outcome, these fractions are a result of the current methodology and essentially is still state of the art for dasymmetric population distribution.  In the future, I expect new methodologies will discretize intervals and over come this "zero cell problem" by some means other than adding these small values across the entire space that essentially amount to "noise."
+After your `raster::extract()` has finished, you should have a new data frame object in your top right data pane that is populated with probably hundreds of thousands if not millions of rows \(observations\), and two columns \(variables\).  Each row will have a number between 1 and 15 in the above case \(each number corresponding to each of Liberia's counties\) and then a following column that provides the WorldPop estimate for how many people occupy each individual gridcell.  You may notice that all of the observational values have fractions and even quite a large number are likely to be a fraction less than 1.  While not an ideal outcome, these fractions are a result of the current methodology and essentially is still state of the art for dasymmetric population distribution.  In the future, I expect new methodologies will discretize intervals and over come this "zero cell problem" by some means other than adding these small values across the entire space that essentially amount to "noise."
 
 Since this newly created data frame is quite large, and it would be better if you didn't have to run the `extract()` command everytime you opened and ran this script, it is a good idea to go ahead and save the data frame as a `.RData` file.  You can save data using the `save()` command, and then you can also later load data using the `load()` command.  Once you have executed the `save()` command, you can then comment it off, thus only needing to `load()` the data.
 
@@ -494,21 +487,19 @@ ggplot(myLMIC_adm1) +
 
 ![Population of Liberia&apos;s Counties in 2019](images/lbr_pop19.png)
 
-
-
-## Team Challenge Question
+### Challenge Question
 
 Follow the steps from above that you used to produce your plot of Liberia, but instead each team member should use their own selected LMIC country.  Go back to the HDX website and find the population totals for the LMIC country you have selected.
 
 Meet with your group and prepare to present the two best plots for the Friday informal group presentation.  Then as a group, upload all 5 team members plots to \#data100\_igps \(informal group presentations\) by Sunday night.
 
-## Individual Stretch Goal 1
+### Stretch Goal 1
 
 Go back and replicate the step by step instructions from above, but instead of extracting and plotting the values for your LMIC's adm1 subdivisions, do it for adm2.  Set the `fill =`  argument by making it equal to the log transformation of your population variable `log(variable_name)`.   
 
 ![Liberia&apos;s District&apos;s described in terms of Log of Population](images/lbrdist_logpop19.png)
 
-## Individual Stretch Goal 2
+### Stretch Goal 2
 
 Take your spatial description of population at the district level from above and add the adm1 boundaries, such that you can determine where each district is located.  Be sure to add the `data =`  argument where you specify both your adm1 and adm2 `sf` class object for  each `geom_sf()` function within the `ggplot()` object you are creating.  Set the `size =`  argument for the adm1 object as much smaller than the lines width for the adm2 \(in my plot below they are `.1` and `.65` respectively.  Also be sure to set the `alpha = 0` for the adm1 object, in order to be able to see the districts.
 
@@ -524,7 +515,7 @@ Add other descriptive elements to your plot, such as labels for axes, title and 
 
 ![](images/lbrdist_logpop19b.png)
 
-## Individual Stretch Goal 3
+### Stretch Goal 3
 
 Install the package `rayshader::` from Tyler Morgan Wall's github repository.
 
@@ -548,11 +539,7 @@ plot_gg(gglbr_adm2, multicore = TRUE, width = 6 ,height=2.7, fov = 70)
 
 ![](images/pop%20%281%29.gif)
 
-
-
-
-
-# Creating a Geometric Bar Plot with your Simple Feature object
+## Creating a Geometric Bar Plot with your Simple Feature object
 
 In the previous exercise, you extracted population data from a raster, and then aggregated these totals to the first level administrative area of your selected LMIC.  You then added this new column describing the population of each first level administrative subdivision to your simple feature object.  Now we are going to use that newly created column as the basis for generating a geometric bar plot of population, share of population and density by first level adminsitrative subdivision.
 
@@ -566,7 +553,7 @@ Confirm that your `sf` object has the name of each first level administrative su
 save(your_adm1_obj, file = "name_of_the_file_you_save.RData")
 ```
 
-Once you have run the `save()` command you should be able to find your newly created `.RData` file in your working directory.  Please keep in mind that this `.RData` file will be different from the one you previously saved that contained the results from your `extract()` , therefor be certain to name it differntly, or else you may write over your previous saved `.RData` file, and effectively erasing it.  Save the `.RData` file containing your  `sf` class object.  Create and name a new script in RStudio, while saving it to your working directory.
+Once you have run the `save()` command you should be able to find your newly created `.RData` file in your working directory.  Please keep in mind that this `.RData` file will be different from the one you previously saved that contained the results from your `extract()` , therefore be certain to name it differently, or else you may write over your previous saved `.RData` file, and effectively erasing it.  Save the `.RData` file containing your  `sf` class object.  Create and name a new script in RStudio, while saving it to your working directory.
 
 As you have done with your prior scripts, start with the `rm()` command to clean the workspace, followed with `install.packages()` which are normally all commented off with the `#` at the beginning of each line and then the `library()` command, in order to load your needed libraries of commands.
 
@@ -640,7 +627,7 @@ yourLMIC_adm1 %>%
 
 ![](images/rplot03%20%281%29.png)
 
-Let's order our counties in accordance with population size from largest to smallest in order to more easily associate the descriptive statistics presented in our bar plot with the spatial descriptive statistics we previosuly created with our map.  Add a second `%>%` after your adm1 object, where you will reorder the adm1 names based on the variable `pop19`.  Use the `mutate()` command again to write over the existing variable for adm1 names.  The key command you are adding within the `mutate()` argument is `fct_reorder()` which will change the order of the first named variable \(in this case `admin1name`\) based on the descending rank order of the second variable \(`pop19`\).  While I am using the raw population counts to change the county order listed along the verticle axis, you could use also the `area` or `density` variables.
+Let's order our counties in accordance with population size from largest to smallest in order to more easily associate the descriptive statistics presented in our bar plot with the spatial descriptive statistics we previously created with our map.  Add a second `%>%` after your adm1 object, where you will reorder the adm1 names based on the variable `pop19`.  Use the `mutate()` command again to write over the existing variable for adm1 names.  The key command you are adding within the `mutate()` argument is `fct_reorder()` which will change the order of the first named variable \(in this case `admin1name`\) based on the descending rank order of the second variable \(`pop19`\).  While I am using the raw population counts to change the county order listed along the vertical axis, you could use also the `area` or `density` variables.
 
 ```r
 yourLMIC_adm1 %>%
@@ -653,7 +640,7 @@ yourLMIC_adm1 %>%
 
 In addition to changing the order of the adm1 names, also add an annotation to each bar that indicates the share of the total population located within that subdivision.  Use the `geom_text()` command to add labels to your bar plot and set the `label =`  argument within the `aes()` parameter in order to calculate each administrative units share of the total population.  Divide the `sum()` of `pop19` variable in the denominator by the raw `pop19`  counts as the numerator.  Place the division of these values within the `percentage()` command from the `scales::` library \(you'll need to install this new package\).
 
-Place the value that describes each administrative unit's share of the total population within the center of each bar using the `position =` .  Set it using the `position_stack(vjust = 0.5)` command with a verticle adjust to the center of the bar \(half the total width\).  Also, decrease the size of the text annotations.
+Place the value that describes each administrative unit's share of the total population within the center of each bar using the `position =` .  Set it using the `position_stack(vjust = 0.5)` command with a vertical adjust to the center of the bar \(half the total width\).  Also, decrease the size of the text annotations.
 
 ```r
   geom_text(aes(label=percent(pop19/sum(pop19))),
@@ -663,7 +650,7 @@ Place the value that describes each administrative unit's share of the total pop
 
 ![](images/rplot01%20%285%29.png)
 
-The last step of creating our geometric bar plot is to add a `fill =`  argument to the `ggplot(aes())` command that will be used to map a color to each counties population total, based on its place along the continuous scale from maximum to minimum.  As we did with our spatial description of population, also add the `scale_fill_gradient()` command to define colors that will coorespond to the `low =` and `high =`  values.  Use your assignment operator to create a new ggplot object that will be plotted with spatial description of your LMIC.
+The last step of creating our geometric bar plot is to add a `fill =`  argument to the `ggplot(aes())` command that will be used to map a color to each counties population total, based on its place along the continuous scale from maximum to minimum.  As we did with our spatial description of population, also add the `scale_fill_gradient()` command to define colors that will correspond to the `low =` and `high =`  values.  Use your assignment operator to create a new ggplot object that will be plotted with spatial description of your LMIC.
 
 ```r
 yourLMIC_bplt <- yourLMIC_adm1 %>%
@@ -680,7 +667,7 @@ yourLMIC_bplt <- yourLMIC_adm1 %>%
 
 ![](images/rplot02%20%281%29.png)
 
-Return to the spatial plot that you created in the last exercise.  Copy the snippet of code that you used with the `geom_sf(aes(fill = pop19))` command in order to plot the population of every first level administrative subdivision along a contiuous scale for your LMIC.  Paste this snippet into your new script.  Add a new line to the snippet where you use the `geom_sf_text()` command to set plot the density of each individual adm1 object beneath its name.  Use the `aes(label=command(variable,2)` argument to add the `density` values.  Also, use the `round()` command, so the values from this variable are limited to two decimal points.  Nudge the density values, so they appear benath each label, while also modifying their size and color.
+Return to the spatial plot that you created in the last exercise.  Copy the snippet of code that you used with the `geom_sf(aes(fill = pop19))` command in order to plot the population of every first level administrative subdivision along a continuous scale for your LMIC.  Paste this snippet into your new script.  Add a new line to the snippet where you use the `geom_sf_text()` command to set plot the density of each individual adm1 object beneath its name.  Use the `aes(label=command(variable,2)` argument to add the `density` values.  Also, use the `round()` command, so the values from this variable are limited to two decimal points.  Nudge the density values, so they appear beneath each label, while also modifying their size and color.
 
 ```r
   geom_sf_text(aes(label=round(add_variable_here, 2)),
@@ -709,15 +696,13 @@ ggsave("liberia.png", width = 20, height = 10, dpi = 200)
 
 ![](images/liberia%20%284%29.png)
 
-
-
-## Project 1. Individual Deliverable
+### Project 1. Deliverable
 
 Upload the combined spatial description and geometric bar plot of your selected LMIC to your GitHub repository.  Create a link in your `README.md` file that connects to a webpage that presents your results.  Describe your plot, how you produced it, and any modifications you needed to make.  If you produced any of the stretch goals, include those in your Project 1 individual deliverable.  What observations are you able to make about the spatial description of your LMIC's population?    
 
 Share a link to your Project 1 webpage on the slack channel \#data100\_project1 no later than 11:59PM on Saturday, September 28th.
 
-## Individual Stretch Goal 1
+### Stretch Goal 1
 
 Again create a combined spatial description and geometric bar plot of your LMIC, but this time use the adm2 `sf` object you created in part 2, stretch goal 2.  Use the `save()` and `load()` commands as you did before to import your adm2 object that also includes the newly created poulation column.  Also, again use the `mutate()` command to create new variables that describe `area` and `density` , but this time as new columns in your `adm2` object.    Modify the following script to produce the subsequent geometric bar plot based on your own adm2 `sf` class object.
 
@@ -742,11 +727,11 @@ ggsave("lbr_adm2_bp.png", width = 20, height = 15, dpi = 300)
 
 Include this with your deliverable posted to \#data100\_project1.
 
-## Individual Stretch Goal 2
+### Stretch Goal 2
 
 Use the `render_movie("liberia.mp4")` command to create an orbitting video of the three dimension spatial plot you created in part 2, stretch goal 3.  Also, include this with your deliverable posted to \#data100\_project1.
 
- # Acquiring, Modifying and Describing the Data
+## Acquiring, Modifying and Describing the Data
 
 For the next lab you will use land use and land cover data to describe and analyze your LMIC as well as to model relationships between different large area, geospatial attributes.  To start, create a new folder within your project `data` folder.  This will be the location where you will store a number of different raster files, or geospatial coveriates, that you will use to begin describing and analyzing your LMIC.  I have called my subfolder `lulc` which stands for land use and land cover.
 
@@ -876,7 +861,7 @@ contour(lulc[[10]], add = TRUE)
 
 ![](images/contours.png)
 
-## Extracting Land Use and Land Cover Data for Description
+### Extracting Land Use and Land Cover Data for Description
 
 Now that you have your `lulc` `RasterStack` in place, use the `extract()` command to assign the adm2 ID to each gridcell.  Just as you did before, `save()` your `data.frame` object so you don't have to unnecessarily rerun the computationally expensive `extract()` command again and again.
 
@@ -943,6 +928,6 @@ Create another histogram with the pdf overlapping, but this time use a different
 
 ![](images/ntlhistdens.png)
 
-## Team Challenge Question
+### Challenge Question
 
-Follow the steps from above used to produce the plots describing Liberia, but instead each team member should use their own selected LMIC country.  Produce **two combined histogram** **with** **density plots** that describe the coorelationship between population at the adm2 level as a dependent variable and two of the other land use land cover variables you added.  You are also welcome to use density as a variable.
+Follow the steps from above used to produce the plots describing Liberia, but instead each team member should use their own selected LMIC country.  Produce **two combined histogram** **with** **density plots** that describe the correlationship between population at the adm2 level as a dependent variable and two of the other land use land cover variables you added.  You are also welcome to use density as a variable.
