@@ -1,6 +1,5 @@
 # Summary
 [About this book](book.md)
-[About the author](author.md)
 - [Student Preparations](getting_started.md)
 	- [Getting Started with GitHub, Markdown & Webstorm](gitstart.md)
 	- [Installing R & RStudio](rinstall.md)
